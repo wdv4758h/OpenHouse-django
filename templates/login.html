@@ -2,17 +2,27 @@
 
 {% block CONTENT %}
 
+    <h1>廠商／工作人員登入</h1>
+
     {% if form.errors %}
+    <p>您的帳戶或密碼輸入錯誤，請再試一次</p>
     <p>Your username and password didn't match. Please try again.</p>
     {% endif %}
 
-    <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
-    {% csrf_token %}
-    <table>
-    {{ form }}
-    </table>
-    <input type="submit" value="login" />
-    <input type="hidden" name="next" value="/" />
-    </form>
+
+    {% if user.is_authenticated %}
+        <p>{{ user.username }} 您好，您已經登入囉!<a href="/accounts/logout">[logout]</a></p>
+    {% else %}
+        <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+            {% csrf_token %}
+            <table>
+                <tr><th><label for="id_username">統編／學號</label></th><td>{{ form.username }}</td></tr>
+                <tr><th><label for="id_password">密碼</label></th><td>{{ form.password }}</td></tr>
+            </table>
+            <input type="submit" value="login" />
+            <input type="hidden" name="next" value="/" />
+        </form>
+    {% endif %}
+
 
 {% endblock %}
