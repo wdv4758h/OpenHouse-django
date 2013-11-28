@@ -2,27 +2,35 @@
 
 {% block CONTENT %}
 
-    <h1>廠商／工作人員登入</h1>
+<div class="page-header">
+  <div id="content" style="padding-bottom: 200px;">
+    <div class="hero-unit" style="position: relative; background: -webkit-linear-gradient(top, #dddddd, #efefef); border-bottom: 1px solid #dddddd; padding-top: 30px; padding-bottom: 30px; overflow: hidden;">
+      <h1>廠商／工作人員登入</h1>
+    </div>
+  </div>
 
-    {% if form.errors %}
-    <p>您的帳戶或密碼輸入錯誤，請再試一次</p>
-    <p>Your username and password didn't match. Please try again.</p>
-    {% endif %}
+  <!-- <h1>廠商／工作人員登入</h1> -->
+
+  {% if form.errors %}
+  <p>您的帳戶或密碼輸入錯誤，請再試一次</p>
+  <p>Your username and password didn't match. Please try again.</p>
+  {% endif %}
 
 
-    {% if user.is_authenticated %}
-        <p>{{ user.username }} 您好，您已經登入囉!<a href="/accounts/logout">[logout]</a></p>
-    {% else %}
-        <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
-            {% csrf_token %}
-            <table>
-                <tr><th><label for="id_username">統編／學號</label></th><td>{{ form.username }}</td></tr>
-                <tr><th><label for="id_password">密碼</label></th><td>{{ form.password }}</td></tr>
-            </table>
-            <input type="submit" value="login" />
-            <input type="hidden" name="next" value="/" />
-        </form>
-    {% endif %}
+  {% if user.is_authenticated %}
+      <p>{{ user.username }} 您好，您已經登入囉!<a href="/accounts/logout">[logout]</a></p>
+  {% else %}
+      <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+          {% csrf_token %}
+          <table>
+              <tr><th><label for="id_username">統編／學號</label></th><td>{{ form.username }}</td></tr>
+              <tr><th><label for="id_password">密碼</label></th><td>{{ form.password }}</td></tr>
+          </table>
+          <input type="submit" value="login" />
+          <input type="hidden" name="next" value="/" />
+      </form>
+  {% endif %}
 
+</div>
 
 {% endblock %}
