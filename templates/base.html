@@ -1,6 +1,58 @@
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"/>
 
+<!-- dropdown-submenu is removed from bootstrap since bootstrap 3.0 -->
+<style type="text/css">
+  .dropdown-submenu{
+      position:relative;
+  }
+
+  .dropdown-submenu > .dropdown-menu
+  {
+      top:0;
+      left:100%;
+      margin-top:-6px;
+      margin-left:-1px;
+      -webkit-border-radius:0 6px 6px 6px;
+      -moz-border-radius:0 6px 6px 6px;
+      border-radius:0 6px 6px 6px;
+  }
+
+  .dropdown-submenu:hover > .dropdown-menu{
+      display:block;
+  }
+
+  .dropdown-submenu > a:after{
+      display:block;
+      content:" ";
+      float:right;
+      width:0;
+      height:0;
+      border-color:transparent;
+      border-style:solid;
+      border-width:5px 0 5px 5px;
+      border-left-color:#cccccc;
+      margin-top:5px;
+      margin-right:-10px;
+  }
+
+  .dropdown-submenu:hover > a:after{
+      border-left-color:#ffffff;
+  }
+
+  .dropdown-submenu .pull-left{
+      float:none;
+  }
+
+  .dropdown-submenu.pull-left > .dropdown-menu{
+      left:-100%;
+      margin-left:10px;
+      -webkit-border-radius:6px 0 6px 6px;
+      -moz-border-radius:6px 0 6px 6px;
+      border-radius:6px 0 6px 6px;
+  }
+</style>
+
 <!-- NAVBAR
 ================================================== -->
 <body>
@@ -19,7 +71,7 @@
         <ul class="nav navbar-nav">
           <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">研發替代役<span class="caret"></span></a>
-              <ul id="yw8" class="dropdown-menu">
+              <ul class="dropdown-menu">
                   <li><a tabindex="-1" href="/2014/index.php?r=rdss">役諾千金</a></li>
                   <li><a tabindex="-1" href="/2014/index.php?r=rdss/default/list">廠商徵才資訊</a></li>
                   <li><a tabindex="-1" href="/2014/index.php?r=rdss/default/index#forum">說明會</a></li>
@@ -28,7 +80,7 @@
           </li>
           <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">校園徵才<span class="caret"></span></a>
-              <ul id="yw9" class="dropdown-menu">
+              <ul class="dropdown-menu">
                   <li><a tabindex="-1" href="/2014/index.php?r=recruit">狩獵新未來</a></li>
                   <li><a tabindex="-1" href="/2014/index.php?r=recruit/default/list">廠商徵才資訊</a></li>
                   <li><a tabindex="-1" href="/2014/index.php?r=recruit/default/index#forum">座談會</a></li>
@@ -43,17 +95,102 @@
           </li>
           <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">歷屆校徵 <span class="caret"></span></a>
-              <ul id="yw11" class="dropdown-menu">
+              <ul class="dropdown-menu">
                   <li><a tabindex="-1" href="https://openhouse.nctu.edu.tw/2013/idex.php">2013 阿波羅計劃</a></li>
               </ul>
           </li>
         </ul>
-        <ul class="pull-right nav" id="yw12">
+        <ul class="nav navbar-nav navbar-right">
         {% if user.is_authenticated %}
-            <li><a href="">工作人員選單</a></li>
-            <li><a href="{% url 'logout' %}">登出({{ user.username }})</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">工作人員選單<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+
+              <li class="dropdown-submenu"><a tabindex="-1" href="">廠商資料</a>
+                <ul class="dropdown-menu">
+                  <li><a tabindex="-1" href="/2014/index.php?r=company/default/index">廠商列表</a></li>
+                  <li><a tabindex="-1" href="/2014/index.php?r=company/default/register">幫廠商註冊帳號</a></li>
+                  <li><a tabindex="-1" href="/2014/index.php?r=company/default/chpass2013">修改廠商去年密碼</a></li>
+                </ul>
+              </li>
+
+              <li class="dropdown-submenu"><a tabindex="-1" href="#">研發替代役</a>
+                <ul class="dropdown-menu">
+                  <li><a tabindex="-1" href="/2014/index.php?r=rdss/dashboard/index">廠商報名狀況</a></li>
+                  <li><a tabindex="-1" href="/2014/index.php?r=rdss/activity/index">活動列表</a></li>
+                  <li><a tabindex="-1" href="/2014/index.php?r=rdss/sponsor/index">贊助列表</a></li>
+                  <li class="dropdown-submenu"><a tabindex="-1" href="#">說明會</a>
+                    <ul class="dropdown-menu">
+                      <li><a tabindex="-1" href="/2014/index.php?r=rdss/forum/info/create">新增廠商資訊</a></li>
+                      <li><a tabindex="-1" href="/2014/index.php?r=rdss/forum/info/index">資訊檢視/修改</a></li>
+                      <li><a tabindex="-1" href="/2014/index.php?r=rdss/forum/slot/index">場次表</a></li>
+                      <li><a tabindex="-1" href="/2014/index.php?r=rdss/forum/slot/list">QA連結檢視/修改</a></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown-submenu"><a tabindex="-1" href="#">就博會</a>
+                    <ul class="dropdown-menu">
+                      <li><a tabindex="-1" href="/2014/index.php?r=rdss/show/requirement/create">新增廠商資訊</a></li>
+                      <li><a tabindex="-1" href="/2014/index.php?r=rdss/show/requirement/index">資訊檢視/修改</a></li>
+                      <li><a tabindex="-1" href="/2014/index.php?r=rdss/show/slot/index">攤位圖</a></li>
+                    </ul>
+                  </li>
+                  <li><a tabindex="-1" href="/2014/index.php?r=rdss/stuvote/index">優質廠商票選狀況</a></li>
+                  <li><a tabindex="-1" href="/2014/index.php?r=rdss/teach/index">企業職場導師報名狀況</a></li>
+                  <li><a tabindex="-1" href="/2014/index.php?r=rdss/visit/index">企業參訪報名狀況</a></li>
+                  <li class="divider"></li>
+                  <li><a tabindex="-1" href="/2014/index.php?r=rdss/activity/signup">新增廠商活動</a></li>
+                  <li><a tabindex="-1" href="/2014/index.php?r=rdss/sponsor/create">新增廠商贊助</a></li>
+                  <li><a tabindex="-1" href="/2014/index.php?r=rdss/teach/create">新增廠商企業職場導師</a></li>
+                  <li><a tabindex="-1" href="/2014/index.php?r=rdss/visit/create">新增廠商企業參訪</a></li>
+                </ul>
+              </li>
+
+              <li class="dropdown-submenu"><a tabindex="-1" href="#">校園徵才</a>
+                <ul class="dropdown-menu">
+                  <li><a tabindex="-1" href="/2014/index.php?r=recruit/dashboard/index">廠商報名狀況</a></li>
+                  <li><a tabindex="-1" href="/2014/index.php?r=recruit/activity/index">活動列表</a></li>
+                  <li><a tabindex="-1" href="/2014/index.php?r=recruit/sponsor/index">贊助列表</a></li>
+                  <li class="dropdown-submenu"><a tabindex="-1" href="#">說明會</a>
+                    <ul class="dropdown-menu">
+                      <li><a tabindex="-1" href="/2014/index.php?r=recruit/forum/info/create">新增廠商資訊</a></li>
+                      <li><a tabindex="-1" href="/2014/index.php?r=recruit/forum/info/index">資訊檢視/修改</a></li>
+                      <li><a tabindex="-1" href="/2014/index.php?r=recruit/forum/slot/select">場次表</a></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown-submenu"><a tabindex="-1" href="#">展示會</a>
+                    <ul class="dropdown-menu">
+                      <li><a tabindex="-1" href="/2014/index.php?r=recruit/show/requirement/index">資訊檢視/修改</a></li>
+                      <li><a tabindex="-1" href="/2014/index.php?r=recruit/show/parttime/index">工讀生履歷</a></li>
+                    </ul>
+                  </li>
+                  <li><a tabindex="-1" href="/2014/index.php?r=recruit/stuvote/index">優質廠商票選狀況</a></li>
+                  <li><a tabindex="-1" href="/2014/index.php?r=recruit/teach/index">企業職場導師報名狀況</a></li>
+                  <li><a tabindex="-1" href="/2014/index.php?r=recruit/visit/index">企業參訪報名狀況</a></li>
+                  <li class="divider"></li>
+                  <li><a tabindex="-1" href="/2014/index.php?r=recruit/activity/signup">新增廠商活動</a></li>
+                  <li><a tabindex="-1" href="/2014/index.php?r=recruit/sponsor/create">新增廠商贊助</a></li>
+                  <li><a tabindex="-1" href="/2014/index.php?r=recruit/teach/create">新增廠商企業職場導師</a></li>
+                  <li><a tabindex="-1" href="/2014/index.php?r=recruit/visit/create">新增廠商企業參訪</a></li>
+                </ul>
+              </li>
+
+              <li class="divider"></li>
+
+              <li class="dropdown-submenu"><a tabindex="-1" href="#">工作人員相關</a>
+                <ul class="dropdown-menu">
+                  <li><a tabindex="-1" href="/2014/index.php?r=staff/default/index">工作人員列表</a></li>
+                  <li><a tabindex="-1" href="/2014/index.php?r=staff/salary/create">工作人員報帳</a></li>
+                  <li><a tabindex="-1" href="/2014/index.php?r=staff/salary/index">工作人員報帳列表</a></li>
+                  <li><a tabindex="-1" href="/2014/index.php?r=staff/docs/view&amp;page=info">資訊組筆記</a></li>
+                </ul>
+              </li>
+
+            </ul>
+          </li>
+
+          <li><a href="{% url 'logout' %}">登出({{ user.username }})</a></li>
         {% else %}
-            <li><a href="{% url 'login' %}">登入</a></li>
+          <li><a href="{% url 'login' %}">登入</a></li>
         {% endif %}
         </ul>
       </div><!-- /.nav-collapse -->
