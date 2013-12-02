@@ -206,10 +206,11 @@
 
 <footer style="font-size: 100%;">
   <div id="footer-content" class="container" style="padding-top: 20px; padding-bottom: 20px;">
-    <div style="margin-top: 75px; background: url('images/grass.png'); height: 39px;"></div>
+    <div style="margin-top: 75px; background: url('{{ STATIC_URL }}images/grass.png'); height: 39px;"></div>
     <div style="background: #d3d7cf repeat;">
       <div id="footer-content" class="container" style="padding-top: 20px; padding-bottom: 20px;">
         <div class="row">
+            <img id="footer-logo" class="pull-right" style="max-height: 128px;" src="{{ STATIC_URL }}images/oh2014/logoanimal.png" alt="Open House Logo">
           <address>
             <strong>國立交通大學2014 Open House企業校園徵才小組</strong>
             </br>
@@ -221,7 +222,7 @@
             </br>
             <i class="glyphicon glyphicon-envelope"></i> E-mail：<a href="mailto:contact@openhouse.nctu.edu.tw">contact@openhouse.nctu.edu.tw</a>
             </br>
-            <img src="images/facebook.png" alt="facebook" class="icon-like"> Facebook：<a href="http://www.facebook.com/NCTU.OH">www.facebook.com/NCTU.OH</a>
+            <img src="{{ STATIC_URL }}images/facebook.png" alt="facebook" class="icon-like"> Facebook：<a href="http://www.facebook.com/NCTU.OH">www.facebook.com/NCTU.OH</a>
           </address>
 
           <hr class="soften">
@@ -231,12 +232,12 @@
           </p>
 
           <p style="text-align: center;">
-            <a href="http://www.w3.org/html/logo/"><img src="images/html5.png" alt="Powered by HTML5" style="max-height: 24px; margin-right: 15px;"></a>
+            <a href="http://www.w3.org/html/logo/"><img src="{{ STATIC_URL }}images/html5.png" alt="Powered by HTML5" style="max-height: 24px; margin-right: 15px;"></a>
 
-            <a href="http://twitter.github.com/bootstrap/"><img src="images/bootstrap.png" alt="Powered by Twitter Bootstrap" style="max-height: 24px; margin-right: 15px;"></a>
+            <a href="http://twitter.github.com/bootstrap/"><img src="{{ STATIC_URL }}images/bootstrap.png" alt="Powered by Twitter Bootstrap" style="max-height: 24px; margin-right: 15px;"></a>
 
             <a href="https://www.djangoproject.com/"><img src="https://www.djangoproject.com/m/img/badges/djangomade124x25.gif" alt="Powered by Django Framework" style="max-height: 24px;"></a>
-            <a href="http://www.archlinux.org"><img src="images/archlinux.png" alt="Powered by Arch Linux" style="max-height: 24px;"></a>
+            <a href="http://www.archlinux.org"><img src="{{ STATIC_URL }}images/archlinux.png" alt="Powered by Arch Linux" style="max-height: 24px;"></a>
           </p>
         </div>
       </div>
