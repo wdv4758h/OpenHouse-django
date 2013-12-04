@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block CONTENT %}
+<div class="page-header" style="padding-top: 20px; padding-bottom: 15px;"><h1>註冊廠商列表</h1></div>
+
+<div class="grid-view">
+  <table class="items table table-striped table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>
+          <a class="sort-link" href="/2014/index.php?r=company/default/index&amp;Company_sort=cid">統編<span class="caret"></span></a>
+        </th>
+        <th>
+          <a class="sort-link" href="/2014/index.php?r=company/default/index&amp;Company_sort=shortname">公司簡稱<span class="caret"></span></a>
+        </th>
+        <th>
+          <a class="sort-link" href="/2014/index.php?r=company/default/index&amp;Company_sort=category">類別<span class="caret"></span></a>
+        </th>
+        <th>
+          <a class="sort-link" href="/2014/index.php?r=company/default/index&amp;Company_sort=hr_name">人資姓名<span class="caret"></span></a>
+        </th>
+        <th>
+          <a class="sort-link" href="/2014/index.php?r=company/default/index&amp;Company_sort=hr_phone">人資電話<span class="caret"></span></a>
+        </th>
+        <th>
+          <a class="sort-link" href="/2014/index.php?r=company/default/index&amp;Company_sort=hr_mobile">人資手機<span class="caret"></span></a>
+        </th>
+        <th>
+          <a class="sort-link" href="/2014/index.php?r=company/default/index&amp;Company_sort=hr_email">人資信箱<span class="caret"></span></a>
+        </th>
+        <th class="button-column">動作</th>
+      </tr>
+    </thead>
+
+  {% for company in companys %}
+    <tr class="{% cycle 'odd' 'even' %}">
+      <td>{{ company.cid }}</td>
+      <td>{{ company.shortname }}</td>
+      <td>{{ company.category }}</td>
+      <td>{{ company.hr_name }}</td>
+      <td>{{ company.hr_phone }}</td>
+      <td>{{ company.hr_mobile }}</td>
+      <td>{{ company.hr_email }}</td>
+
+      <td style="width: 50px">
+        <a class="view" rel="tooltip" href="/company/default/view/cid=22099131" data-original-title="詳細資料">
+          <i class="glyphicon glyphicon-eye-open"></i>
+        </a>
+        <a class="update" rel="tooltip" href="/company/default/update/cid=22099131" data-original-title="修改">
+          <i class="glyphicon glyphicon-pencil"></i>
+        </a>
+      </td>
+    </tr>
+  {% endfor %}
+
+  </table>
+
+</div>
+
+{% endblock %}
