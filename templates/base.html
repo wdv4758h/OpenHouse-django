@@ -180,10 +180,10 @@
 
               <li class="dropdown-submenu"><a tabindex="-1" href="#">工作人員相關</a>
                 <ul class="dropdown-menu">
-                  <li><a tabindex="-1" href="/2014/index.php?r=staff/default/index">工作人員列表</a></li>
-                  <li><a tabindex="-1" href="/2014/index.php?r=staff/salary/create">工作人員報帳</a></li>
-                  <li><a tabindex="-1" href="/2014/index.php?r=staff/salary/index">工作人員報帳列表</a></li>
-                  <li><a tabindex="-1" href="/2014/index.php?r=staff/docs/view&amp;page=info">資訊組筆記</a></li>
+                  <li><a tabindex="-1" href="{% url 'staff' %}">工作人員列表</a></li>
+                  <li><a tabindex="-1" href="{% url 'salary_create' %}">工作人員報帳</a></li>
+                  <li><a tabindex="-1" href="{% url 'salary_list' %}">工作人員報帳列表</a></li>
+                  <li><a tabindex="-1" href="{% url 'docs' %}">資訊組筆記</a></li>
                 </ul>
               </li>
 
