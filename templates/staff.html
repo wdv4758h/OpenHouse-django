@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block CONTENT %}
+<div class="page-header" style="padding-top: 20px; padding-bottom: 15px;"><h1>工作人員名單</h1></div>
+
+<div class="grid-view">
+  <table class="items table table-striped table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>
+          <a class="sort-link" href="/2014/index.php?r=company/default/index&amp;Company_sort=cid">學號<span class="caret"></span></a>
+        </th>
+        <th>
+          <a class="sort-link" href="/2014/index.php?r=company/default/index&amp;Company_sort=shortname">姓名<span class="caret"></span></a>
+        </th>
+        <th>
+          <a class="sort-link" href="/2014/index.php?r=company/default/index&amp;Company_sort=category">職稱<span class="caret"></span></a>
+        </th>
+        <th>
+          <a class="sort-link" href="/2014/index.php?r=company/default/index&amp;Company_sort=hr_name">手機號碼<span class="caret"></span></a>
+        </th>
+        <th>
+          <a class="sort-link" href="/2014/index.php?r=company/default/index&amp;Company_sort=hr_phone">E-mail<span class="caret"></span></a>
+        </th>
+        <th>
+          <a class="sort-link" href="/2014/index.php?r=company/default/index&amp;Company_sort=hr_mobile">OH BBS 帳號<span class="caret"></span></a>
+        </th>
+        <th class="button-column">動作</th>
+      </tr>
+    </thead>
+
+  {% for staff in staffs %}
+    <tr class="{% cycle 'odd' 'even' %}">
+      <td>{{ staff.studentid }}</td>
+      <td>{{ staff.name }}</td>
+      <td>{{ staff.role }}</td>
+      <td>{{ staff.mobile }}</td>
+      <td>{{ staff.email }}</td>
+      <td>{{ staff.ohbbsid }}</td>
+
+      <td style="width: 50px">
+        <a class="view" rel="tooltip" href="/company/default/view/cid=22099131" data-original-title="詳細資料">
+          <i class="glyphicon glyphicon-eye-open"></i>
+        </a>
+        <a class="update" rel="tooltip" href="/company/default/update/cid=22099131" data-original-title="修改">
+          <i class="glyphicon glyphicon-pencil"></i>
+        </a>
+      </td>
+    </tr>
+  {% endfor %}
+
+  </table>
+
+</div>
+
+{% endblock %}
