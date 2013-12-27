@@ -1,75 +1,20 @@
 {% extends "base.html" %}
 
 {% block CONTENT %}
-<div class="page-header" style="padding-top: 20px; padding-bottom: 15px;"><h1>檢視廠商資料 - {{ company.shortname }}</h1></div>
+<div class="page-header" style="padding-top: 20px; padding-bottom: 15px;"><h1>檢視廠商資料 - {{ name }}</h1></div>
 
 <h3>公司 Logo</h3>
-<img style="margin-left: 180px; max-width: 250px; max-hegiht: 250px;" src="{{ STATIC_URL }}/images/company_logo/22099131-台積電.jpg" alt="公司Logo">
+<img style="margin-left: 180px; max-width: 250px; max-hegiht: 250px;" src="{{ STATIC_URL }}/images/company_logo/{{ img }}" alt="公司Logo">
 <hr>
 
 <table class="table table-bordered table-hover table-condensed table-striped">
   <tbody>
-    <tr class="odd">
-      <th style="width: 20%">統編</th>
-      <td>{{ company.cid }}</td>
+  {% for field, info in company %}
+    <tr class="{% cycle 'odd' 'even' %}">
+      <th style="width: 20%">{{ field }}</th>
+      <td>{{ info }}</td>
     </tr>
-    <tr class="even">
-      <th>公司名稱</th>
-      <td>{{ company.name }}</td>
-    </tr>
-    <tr class="odd">
-      <th>公司簡稱</th>
-      <td>{{ company.shortname }}</td>
-    </tr>
-    <tr class="even">
-      <th>類別</th>
-      <td>{{ company.category }}</td>
-    </tr>
-    <tr class="odd">
-      <th>公司電話</th>
-      <td>{{ company.phone }}</td>
-    </tr>
-    <tr class="even">
-      <th>公司地址</th>
-      <td>{{ company.address }}</td>
-    </tr>
-    <tr class="odd">
-      <th>公司網站</th>
-      <td>{{ company.website }}</td>
-    </tr>
-    <tr class="even">
-      <th>公司簡介</th>
-      <td>{{ company.brief }}</td>
-    </tr>
-    <tr class="odd">
-      <th>公司介紹</th>
-      <td>{{ company.introduction }}</td>
-    </tr>
-    <tr class="even">
-      <th>人資姓名</th>
-      <td>{{ company.hr_name }}</td>
-    </tr>
-    <tr class="odd">
-      <th>人資電話</th>
-      <td>{{ company.hr_phone }}</td>
-    </tr>
-    <tr class="even">
-      <th>人資傳真</th>
-      <td>{{ company.hr_fax }}</td>
-    </tr>
-    <tr class="odd">
-      <th>人資手機</th>
-      <td>{{ company.hr_mobile }}</td>
-    </tr>
-    <tr class="even">
-      <th>人資信箱</th>
-      <td>{{ company.hr_email }}</td>
-    </tr>
-    <tr class="odd">
-      <th>更新時間</th>
-      <td>{{ company.timestamp }}</td>
-    </tr>
-
+  {% endfor %}
   </tbody>
 </table>
 
