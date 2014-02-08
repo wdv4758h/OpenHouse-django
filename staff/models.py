@@ -82,8 +82,6 @@ class SalaryForm(ModelForm):
     def __unicode__(self):
         return self.username
 
-    #def _html_output(...): pass
-
     def save(self, commit=True):
         salary = Salary()
 

@@ -30,9 +30,6 @@ def salary_create(request):
                 'placeholder' : field_obj.help_text}
         field_obj.help_text = ''
 
-        #if field_obj.widget.attrs['name'] == 'start_time':
-        #    field_obj.widget.attrs['type'] = 'datetime-local'
-
     return render_to_response('salary_create.html', {'form': form}, context_instance=RequestContext(request))
 
 def salary_list(request):
