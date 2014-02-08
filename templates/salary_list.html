@@ -2,4 +2,47 @@
 
 {% block CONTENT %}
 <div class="page-header" style="padding-top: 20px;"><h1>工作人員報帳列表</h1></div>
+<li style="color:blue;">點選藍色連結的標題欄位可進行排序</li>
+<li style="color:red;">值秘仍可審核組長已審核通過的報帳</li>
+<br/>
+
+<div class="grid-view">
+  <table class="items table table-striped table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>學號</th>
+        <th>姓名</th>
+        <th>職稱</th>
+        <th>開始時間</th>
+        <th>結束時間</th>
+        <th>工作內容</th>
+        <th>審核狀況</th>
+        <th>動作</th>
+    </thead>
+
+  {% for salary in salarys %}
+    <tr class="{% cycle 'odd' 'even' %}">
+      <td>{{ salary.studentid }}</td>
+      <td>{{ salary.name }}</td>
+      <td>{{ salary.role }}</td>
+      <td>{{ salary.start_time }}</td>
+      <td>{{ salary.end_time }}</td>
+      <td>{{ salary.description }}</td>
+      <td>{{ salary.verify }}</td>
+
+      <td style="width: 50px">
+        <a class="view" rel="tooltip" href="/company/default/view/cid=22099131" data-original-title="詳細資料">
+          <i class="glyphicon glyphicon-eye-open"></i>
+        </a>
+        <a class="update" rel="tooltip" href="/company/default/update/cid=22099131" data-original-title="修改">
+          <i class="glyphicon glyphicon-pencil"></i>
+        </a>
+      </td>
+    </tr>
+  {% endfor %}
+
+  </table>
+
+</div>
+
 {% endblock %}
