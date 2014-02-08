@@ -1,5 +1,5 @@
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"/>
 
 <!-- dropdown-submenu is removed from bootstrap since bootstrap 3.0 -->
 <style type="text/css">
@@ -261,8 +261,8 @@
   <!-- Bootstrap core JavaScript
   ================================================== -->
   <!-- Placed at the end of the document so the pages load faster -->
-  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-  <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 
   <link href="/static/css/tablesorter.css" rel="stylesheet">
   <script src="/static/js/jquery.tablesorter.min.js"></script>
@@ -276,6 +276,16 @@
           sortRestart    : true
       });
   });
+  </script>
+
+  <script src="/static/js/jquery-ui.min.js"></script>
+  <script src="/static/js/jquery-ui-i18n.min.js"></script>
+
+  <link href="/static/css/jquery-ui-timepicker-addon.css" rel="stylesheet">
+  <link href="/static/css/oh-timepicker.css" rel="stylesheet">
+  <script src="/static/js/jquery-ui-timepicker-addon.js"></script>
+  <script>
+jQuery('#id_start_time, #id_end_time').datetimepicker(jQuery.extend({showMonthAfterYear:false}, jQuery.datepicker.regional['zh_tw'], {'dateFormat':'yy-mm-dd', 'timeFormat':'hh:mm:ss', 'hourGrid':4, 'minuteGrid':10}));
   </script>
 
   </body>

@@ -1,4 +1,9 @@
+# _*_ coding: utf8 _*_
+
 from django.db import models
+from django.forms import ModelForm
+from django import forms
+import datetime
 
 class Staff(models.Model):
     #id
@@ -47,14 +52,50 @@ class Resume(models.Model):
         return self.name
 
 class Salary(models.Model):
+
+    #user order_by to insure the order
+    tmp1 = Staff.objects.values('name').order_by('studentid')
+    tmp2 = Staff.objects.values('studentid').order_by('studentid')
+
+    STAFFS = []
+    for i,j in zip(tmp1,tmp2):
+        STAFFS.append((j['studentid'], j['studentid'] + ' - ' + i['name']))    #(value, display_text)
+
     #id
-    staff_id    = models.PositiveIntegerField(default=0)
-    start_time  = models.DateTimeField()
-    end_time    = models.DateTimeField()
-    description = models.CharField(max_length=100)
-    verify      = models.CharField(max_length=100)  #need to modify
-    deny_reason = models.CharField(max_length=64)
-    timestamp   = models.DateField()
+    #staff_id    = models.PositiveIntegerField(default=0)
+    staff_id    = models.CharField(max_length=100, choices=STAFFS)
+    description = models.CharField(max_length=100, help_text='工作內容')
+    start_time  = models.DateTimeField(help_text='開始時間')
+    end_time    = models.DateTimeField(help_text='結束時間')
+    verify      = models.CharField(max_length=100, editable=False)  #need to modify
+    deny_reason = models.CharField(max_length=64, editable=False)
+    timestamp   = models.DateTimeField(editable=False)
 
     def __unicode__(self):
         return self.staffid
+
+class SalaryForm(ModelForm):
+    class Meta:
+        model = Salary
+
+    # On Python 3: def __str__(self):
+    def __unicode__(self):
+        return self.username
+
+    #def _html_output(...): pass
+
+    def save(self, commit=True):
+        salary = Salary()
+
+        #looking for better solution
+        salary.staff_id = self.cleaned_data['staff_id']
+        salary.description = self.cleaned_data['description']
+        salary.start_time = self.cleaned_data['start_time']
+        salary.end_time = self.cleaned_data['end_time']
+        salary.verify = '待審核'
+        salary.deny_reason = ''
+        salary.timestamp = str(datetime.datetime.now()).split('.')[0]
+
+        if commit:
+            salary.save()
+        return salary
