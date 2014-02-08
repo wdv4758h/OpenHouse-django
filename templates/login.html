@@ -3,13 +3,10 @@
 {% block CONTENT %}
 
 <div class="page-header">
-  <div id="content" style="padding-bottom: 200px;">
-    <div class="hero-unit" style="position: relative; background: -webkit-linear-gradient(top, #dddddd, #efefef); border-bottom: 1px solid #dddddd; padding-top: 30px; padding-bottom: 30px; overflow: hidden;">
+  <div id="content" style="padding-top: 20px; padding-bottom: 15px;">
       <h1>廠商／工作人員登入</h1>
-    </div>
+      <hr>
   </div>
-
-  <!-- <h1>廠商／工作人員登入</h1> -->
 
   {% if form.errors %}
   <p>您的帳戶或密碼輸入錯誤，請再試一次</p>
@@ -20,13 +17,21 @@
   {% if user.is_authenticated %}
       <p>{{ user.username }} 您好，您已經登入囉!<a href="/accounts/logout">[logout]</a></p>
   {% else %}
-      <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+      <form class="well form-vertical" id="login-form" method="post" action="{% url 'django.contrib.auth.views.login' %}">
           {% csrf_token %}
           <table>
-              <tr><th><label for="id_username">統編／學號</label></th><td>{{ form.username }}</td></tr>
-              <tr><th><label for="id_password">密碼</label></th><td>{{ form.password }}</td></tr>
+              <tr>
+                <label for="id_username" class="required">統編／學號<span class="required">*</span></label>
+                <input class="form-control" id="id_username" name="username" placeholder="統編/學號" type="text">
+              </tr>
+              <br>
+              <tr>
+                <label for="id_password" class="required">密碼<span class="required">*</span></label>
+                <input class="form-control" id="id_password" name="password" placeholder="密碼" type="password">
+              </tr>
           </table>
-          <input type="submit" value="login" />
+          <br>
+          <input class="btn" type="submit" value="login" />
           <input type="hidden" name="next" value="/" />
       </form>
   {% endif %}
