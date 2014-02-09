@@ -7,9 +7,11 @@ from company.models import Company
 
 import glob
 
+@login_required(redirect_field_name='index')
 def list(request):
     companys = Company.objects.all()
     return render_to_response('company.html', {'companys': companys}, context_instance=RequestContext(request))
+@login_required(redirect_field_name='index')
 def view(request, num):
     company = Company.objects.filter(cid=num)[0]
 

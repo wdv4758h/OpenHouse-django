@@ -6,12 +6,14 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from staff.models import Staff, Resume, Salary, SalaryForm
 
+@login_required(redirect_field_name='index')
 def list(request):
     staffs = Staff.objects.all()
     categorys = ['學號', '姓名', '職稱', '手機號碼', 'E-mail', 'OH BBS 帳號', '動作']
     header = '工作人員名單'
     return render_to_response('staff.html', {'header': header, 'items': staffs, 'categorys': categorys}, context_instance=RequestContext(request))
 
+@login_required(redirect_field_name='index')
 def salary_create(request):
     if request.method == 'POST':
         form = SalaryForm(request.POST)
@@ -32,10 +34,12 @@ def salary_create(request):
 
     return render_to_response('salary_create.html', {'form': form}, context_instance=RequestContext(request))
 
+@login_required(redirect_field_name='index')
 def salary_list(request):
     salarys = Salary.objects.all()
     return render_to_response('salary_list.html', {'salarys': salarys}, context_instance=RequestContext(request))
 
+@login_required(redirect_field_name='index')
 def staff_detail(request, num):
     staff = Staff.objects.filter(studentid=num)[0]
     preheader = '檢視工作人員 - '
