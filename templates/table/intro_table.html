@@ -1,0 +1,22 @@
+{% block INTRO_TABLE %}
+  <table class="items table table-striped table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>統編</th>
+        <th>公司簡稱</th>
+        <th>公司簡介 (限110字)</th>
+        <th>公司介紹 (限260字)</th>
+        <th>徵才需求 (限260字)</th>
+      </tr>
+    </thead>
+
+  {% for company in companys %}
+    <tr class="{% cycle 'odd' 'even' %}">
+      <td>{{ company.cid }}</td>
+      <td>{{ company.shortname }}</td>
+      <td></td>
+      <td></td>
+      <td></td>
+  {% endfor %}
+  </table>
+{% endblock %}
