@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block CONTENT %}
+<div class="page-header" style="padding-top: 20px;"><h1>新廠商註冊</h1></div>
+<div class="alert alert-info alert-block">
+  <p class="lead">
+    <a href="/company/import">如貴公司去年參加過OpenHouse之活動，請按此直接輸入統編與密碼匯入資料</a>
+  </p>
+</div>
+
+<form class="form-horizontal" action="" method="post">
+    {% csrf_token %}
+
+    <div class="well">
+        <h2>公司基本資料</h2>
+        <p class="form-group">
+            <label for="id_cid" class="control-label required">統編
+                <span class="required">*</sapn>
+            </label>
+            {{ form.cid }}
+            <div class="help-block has-error" id="" style="">統編 不可為空白.</div>
+        </p>
+
+    </div>
+
+    <div class="well">
+        <h2>公司基本資料</h2>
+        {{ form.as_p }}
+    </div>
+
+    <div class="well">
+        <div class="alert alert-warning">
+            <p>請確認上述資料是否已全部填寫完畢無誤，並<strong>務必</strong>上傳公司Logo。</p>
+        </div>
+        <div><input class="btn btn-primary" type="submit" value="註冊" /></div>
+    </div>
+</form>
+
+{% endblock %}
