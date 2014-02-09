@@ -62,10 +62,10 @@ class Salary(models.Model):
         STAFFS.append((j['studentid'], j['studentid'] + ' - ' + i['name']))    #(value, display_text)
 
     #id
-    staff_id    = models.CharField(max_length=100, choices=STAFFS)
-    description = models.CharField(max_length=100, help_text='工作內容')
-    start_time  = models.DateTimeField(help_text='開始時間')
-    end_time    = models.DateTimeField(help_text='結束時間')
+    staff_id    = models.CharField('工作人員', max_length=100, choices=STAFFS)
+    description = models.CharField('工作內容', max_length=100, help_text='工作內容')
+    start_time  = models.DateTimeField('開始時間', help_text='開始時間')
+    end_time    = models.DateTimeField('結束時間', help_text='結束時間')
     verify      = models.CharField(max_length=100, editable=False)  #need to modify
     deny_reason = models.CharField(max_length=64, editable=False)
     timestamp   = models.DateTimeField(editable=False)
@@ -77,7 +77,7 @@ class SalaryForm(ModelForm):
     class Meta:
         model = Salary
 
-    description = forms.CharField(widget=forms.Textarea, help_text='工作內容')
+    description = forms.CharField(label='工作內容', widget=forms.Textarea, help_text='工作內容')
 
     # On Python 3: def __str__(self):
     def __unicode__(self):
