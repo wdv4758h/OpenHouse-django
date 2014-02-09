@@ -3,7 +3,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
-from company.models import Company
+from company.models import Company, CompanyForm
 
 import glob
 
@@ -11,6 +11,29 @@ import glob
 def list(request):
     companys = Company.objects.all()
     return render_to_response('company.html', {'companys': companys}, context_instance=RequestContext(request))
+
+@login_required(redirect_field_name='index')
+def register(request):
+    if request.method == 'POST':
+        form = CompanyForm(request.POST)
+        if form.is_valid():
+            new_salary = form.save()
+            #not yet prompt success or not
+            return HttpResponseRedirect("/company/")
+    else:
+        form = CompanyForm()
+
+    #add 'form-control' class and placeholder
+    for field in form.fields.keys():
+        field_obj = form.fields[field]
+
+        field_obj.widget.attrs = {
+                'class' : 'form-control',
+                'placeholder' : field_obj.help_text}
+        field_obj.help_text = ''
+
+    return render_to_response('company_create.html', {'form': form}, context_instance=RequestContext(request))
+
 @login_required(redirect_field_name='index')
 def view(request, num):
     company = Company.objects.filter(cid=num)[0]
