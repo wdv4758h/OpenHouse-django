@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block CONTENT %}
+<div class="page-header" style="padding-top: 20px; padding-bottom: 15px;"><h1>「{{ eventname }}」廠商報名狀況</h1></div>
+
+<div class="row-fluid">
+</div>
+
+<div class="grid-view">
+  <table class="items table table-striped table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>統編</th>
+        <th>公司簡稱</th>
+        <th>類別</th>
+        <th>人資姓名</th>
+        <th>人資電話</th>
+        <th>人資手機</th>
+        <th>人資信箱</th>
+        <th>填寫贊助</th>
+        <th>滿意度問卷</th>
+        <th>動作</th>
+      </tr>
+    </thead>
+
+  {% for company in companys %}
+    <tr class="{% cycle 'odd' 'even' %}">
+      <td>{{ company.id }}</td>
+      <td>{{ company.cid }}</td>
+      <td>{{ company.shortname }}</td>
+      <td>{{ company.category }}</td>
+      <td>{{ company.hr_name }}</td>
+      <td>{{ company.hr_phone }}</td>
+      <td>{{ company.hr_mobile }}</td>
+      <td>{{ company.hr_email }}</td>
+
+      <td>未填</td>
+      <td>未填</td>
+
+      <td style="width: 50px">
+        <a class="view" rel="tooltip" href="/{{ event_url }}/dashboard/view/{{ company.cid }}" data-original-title="詳細資料">
+          <i class="glyphicon glyphicon-eye-open"></i>
+        </a>
+      </td>
+    </tr>
+  {% endfor %}
+  </table>
+
+  <hr>
+
+  <h2>公司繳款進度</h2>
+  <table class="items table table-striped table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>統編</th>
+        <th>公司簡稱</th>
+        <th>活動費用</th>
+        <th>贊助費用</th>
+        <th>應付費用</th>
+        <th>已付款</th>
+        <th>動作</th>
+      </tr>
+    </thead>
+
+  {% for company in companys %}
+    <tr class="{% cycle 'odd' 'even' %}">
+      <td>{{ company.cid }}</td>
+      <td>{{ company.shortname }}</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+
+      <td style="width: 50px">
+        <a class="view" rel="tooltip" href="/{{ event_url }}/dashboard/view/{{ company.cid }}" data-original-title="詳細資料">
+          <i class="glyphicon glyphicon-eye-open"></i>
+        </a>
+        <a class="pay" rel="tooltip" href="/{{ event_url }}/dashboard/update/{{ company.cid }}" data-original-title="修改">
+          <i class="glyphicon glyphicon-pencil"></i>
+        </a>
+      </td>
+    </tr>
+  {% endfor %}
+  </table>
+
+  <hr>
+
+  <h2>公司介紹字數</h2>
+  <table class="items table table-striped table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>統編</th>
+        <th>公司簡稱</th>
+        <th>公司簡介 (限110字)</th>
+        <th>公司介紹 (限260字)</th>
+        <th>徵才需求 (限260字)</th>
+      </tr>
+    </thead>
+
+  {% for company in companys %}
+    <tr class="{% cycle 'odd' 'even' %}">
+      <td>{{ company.cid }}</td>
+      <td>{{ company.shortname }}</td>
+      <td></td>
+      <td></td>
+      <td></td>
+  {% endfor %}
+  </table>
+
+  <hr>
+
+  <h2>公司Logo列表</h2>
+  <table class="items table table-striped table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>統編</th>
+        <th>公司簡稱</th>
+        <th>公司Logo</th>
+        <th>廣告Logo</th>
+      </tr>
+    </thead>
+
+  {% for company in companys %}
+    <tr class="{% cycle 'odd' 'even' %}">
+      <td>{{ company.cid }}</td>
+      <td>{{ company.shortname }}</td>
+      <td></td>
+      <td></td>
+  {% endfor %}
+  </table>
+</div>
+{% endblock %}
