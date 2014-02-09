@@ -10,6 +10,7 @@
   <table class="items table table-striped table-bordered table-condensed">
     <thead>
       <tr>
+        <th>#</th>
         <th>學號</th>
         <th>姓名</th>
         <th>職稱</th>
@@ -22,6 +23,7 @@
 
   {% for salary in salarys %}
     <tr class="{% cycle 'odd' 'even' %}">
+      <td>{{ salary.id }}</td>
       <td>{{ salary.staff_id }}</td>
       <td>{{ salary.name }}</td>
       <td>{{ salary.role }}</td>

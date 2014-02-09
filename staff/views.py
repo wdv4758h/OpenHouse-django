@@ -36,7 +36,7 @@ def salary_create(request):
 
 @login_required(redirect_field_name='index')
 def salary_list(request):
-    salarys = Salary.objects.all()
+    salarys = Salary.objects.all().order_by('id').reverse()
     for i in salarys:
         try:
             person = Staff.objects.filter(studentid=i.staff_id)[0]
