@@ -77,6 +77,8 @@ class SalaryForm(ModelForm):
     class Meta:
         model = Salary
 
+    description = forms.CharField(widget=forms.Textarea, help_text='工作內容')
+
     # On Python 3: def __str__(self):
     def __unicode__(self):
         return self.username
