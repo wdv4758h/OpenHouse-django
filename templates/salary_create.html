@@ -4,8 +4,11 @@
 <div class="page-header" style="padding-top: 20px;"><h1>新增報帳</h1></div>
 <form class="form-horizontal" action="" method="post">
     {% csrf_token %}
+    <div class="well">
     {{ form.as_p }}
+    <hr>
     <div><input class="btn btn-primary" type="submit" value="送出" /></div>
+    </div>
 </form>
 
 {% endblock %}
