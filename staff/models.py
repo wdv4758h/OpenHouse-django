@@ -62,7 +62,6 @@ class Salary(models.Model):
         STAFFS.append((j['studentid'], j['studentid'] + ' - ' + i['name']))    #(value, display_text)
 
     #id
-    #staff_id    = models.PositiveIntegerField(default=0)
     staff_id    = models.CharField(max_length=100, choices=STAFFS)
     description = models.CharField(max_length=100, help_text='工作內容')
     start_time  = models.DateTimeField(help_text='開始時間')
@@ -72,7 +71,7 @@ class Salary(models.Model):
     timestamp   = models.DateTimeField(editable=False)
 
     def __unicode__(self):
-        return self.staffid
+        return self.staff_id
 
 class SalaryForm(ModelForm):
     class Meta:

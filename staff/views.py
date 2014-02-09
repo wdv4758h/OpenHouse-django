@@ -37,6 +37,13 @@ def salary_create(request):
 @login_required(redirect_field_name='index')
 def salary_list(request):
     salarys = Salary.objects.all()
+    for i in salarys:
+        try:
+            person = Staff.objects.filter(studentid=i.staff_id)[0]
+            (i.name, i.role) = (person.name, person.role)
+        except:
+            pass
+
     return render_to_response('salary_list.html', {'salarys': salarys}, context_instance=RequestContext(request))
 
 @login_required(redirect_field_name='index')
