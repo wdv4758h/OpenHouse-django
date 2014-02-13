@@ -6,6 +6,6 @@ from django.contrib.auth.decorators import login_required
 from company.models import Company
 
 @login_required(redirect_field_name='index')
-def dashboard(request):
+def dashboard(request, event):
     companys = Company.objects.all()
-    return render_to_response('dashboard.html', {'companys': companys}, context_instance=RequestContext(request))
+    return render_to_response('dashboard.html', {'companys': companys, 'event_url': event}, context_instance=RequestContext(request))
