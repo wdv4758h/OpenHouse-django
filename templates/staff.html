@@ -22,14 +22,7 @@
       <td>{{ item.email }}</td>
       <td>{{ item.ohbbsid }}</td>
 
-      <td style="width: 50px">
-          <a class="view" rel="tooltip" href="/staffs/view/{{ item.studentid }}" data-original-title="詳細資料">
-          <i class="glyphicon glyphicon-eye-open"></i>
-        </a>
-        <a class="update" rel="tooltip" href="/staffs/update/{{ item.studentid }}" data-original-title="修改">
-          <i class="glyphicon glyphicon-pencil"></i>
-        </a>
-      </td>
+      {% include 'action/detail_edit.html' with event_url='staffs' id=item.studentid %}
     </tr>
   {% endfor %}
 
