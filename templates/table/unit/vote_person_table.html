@@ -1,0 +1,25 @@
+<table class="items table table-striped table-bordered table-condensed">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>學號</th>
+      <th>姓名</th>
+      <th>E-mail</th>
+      <th>手機</th>
+      <th>來源IP</th>
+      <th>投票時間</th>
+    </tr>
+  </thead>
+
+  {% for person in people %}
+  <tr class="{% cycle 'odd' 'even' %}">
+    <td>{{ forloop.counter }}</td>
+    <td>{{ person.cid }}</td>
+    <td>{{ person.name }}</td>
+    <td>{{ person.email }}</td>
+    <td>{{ person.mobile }}</td>
+    <td>{{ person.ip }}</td>
+    <td>{{ person.timestamp }}</td>
+  </tr>
+  {% endfor %}
+</table>

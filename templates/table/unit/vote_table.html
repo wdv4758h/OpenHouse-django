@@ -1,0 +1,17 @@
+<table class="items table table-striped table-bordered table-condensed">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>公司簡稱</th>
+      <th>得票數</th>
+    </tr>
+  </thead>
+
+  {% for company in companys %}
+  <tr class="{% cycle 'odd' 'even' %}">
+    <td>{{ forloop.counter }}</td>
+    <td>{{ company.shortname }}</td>
+    <td>{{ company.vote }}</td>
+  </tr>
+  {% endfor %}
+</table>
