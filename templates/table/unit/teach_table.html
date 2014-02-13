@@ -1,0 +1,30 @@
+<table class="items table table-striped table-bordered table-condensed">
+  <thead>
+    <tr>
+      <th>公司簡稱</th>
+      <th>類別</th>
+      <th>標題</th>
+      <th>開始時間</th>
+      <th>結束時間</th>
+      <th>主講人</th>
+      <th>地點</th>
+      <th>進行方式</th>
+      <th>動作</th>
+    </tr>
+  </thead>
+
+  {% for teach in teaches %}
+  <tr class="{% cycle 'odd' 'even' %}">
+    <td>{{ teach.shortname }}</td>
+    <td>{{ teach.category }}</td>
+    <td>{{ teach.title }}</td>
+    <td>{{ teach.start_time }}</td>
+    <td>{{ teach.end_time }}</td>
+    <td>{{ teach.speaker }}</td>
+    <td>{{ teach.place }}</td>
+    <td>{{ teach.mode }}</td>
+
+    {% include 'action/detail_edit_delete.html' with sub_url='teach' id=teach.id %}
+  </tr>
+  {% endfor %}
+</table>
