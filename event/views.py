@@ -8,4 +8,9 @@ from company.models import Company
 @login_required(redirect_field_name='index')
 def dashboard(request, event):
     companys = Company.objects.all()
-    return render_to_response('dashboard.html', {'companys': companys, 'event_url': event}, context_instance=RequestContext(request))
+    return render_to_response('table/dashboard.html', {'companys': companys, 'event_url': event}, context_instance=RequestContext(request))
+
+@login_required(redirect_field_name='index')
+def activity(request, event):
+    companys = Company.objects.all()
+    return render_to_response('table/activity.html', {'companys': companys, 'event_url': event}, context_instance=RequestContext(request))
