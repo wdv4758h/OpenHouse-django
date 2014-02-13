@@ -1,0 +1,26 @@
+<table class="items table table-striped table-bordered table-condensed">
+  <thead>
+    <tr>
+      <th>公司簡稱</th>
+      <th>限定科系</th>
+      <th>參訪流程</th>
+      <th>參訪地址</th>
+      <th>開始時間</th>
+      <th>結束時間</th>
+      <th>動作</th>
+    </tr>
+  </thead>
+
+  {% for visit in visits %}
+  <tr class="{% cycle 'odd' 'even' %}">
+    <td>{{ visit.shortname }}</td>
+    <td>{{ visit.require }}</td>
+    <td>{{ visit.agenda }}</td>
+    <td>{{ visit.address }}</td>
+    <td>{{ visit.start_time }}</td>
+    <td>{{ visit.end_time }}</td>
+
+    {% include 'action/detail_edit_delete.html' with sub_url='teach' id=teach.id %}
+  </tr>
+  {% endfor %}
+</table>
