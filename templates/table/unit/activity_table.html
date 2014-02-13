@@ -1,32 +1,30 @@
-{% block QUESTION_TABLE %}
-  <table class="items table table-striped table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>統編</th>
-        <th>公司簡稱</th>
-        <th>座談會中午場</th>
-        <th>座談會晚上場</th>
-        <th>展示會</th>
-        <th>廣告刊登</th>
-        <th>企業職場導師</th>
-        <th>企業參訪</th>
-        <th>動作</th>
-      </tr>
-    </thead>
+<table class="items table table-striped table-bordered table-condensed">
+  <thead>
+    <tr>
+      <th>統編</th>
+      <th>公司簡稱</th>
+      <th>座談會中午場</th>
+      <th>座談會晚上場</th>
+      <th>展示會</th>
+      <th>廣告刊登</th>
+      <th>企業職場導師</th>
+      <th>企業參訪</th>
+      <th>動作</th>
+    </tr>
+  </thead>
 
   {% for company in companys %}
-    <tr class="{% cycle 'odd' 'even' %}">
-      <td>{{ company.cid }}</td>
-      <td>{{ company.shortname }}</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+  <tr class="{% cycle 'odd' 'even' %}">
+    <td>{{ company.cid }}</td>
+    <td>{{ company.shortname }}</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
 
-      {% include 'action/detail_edit.html' with sub_url='activity' id=company.cid %}
-    </tr>
+    {% include 'action/detail_edit.html' with sub_url='activity' id=company.cid %}
+  </tr>
   {% endfor %}
-  </table>
-{% endblock %}
+</table>

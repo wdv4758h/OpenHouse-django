@@ -11,6 +11,6 @@ def dashboard(request, event):
     return render_to_response('table/dashboard.html', {'companys': companys, 'event_url': event}, context_instance=RequestContext(request))
 
 @login_required(redirect_field_name='index')
-def activity(request, event):
+def event_list(request, event, list_name):
     companys = Company.objects.all()
-    return render_to_response('table/activity.html', {'companys': companys, 'event_url': event}, context_instance=RequestContext(request))
+    return render_to_response('table/%s.html' % list_name, {'companys': companys, 'event_url': event}, context_instance=RequestContext(request))
