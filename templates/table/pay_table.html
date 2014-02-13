@@ -21,14 +21,7 @@
       <td></td>
       <td></td>
 
-      <td style="width: 50px">
-        <a class="view" rel="tooltip" href="/{{ event_url }}/dashboard/view/{{ company.cid }}" data-original-title="詳細資料">
-          <i class="glyphicon glyphicon-eye-open"></i>
-        </a>
-        <a class="pay" rel="tooltip" href="/{{ event_url }}/dashboard/update/{{ company.cid }}" data-original-title="修改">
-          <i class="glyphicon glyphicon-pencil"></i>
-        </a>
-      </td>
+      {% include 'action/detail_edit.html' with sub_url='dashboard' %}
     </tr>
   {% endfor %}
   </table>

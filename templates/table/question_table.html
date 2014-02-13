@@ -30,11 +30,7 @@
       <td>未填</td>
       <td>未填</td>
 
-      <td style="width: 50px">
-        <a class="view" rel="tooltip" href="/{{ event_url }}/dashboard/view/{{ company.cid }}" data-original-title="詳細資料">
-          <i class="glyphicon glyphicon-eye-open"></i>
-        </a>
-      </td>
+      {% include 'action/detail.html' with sub_url='dashboard' %}
     </tr>
   {% endfor %}
   </table>
