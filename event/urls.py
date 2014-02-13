@@ -9,4 +9,5 @@ urlpatterns = patterns('',
     url('stuvote$', 'event.views.event_list', {'list_name': 'vote'}, name='vote'),
     url('teach$', 'event.views.event_list', {'list_name': 'teach'}, name='teach'),
     url('visit$', 'event.views.event_list', {'list_name': 'visit'}, name='visit'),
+    url('forum/info$', 'event.views.event_list', {'list_name': 'forum_info'}, name='visit'),
 )

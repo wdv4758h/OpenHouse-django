@@ -1,0 +1,42 @@
+<table class="items table table-striped table-bordered table-condensed">
+  <thead>
+    <tr>
+      <th>公司簡稱</th>
+      <th>座談會主題</th>
+      <th>主講人姓名</th>
+      <th>主講人稱謂</th>
+      <th>廠商到場人數</th>
+      <th>抽獎獎品</th>
+      <th>抽獎獎品份數</th>
+      <th>QA獎獎品</th>
+      <th>QA獎獎品份數</th>
+      <th>參加獎獎品</th>
+      <th>參加獎獎品份數</th>
+      <th>加碼餐盒數量</th>
+      <th>聯絡人姓名</th>
+      <th>聯絡人手機</th>
+      <th>動作</th>
+    </tr>
+  </thead>
+
+  {% for company in companys %}
+  <tr class="{% cycle 'odd' 'even' %}">
+    <td>{{ company.shortname }}</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+
+    {% include 'action/detail_edit.html' with sub_url='forum/info' id=company.cid %}
+  </tr>
+  {% endfor %}
+</table>
