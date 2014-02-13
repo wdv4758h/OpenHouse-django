@@ -8,27 +8,21 @@
 
 <div class="grid-view">
 
-  {% include 'table/question_table.html' %}
+  {% include 'table/unit/question_table.html' %}
   <hr>
 
   <h2>公司繳款進度</h2>
-  {% block PAY_TABLE %}
-  {% include 'table/pay_table.html' %}
-  {% endblock %}
+  {% include 'table/unit/pay_table.html' %}
 
   <hr>
 
   <h2>公司介紹字數</h2>
-  {% block INTRO_TABLE %}
-  {% include 'table/intro_table.html' %}
-  {% endblock %}
+  {% include 'table/unit/intro_table.html' %}
 
   <hr>
 
   <h2>公司Logo列表</h2>
-  {% block LOGO_TABLE %}
-  {% include 'table/logo_table.html' %}
-  {% endblock %}
+  {% include 'table/unit/logo_table.html' %}
 
 </div>
 {% endblock %}
