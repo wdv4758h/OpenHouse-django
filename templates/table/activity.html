@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block CONTENT %}
+<div class="page-header" style="padding-top: 20px; padding-bottom: 15px;"><h1>「{{ eventname }}」活動報名列表</h1></div>
+
+<div class="row-fluid">
+</div>
+
+<div class="grid-view">
+
+  {% include 'table/unit/activity_table.html' %}
+
+</div>
+{% endblock %}
