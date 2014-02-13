@@ -32,15 +32,8 @@
       <td>{{ salary.description }}</td>
       <td>{{ salary.verify }}</td>
 
-      <td style="width: 50px">
-        <a class="view" rel="tooltip" href="/company/default/view/cid=22099131" data-original-title="詳細資料">
-          <i class="glyphicon glyphicon-eye-open"></i>
-        </a>
-        <a class="update" rel="tooltip" href="/company/default/update/cid=22099131" data-original-title="修改">
-          <i class="glyphicon glyphicon-pencil"></i>
-        </a>
-      </td>
-    </tr>
+      {% include 'action/verify_deny.html' with event_url='staffs' sub_url='salary' id=salary.id %}
+
   {% endfor %}
 
   </table>
