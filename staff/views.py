@@ -4,7 +4,9 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from staff.models import Staff, Resume, Salary, SalaryForm
+from django.views.generic.edit import UpdateView
+from django.core.urlresolvers import reverse_lazy
+from staff.models import Staff, Resume, Salary, SalaryForm, StaffForm
 
 @login_required(redirect_field_name='index')
 def list(request):
@@ -58,3 +60,17 @@ def staff_detail(request, num):
     staff = zip(fields, staff)
 
     return render_to_response('detailview.html', {'preheader': preheader, 'header': header, 'data': staff}, context_instance=RequestContext(request))
+
+class StaffUpdate(UpdateView):
+    model = Staff
+    #fields = ['cid']
+    template_name = 'staff_update.html'
+    success_url = reverse_lazy('staff')
+    form_class = StaffForm
+
+    def get_object(self, queryset=None):
+        obj = Staff.objects.get(studentid=self.kwargs['pk'])
+        return obj
+
+    def dispatch(self, request, *args, **kwargs):
+       return super(StaffUpdate, self).dispatch(request, *args, **kwargs)

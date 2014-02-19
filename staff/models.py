@@ -8,18 +8,18 @@ import datetime
 class Staff(models.Model):
     #id
     #studentid = models.PositiveIntegerField(default=0)
-    studentid = models.CharField(max_length=100)
+    studentid = models.CharField('學號', max_length=100)
     #password
-    name      = models.CharField(max_length=100)
-    gender    = models.BooleanField()
-    birthday  = models.DateField()
-    role      = models.CharField(max_length=300)
-    mobile    = models.PositiveIntegerField(default=0)
-    email     = models.EmailField()
-    fb_url    = models.URLField()
-    bs2id     = models.CharField(max_length=12)
-    ohbbsid   = models.CharField(max_length=12)
-    postacct  = models.CharField(max_length=15)
+    name      = models.CharField('姓名', max_length=100)
+    gender    = models.BooleanField('性別')
+    birthday  = models.DateField('出生年月日')
+    role      = models.CharField('職稱', max_length=300)
+    mobile    = models.CharField('手機號碼', max_length=16)
+    email     = models.EmailField('E-mail')
+    fb_url    = models.URLField('FB個人首頁連結')
+    bs2id     = models.CharField('BS2帳號', max_length=12)
+    ohbbsid   = models.CharField('OH BBS帳號', max_length=12)
+    postacct  = models.CharField('郵局帳號', max_length=15)
     verify    = models.BooleanField()
     timestamp = models.DateField()
 
@@ -98,3 +98,8 @@ class SalaryForm(ModelForm):
         if commit:
             salary.save()
         return salary
+
+class StaffForm(ModelForm):
+    class Meta:
+        model = Staff
+        exclude = ('verify', 'timestamp')
