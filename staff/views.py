@@ -63,7 +63,6 @@ def staff_detail(request, num):
 
 class StaffUpdate(UpdateView):
     model = Staff
-    #fields = ['cid']
     template_name = 'staff_update.html'
     success_url = reverse_lazy('staff')
     form_class = StaffForm
