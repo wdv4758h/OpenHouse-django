@@ -30,7 +30,7 @@ class Company(models.Model):
     website      = models.CharField('公司網站', max_length=64)
     logo_webpath = models.TextField('LOGO')
     brief        = models.CharField('公司簡介', max_length=110)
-    introduction = models.CharField('公司介紹', max_length=206)
+    introduction = models.CharField('公司介紹', max_length=260)
     hr_name      = models.CharField('人資姓名', max_length=32)
     hr_phone     = models.CharField('人資電話', max_length=32)
     hr_fax       = models.CharField('人資傳真', max_length=32)
