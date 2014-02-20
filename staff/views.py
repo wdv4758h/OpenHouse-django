@@ -41,8 +41,9 @@ def salary_list(request):
     salarys = Salary.objects.all().order_by('id').reverse()
     for i in salarys:
         try:
-            person = Staff.objects.filter(studentid=i.staff_id)[0]
-            (i.name, i.role) = (person.name, person.role)
+            #person = Staff.objects.filter(studentid=i.staff_id)[0]
+            person = Staff.objects.filter(id=i.staff_id)[0]
+            (i.studentid, i.name, i.role) = (person.studentid, person.name, person.role)
         except:
             pass
 

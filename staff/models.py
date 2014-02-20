@@ -54,12 +54,13 @@ class Resume(models.Model):
 class Salary(models.Model):
 
     #user order_by to insure the order
-    tmp1 = Staff.objects.values('name').order_by('studentid')
-    tmp2 = Staff.objects.values('studentid').order_by('studentid')
+    #tmp = Staff.objects.values('studentid', 'name').order_by('studentid')
+    tmp = Staff.objects.values('id', 'studentid', 'name').order_by('studentid')
 
     STAFFS = []
-    for i,j in zip(tmp1,tmp2):
-        STAFFS.append((j['studentid'], j['studentid'] + ' - ' + i['name']))    #(value, display_text)
+    for i in tmp:
+        #STAFFS.append((i['studentid'], i['studentid'] + ' - ' + i['name']))    #(value, display_text)
+        STAFFS.append((i['id'], i['studentid'] + ' - ' + i['name']))    #(value, display_text)
 
     #id
     staff_id    = models.CharField('工作人員', max_length=100, choices=STAFFS)
