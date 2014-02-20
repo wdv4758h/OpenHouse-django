@@ -14,3 +14,8 @@ def dashboard(request, event):
 def event_list(request, event, list_name):
     companys = Company.objects.all()
     return render_to_response('table/%s.html' % list_name, {'companys': companys, 'event_url': event}, context_instance=RequestContext(request))
+
+@login_required(redirect_field_name='index')
+def view(request, num, event):
+    company = Company.objects.filter(cid=num)[0]
+    return render_to_response('table/event_per_company_status.html', {'company': company, 'eventname': event}, context_instance=RequestContext(request))
