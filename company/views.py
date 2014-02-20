@@ -3,6 +3,8 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import UpdateView
+from django.core.urlresolvers import reverse_lazy
 from company.models import Company, CompanyForm
 
 import glob
@@ -17,7 +19,7 @@ def register(request):
     if request.method == 'POST':
         form = CompanyForm(request.POST)
         if form.is_valid():
-            new_salary = form.save()
+            new_company = form.save()
             #not yet prompt success or not
             return HttpResponseRedirect("/company/")
     else:
@@ -52,3 +54,16 @@ def view(request, num):
     company = zip(field_names, company)
 
     return render_to_response('company_view.html', {'company': company, 'name': name, 'img': img_name}, context_instance=RequestContext(request))
+
+class CompanyUpdate(UpdateView):
+    model = Company
+    template_name = 'company_update.html'
+    success_url = reverse_lazy('company')
+    form_class = CompanyForm
+
+    def get_object(self, queryset=None):
+        obj = Company.objects.get(cid=self.kwargs['pk'])
+        return obj
+
+    def dispatch(self, request, *args, **kwargs):
+       return super(CompanyUpdate, self).dispatch(request, *args, **kwargs)
