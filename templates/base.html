@@ -293,5 +293,8 @@
 jQuery('#id_start_time, #id_end_time').datetimepicker(jQuery.extend({showMonthAfterYear:false}, jQuery.datepicker.regional['zh_tw'], {'dateFormat':'yy-mm-dd', 'timeFormat':'hh:mm:ss', 'hourGrid':4, 'minuteGrid':10}));
   </script>
 
+  {% block EXTRA_CSS_JS %}
+  {% endblock %}
+
   </body>
 </html>
