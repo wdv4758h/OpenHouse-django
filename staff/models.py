@@ -63,7 +63,7 @@ class Salary(models.Model):
         STAFFS.append((i['id'], i['studentid'] + ' - ' + i['name']))    #(value, display_text)
 
     #id
-    staff_id    = models.CharField('工作人員', max_length=100, choices=STAFFS)
+    staff_id    = models.IntegerField('工作人員', max_length=100, choices=STAFFS)
     description = models.CharField('工作內容', max_length=100, help_text='工作內容')
     start_time  = models.DateTimeField('開始時間', help_text='開始時間')
     end_time    = models.DateTimeField('結束時間', help_text='結束時間')
