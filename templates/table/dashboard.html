@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block EXTRA_CSS_JS %}
+<script src="{{ STATIC_URL }}/js/Chart.js"></script>
+{% endblock %}
+
 {% block CONTENT %}
 <div class="page-header" style="padding-top: 20px; padding-bottom: 15px;"><h1>「{{ eventname }}」廠商報名狀況</h1></div>
 
@@ -7,6 +11,57 @@
 </div>
 
 <div class="grid-view">
+
+  <div>
+    <div class="col-sm-6">
+      <h2>贊助品填寫</h2>
+      <canvas id="sponsor-chart" data-type="Pie" width="570" height="400"></canvas>
+      <script>
+          var data = [
+              {
+                  value : 100,
+                  label: '已填',
+                  color : "#69D2E7"
+              },
+              {
+                  value: 30,
+                  label: '未填',
+                  color:"#F38630"
+              },
+          ];
+          //Get the context of the canvas element we want to select
+          var ctx = document.getElementById("sponsor-chart").getContext("2d");
+          var options = {
+            animateRotate : false
+          }
+          var myNewChart = new Chart(ctx).Pie(data, options);
+      </script>
+    </div>
+
+    <div class="col-sm-6">
+      <h2>企業滿意度問卷</h2>
+      <canvas id="satisfaction-chart" data-type="Pie" width="570" height="400"></canvas>
+      <script>
+          var data = [
+              {
+                  value : 100,
+                  label: '已填',
+                  color : "#69D2E7"
+              },
+              {
+                  value: 30,
+                  label: '未填',
+                  color:"#F38630"
+              },
+          ];
+          var ctx = document.getElementById("satisfaction-chart").getContext("2d");
+          var options = {
+            animateRotate : false
+          }
+          var myNewChart = new Chart(ctx).Pie(data, options);
+      </script>
+    </div>
+  </div>
 
   {% include 'table/unit/question_table.html' %}
   <hr>
