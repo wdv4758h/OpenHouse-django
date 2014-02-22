@@ -2,6 +2,9 @@
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"/>
 <link href="/static/css/jquery-ui-bootstrap.css" rel="stylesheet">
 
+{% block EXTRA_CSS_JS %}
+{% endblock %}
+
 <!-- dropdown-submenu is removed from bootstrap since bootstrap 3.0 -->
 <style type="text/css">
   .dropdown-submenu{
@@ -292,9 +295,6 @@
   <script>
 jQuery('#id_start_time, #id_end_time').datetimepicker(jQuery.extend({showMonthAfterYear:false}, jQuery.datepicker.regional['zh_tw'], {'dateFormat':'yy-mm-dd', 'timeFormat':'hh:mm:ss', 'hourGrid':4, 'minuteGrid':10}));
   </script>
-
-  {% block EXTRA_CSS_JS %}
-  {% endblock %}
 
   </body>
 </html>
