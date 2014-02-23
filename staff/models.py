@@ -69,7 +69,7 @@ class Salary(models.Model):
     end_time    = models.DateTimeField('結束時間', help_text='結束時間')
     verify      = models.CharField(max_length=100, editable=False)  #need to modify
     deny_reason = models.CharField(max_length=64, editable=False)
-    timestamp   = models.DateTimeField(editable=False)
+    timestamp   = models.DateTimeField(auto_now_add=True, editable=False)
 
     def __unicode__(self):
         return self.staff_id
