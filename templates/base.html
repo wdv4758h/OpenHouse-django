@@ -1,5 +1,5 @@
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
 <link href="/static/css/jquery-ui-bootstrap.css" rel="stylesheet">
 
 {% block EXTRA_CSS_JS %}
@@ -269,8 +269,11 @@
   <!-- Bootstrap core JavaScript
   ================================================== -->
   <!-- Placed at the end of the document so the pages load faster -->
-  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-  <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script>
+    $('[data-toggle=tooltip]').tooltip()
+  </script>
 
   <link href="/static/css/tablesorter.css" rel="stylesheet">
   <script src="/static/js/jquery.tablesorter.min.js"></script>
