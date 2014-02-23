@@ -4,14 +4,17 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
+from django.views.generic.edit import CreateView
+from django.core.urlresolvers import reverse_lazy
 from announce.models import Announce
 
 @login_required(redirect_field_name='index')
 def news(request):
     news = Announce.objects.all()
+    length = len(news)
     categorys = ['#', '標題', '發佈時間', '更新時間', '檢視']
     header = '最新訊息'
-    return render_to_response('announce.html', {'header': header, 'items': news, 'categorys': categorys}, context_instance=RequestContext(request))
+    return render_to_response('announce.html', {'header': header, 'items': news, 'categorys': categorys, 'total': length}, context_instance=RequestContext(request))
 
 class News(ListView):
     model = Announce
@@ -20,3 +23,9 @@ class News(ListView):
     def get(self, request, *args, **kwargs):
         self.queryset = Announce.objects.filter(id=self.kwargs['pk'])[0]
         return super(News, self).get(request, *args, **kwargs)
+
+class AnnounceCreate(CreateView):
+    model = Announce
+    success_url = reverse_lazy('announce')
+    template_name = 'announce_create.html'
+    fields = ['title', 'content']
