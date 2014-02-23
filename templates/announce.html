@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block CONTENT %}
+<div class="page-header" style="padding-top: 20px; padding-bottom: 15px;"><h1>{{ header }}</h1></div>
+
+<div class="grid-view">
+  <table class="items table table-striped table-bordered table-condensed">
+    <thead>
+      <tr>
+      {% for category in categorys %}
+        <th>{{ category }}</th>
+      {% endfor %}
+      </tr>
+    </thead>
+
+  {% for item in items %}
+    <tr class="{% cycle 'odd' 'even' %}">
+      <td>{{ item.id }}</td>
+      <td>{{ item.title }}</td>
+      <td>{{ item.create_time | date:'Y-m-d H:i' }}</td>
+      <td>{{ item.update_time | date:'Y-m-d H:i' }}</td>
+
+      {% include 'action/detail.html' with event_url='announce' id=item.id %}
+    </tr>
+  {% endfor %}
+
+  </table>
+
+</div>
+
+{% endblock %}
