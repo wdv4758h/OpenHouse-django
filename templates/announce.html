@@ -1,9 +1,17 @@
 {% extends "base.html" %}
 
 {% block CONTENT %}
-<div class="page-header" style="padding-top: 20px; padding-bottom: 15px;"><h1>{{ header }}</h1></div>
+<div class="page-header" style="padding-top: 20px; padding-bottom: 15px; border-bottom: 0px;">
+    <h1>{{ header }}</h1>
+    <ul class="nav nav-tabs">
+        <li><a href="/announce/create">發佈訊息</a></li>
+        <li><a href="/announce/admin">管理訊息</a></li>
+    </ul>
+</div>
+
 
 <div class="grid-view">
+  <div class="summary pull-right">共 {{ total }} 筆。</div>
   <table class="items table table-striped table-bordered table-condensed">
     <thead>
       <tr>
