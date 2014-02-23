@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block CONTENT %}
+<div class="page-header" style="padding-top: 20px; padding-bottom: 15px;"><h1>檢視訊息 #{{ object_list.id }}</h1></div>
+
+<hr>
+
+<table class="table table-bordered table-hover table-condensed table-striped">
+  <tbody>
+    <tr>
+      <th class="col-sm-2 text-right">#</th>
+      <td class="col-sm-5">{{ object_list.id }}</td>
+    </tr>
+    <tr>
+      <th class="col-sm-2 text-right">標題</th>
+      <td class="col-sm-5">{{ object_list.title }}</td>
+    </tr>
+    <tr>
+      <th class="col-sm-2 text-right">內容</th>
+      <td class="col-sm-5">{{ object_list.content | safe }}</td>
+    </tr>
+    <tr>
+      <th class="col-sm-2 text-right">發佈時間</th>
+      <td class="col-sm-5">{{ object_list.create_time | date:'Y-m-d H:i' }}</td>
+    </tr>
+    <tr>
+      <th class="col-sm-2 text-right">更新時間</th>
+      <td class="col-sm-5">{{ object_list.update_time | date:'Y-m-d H:i' }}</td>
+    </tr>
+  </tbody>
+</table>
+
+{% endblock %}
