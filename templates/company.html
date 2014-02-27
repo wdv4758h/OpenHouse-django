@@ -27,7 +27,7 @@
       <td>{{ company.hr_mobile }}</td>
       <td>{{ company.hr_email }}</td>
 
-      {% include 'action/detail_edit.html' with event_url='staffs' id=item.studentid %}
+      {% include 'action/detail_edit.html' with event_url='company' id=company.cid %}
     </tr>
   {% endfor %}
 
