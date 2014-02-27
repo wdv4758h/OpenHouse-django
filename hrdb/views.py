@@ -15,3 +15,15 @@ def hrdb_list(request):
     categorys = ['序號', '姓名', '系所', '年級', '學號', '電子信箱', '建立時間', '更新時間']
     header = '管理交大人才庫資料'
     return render_to_response('hrdb_admin.html', {'header': header, 'items': hrdb, 'categorys': categorys, 'total': length}, context_instance=RequestContext(request))
+
+class HrdbCreate(CreateView):
+    model = Hrdb
+    success_url = reverse_lazy('hrdb')
+    template_name = 'hrdb_create.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(HrdbCreate, self).get_context_data(**kwargs)
+        # Add in the extra info
+        context['header'] = '填寫交大人才庫資料'
+        return context
