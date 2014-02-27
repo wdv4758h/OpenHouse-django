@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+  <head>
+    <meta charset="utf-8">
+    <title>Open House</title>
+    <meta name="keywords" content="openhouse, nctu, 交大, 交通大學, 徵才, 研發替代役, 企業徵才, 企業校園徵才, 校園徵才">
+    {% include 'generic/pre_css_js.html' %}
+  </head>
+
+  <body>
+
+    {% include 'generic/navbar.html' %}
+
+    <div class="container">
+
+      {% block CONTENT %}
+      {% endblock %}
+
+    </div> <!-- /container -->
+
+    {% include 'generic/footer.html' %}
+    {% include 'generic/post_css_js.html' %}
+
+  </body>
+</html>
