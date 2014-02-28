@@ -13,13 +13,18 @@
 <script>
     $(function(){
         $('table').tablesorter({
-            widgets        : ['zebra', 'columns', "filter"],
+            widgets        : ['zebra', 'columns', 'filter', 'resizable', 'stickyHeaders'],
             usNumberFormat : false,
             sortReset      : true,
-            sortRestart    : true
+            sortRestart    : true,
+            widgetOptions  : { stickyHeaders_offset : 50 }
         });
     });
 </script>
+<style type="text/css">
+    .tablesorter-sticky-visible { margin-top: 3.5% }
+    table { margin-top: 3.5% }
+</style>
 
 <script src="/static/js/jquery-ui.min.js"></script>
 <script src="/static/js/jquery-ui-i18n.min.js"></script>
