@@ -11,7 +11,7 @@ from staff.models import Staff, Resume, Salary, SalaryForm, StaffForm
 @login_required(redirect_field_name='index')
 def list(request):
     staffs = Staff.objects.all()
-    categorys = ['學號', '姓名', '職稱', '手機號碼', 'E-mail', 'OH BBS 帳號']
+    categorys = ['學號', '姓名', '職稱', '手機號碼', 'E-mail', 'OH BBS 帳號', '動作']
     header = '工作人員名單'
     return render_to_response('staff.html', {'header': header, 'items': staffs, 'categorys': categorys}, context_instance=RequestContext(request))
 

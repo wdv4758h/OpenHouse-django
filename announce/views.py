@@ -12,7 +12,7 @@ from announce.models import Announce
 def news(request):
     news = Announce.objects.all()
     length = len(news)
-    categorys = ['#', '標題', '發佈時間', '更新時間']
+    categorys = ['#', '標題', '發佈時間', '更新時間', '檢視']
     header = '最新訊息'
     return render_to_response('announce.html', {'header': header, 'items': news, 'categorys': categorys, 'total': length}, context_instance=RequestContext(request))
 
