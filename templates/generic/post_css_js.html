@@ -12,12 +12,13 @@
 <script src="/static/js/jquery.tablesorter.widgets.min.js"></script>
 <script>
     $(function(){
+        $("table thead th.no-tablesorter").data("sorter", false).data("filter", false);
         $('table').tablesorter({
             widgets        : ['zebra', 'columns', 'filter', 'resizable', 'stickyHeaders'],
             usNumberFormat : false,
             sortReset      : true,
             sortRestart    : true,
-            widgetOptions  : { stickyHeaders_offset : 50 }
+            widgetOptions  : { stickyHeaders_offset : 50 },
         });
     });
 </script>
