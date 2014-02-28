@@ -9,7 +9,7 @@
     <thead>
       <tr>
       {% for category in categorys %}
-        <th class="text-center">{{ category }}</th>
+        <th class="text-center{% if forloop.last %} no-tablesorter{% endif %}">{{ category }}</th>
       {% endfor %}
       </tr>
     </thead>
