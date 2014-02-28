@@ -1,0 +1,76 @@
+<style type="text/css">
+.newsticker {
+    max-width: 90%;   /* news width */
+    margin: auto;
+}
+
+#newsticker-container {
+    text-align: center;
+}
+
+#newsticker-container i {
+    font-size: 36px;
+    margin: 8px;
+    cursor: pointer;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    -o-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+}
+
+#newsticker-container i:hover {
+    color: #333;
+}
+
+.newsticker li {
+    color: #4e4e4e;
+    background: #F2F2F2;
+    overflow: hidden;
+    height: 80px;
+    padding: 10px;
+    line-height: 30px;
+    list-style: none;
+    font-size: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #2c8162;
+}
+
+.newsticker li:hover {
+    background: #FFF;
+}
+</style>
+
+<div id="newsticker-container" class="centered">
+    <i id="prev" class="glyphicon glyphicon-chevron-up"></i>
+    <ul class="newsticker">
+    </ul>
+    <i id="next" class="glyphicon glyphicon-chevron-down"></i>
+</div>
+
+<script>
+    //append announce
+    var req = new XMLHttpRequest();
+    var tmp = $('.newsticker');
+    req.onreadystatechange = function(){
+        if(req.readyState === 4){
+            var announce = JSON.parse(req.responseText);
+            for (i=0; i < announce.results.length; i++){
+                tmp.append('<li>' + announce.results[i].title + ' <a href="/announce/view/' + announce.results[i].id + '">閱讀更多</a></li>');
+            }
+            req = null;
+        }
+    }
+    req.open('GET', "/api/announce/?format=json", true)
+    req.send(null);
+</script>
+<script src="/static/js/jquery.newsTicker.min.js"></script>
+<script>
+    var nt = $('.newsticker').newsTicker({
+        row_height: 80,
+        max_rows: 3,
+        duration: 4000,
+        prevButton: $('#prev'),
+        nextButton: $('#next')
+    });
+</script>
