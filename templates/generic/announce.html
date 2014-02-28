@@ -1,6 +1,6 @@
 <style type="text/css">
 .newsticker {
-    max-width: 90%;   /* news width */
+    max-width: 95%;   /* news width */
     margin: auto;
 }
 
@@ -68,7 +68,7 @@
 <script>
     var nt = $('.newsticker').newsTicker({
         row_height: 80,
-        max_rows: 3,
+        max_rows: {{ max_rows }},
         duration: 4000,
         prevButton: $('#prev'),
         nextButton: $('#next')
