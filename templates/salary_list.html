@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 
 {% block CONTENT %}
-<div class="page-header" style="padding-top: 20px;"><h1>工作人員報帳列表</h1></div>
+<div class="page-header" style="padding-top: 20px; padding-bottom: 15px; border-bottom: 0px;">
+    <h1>工作人員報帳管理</h1>
+    <ul class="nav nav-tabs">
+        <li><a href="{% url 'salary_create' %}">新增報帳</a></li>
+    </ul>
+</div>
+
 <li style="color:blue;">點選藍色連結的標題欄位可進行排序</li>
 <li style="color:red;">值秘仍可審核組長已審核通過的報帳</li>
 <br/>
