@@ -3,13 +3,14 @@
 from django.db import models
 from django.forms import ModelForm
 from django import forms
+from django.contrib.auth.models import AbstractBaseUser
 import datetime
 
-class Staff(models.Model):
+class Staff(AbstractBaseUser):
     #id
     #studentid = models.PositiveIntegerField(default=0)
     studentid = models.CharField('學號', max_length=100)
-    #password
+    #password  = models.CharField(max_length=32)
     name      = models.CharField('姓名', max_length=100)
     gender    = models.BooleanField('性別')
     birthday  = models.DateField('出生年月日')
@@ -22,6 +23,12 @@ class Staff(models.Model):
     postacct  = models.CharField('郵局帳號', max_length=15)
     verify    = models.BooleanField()
     timestamp = models.DateField()
+
+    USERNAME_FIELD = 'studentid'
+    REQUIRED_FIELDS = []
+
+    def __unicode__(self):
+        return self.studentid
 
 class Resume(models.Model):
     #id
