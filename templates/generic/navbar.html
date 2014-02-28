@@ -32,19 +32,19 @@
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">交大人才庫<span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a tabindex="-1" href="/2014/hrdb/create">填寫資料</a></li>
+                <li><a tabindex="-1" href="{% url 'hrdb_create' %}">填寫資料</a></li>
             </ul>
         </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">歷屆研替<b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a tabindex="-1" href="https://openhouse.nctu.edu.tw/2013/idex.php?r=rdss">2012 役言為定</a></li>
+            <li><a tabindex="-1" href="https://openhouse.nctu.edu.tw/2013/index.php?r=rdss">2012 役言為定</a></li>
           </ul>
         </li>
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">歷屆校徵 <span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a tabindex="-1" href="https://openhouse.nctu.edu.tw/2013/idex.php">2013 阿波羅計劃</a></li>
+                <li><a tabindex="-1" href="https://openhouse.nctu.edu.tw/2013/index.php">2013 阿波羅計劃</a></li>
             </ul>
         </li>
       </ul>
@@ -64,9 +64,9 @@
 
             <li class="dropdown-submenu"><a tabindex="-1" href="#">研發替代役</a>
               <ul class="dropdown-menu">
-                <li><a tabindex="-1" href="/rdss/dashboard">廠商報名狀況</a></li>
-                <li><a tabindex="-1" href="/rdss/activity">活動列表</a></li>
-                <li><a tabindex="-1" href="/rdss/sponsor">贊助列表</a></li>
+                <li><a tabindex="-1" href="{% url 'rdss:dashboard' %}">廠商報名狀況</a></li>
+                <li><a tabindex="-1" href="{% url 'rdss:activity' %}">活動列表</a></li>
+                <li><a tabindex="-1" href="{% url 'rdss:sponsor' %}">贊助列表</a></li>
                 <li class="dropdown-submenu"><a tabindex="-1" href="#">說明會</a>
                   <ul class="dropdown-menu">
                     <li><a tabindex="-1" href="/rdss/forum/info/create">新增廠商資訊</a></li>
@@ -83,8 +83,8 @@
                   </ul>
                 </li>
                 <li><a tabindex="-1" href="/rdss/stuvote">優質廠商票選狀況</a></li>
-                <li><a tabindex="-1" href="/rdss/teach">企業職場導師報名狀況</a></li>
-                <li><a tabindex="-1" href="/rdss/visit">企業參訪報名狀況</a></li>
+                <li><a tabindex="-1" href="{% url 'rdss:teach' %}">企業職場導師報名狀況</a></li>
+                <li><a tabindex="-1" href="{% url 'rdss:visit' %}">企業參訪報名狀況</a></li>
                 <li class="divider"></li>
                 <li><a tabindex="-1" href="/rdss/activity/signup">新增廠商活動</a></li>
                 <li><a tabindex="-1" href="/rdss/sponsor/create">新增廠商贊助</a></li>
@@ -95,9 +95,9 @@
 
             <li class="dropdown-submenu"><a tabindex="-1" href="#">校園徵才</a>
               <ul class="dropdown-menu">
-                <li><a tabindex="-1" href="/recruit/dashboard">廠商報名狀況</a></li>
-                <li><a tabindex="-1" href="/recruit/activity">活動列表</a></li>
-                <li><a tabindex="-1" href="/recruit/sponsor">贊助列表</a></li>
+                <li><a tabindex="-1" href="{% url 'recruit:dashboard' %}">廠商報名狀況</a></li>
+                <li><a tabindex="-1" href="{% url 'recruit:activity' %}">活動列表</a></li>
+                <li><a tabindex="-1" href="{% url 'recruit:sponsor' %}">贊助列表</a></li>
                 <li class="dropdown-submenu"><a tabindex="-1" href="#">說明會</a>
                   <ul class="dropdown-menu">
                     <li><a tabindex="-1" href="/recruit/forum/info/create">新增廠商資訊</a></li>
@@ -112,8 +112,8 @@
                   </ul>
                 </li>
                 <li><a tabindex="-1" href="/recruit/stuvote">優質廠商票選狀況</a></li>
-                <li><a tabindex="-1" href="/recruit/teach">企業職場導師報名狀況</a></li>
-                <li><a tabindex="-1" href="/recruit/visit">企業參訪報名狀況</a></li>
+                <li><a tabindex="-1" href="{% url 'recruit:teach' %}">企業職場導師報名狀況</a></li>
+                <li><a tabindex="-1" href="{% url 'recruit:visit' %}">企業參訪報名狀況</a></li>
                 <li class="divider"></li>
                 <li><a tabindex="-1" href="/recruit/activity/signup">新增廠商活動</a></li>
                 <li><a tabindex="-1" href="/recruit/sponsor/create">新增廠商贊助</a></li>
