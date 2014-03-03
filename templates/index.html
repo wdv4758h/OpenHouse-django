@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 
+{% block AD %}
+{% endblock %}
+
 {% block CONTENT %}
 
 <!-- for facebook like box -->
@@ -17,9 +20,15 @@
   <div class="hero-unit" style="position: relative; background: -webkit-linear-gradient(top, #dddddd, #efefef); border-bottom: 1px solid #dddddd; padding-top: 30px; padding-bottom: 30px; overflow: hidden;">
     <h1 style="font-size: 500%; text-align: center;">Open House 2014</h1>
     <p style="text-align: center;">— 國立交通大學&#12288;企業校園徵才小組 —</p>
+
+{% include 'generic/announce.html' with max_rows=5 row_height=50 button=True %}
+
+    <br>
+
     <div style="text-align: center;">
       <a class="btn btn-primary btn-large" href="http://openhouse.nctu.edu.tw/2014/index.php?r=recruit/stuvote/vote"><i class="icon-arrow-right icon-white"></i> 校園徵才優質廠商票選</a>
     </div>
+
     <hr class="soften">
     <p style="text-align: center; font-size: 130%">想隨時得到Open House的最新消息？快加入Open House的Facebook粉絲專頁！</p>
     <div style="text-align: center;">
@@ -27,8 +36,6 @@
     </div>
   </div>
 </div>
-
-{% include 'generic/announce.html' with max_rows=3 %}
 
 <div class="container">
   <div class="row-fluid">

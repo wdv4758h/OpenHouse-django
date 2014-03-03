@@ -27,13 +27,15 @@
     color: #4e4e4e;
     background: #F2F2F2;
     overflow: hidden;
-    height: 80px;
+    height: {% if row_height %}{{ row_height }}{% else %} 80 {% endif %}px;
     padding: 10px;
     line-height: 30px;
     list-style: none;
     font-size: 24px;
     text-align: left;
+    {% if max_rows > 1 %}
     border-bottom: 1px dotted #2c8162;
+    {% endif %}
 }
 
 .newsticker li:hover {
@@ -42,10 +44,14 @@
 </style>
 
 <div id="newsticker-container" class="centered">
+    {% if button %}
     <i id="prev" class="glyphicon glyphicon-chevron-up"></i>
+    {% endif %}
     <ul class="newsticker">
     </ul>
+    {% if button %}
     <i id="next" class="glyphicon glyphicon-chevron-down"></i>
+    {% endif %}
 </div>
 
 <script>
@@ -67,9 +73,10 @@
 <script src="/static/js/jquery.newsTicker.min.js"></script>
 <script>
     var nt = $('.newsticker').newsTicker({
-        row_height: 80,
+        row_height: {% if row_height %}{{ row_height }}{% else %} 80 {% endif %},
         max_rows: {{ max_rows }},
-        duration: 4000,
+        speed: 300,
+        duration: 5000,
         prevButton: $('#prev'),
         nextButton: $('#next')
     });
