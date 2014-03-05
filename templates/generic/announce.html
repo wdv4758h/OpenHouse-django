@@ -24,14 +24,18 @@
 }
 
 .newsticker li {
-    color: #4e4e4e;
+    color: #999;
+    {% if not notdiv %}
     background: #F2F2F2;
+    {% endif %}
     overflow: hidden;
     height: {% if row_height %}{{ row_height }}{% else %} 80 {% endif %}px;
     padding: 10px;
     line-height: 30px;
     list-style: none;
+    {% if not notdiv %}
     font-size: 24px;
+    {% endif %}
     text-align: left;
     {% if max_rows > 1 %}
     border-bottom: 1px dotted #2c8162;
@@ -39,10 +43,15 @@
 }
 
 .newsticker li:hover {
-    background: #FFF;
+    color: #4e4e4e;
+    /* background: #FFF; */
+}
+.newsticker li a:hover {
+    color: #fff;
 }
 </style>
 
+{% if not notdiv %}
 <div id="newsticker-container" class="centered">
     {% if button %}
     <i id="prev" class="glyphicon glyphicon-chevron-up"></i>
@@ -53,6 +62,9 @@
     <i id="next" class="glyphicon glyphicon-chevron-down"></i>
     {% endif %}
 </div>
+{% else %}
+<ul class="newsticker"> </ul>
+{% endif %}
 
 <script>
     //append announce
@@ -62,7 +74,12 @@
         if(req.readyState === 4){
             var announce = JSON.parse(req.responseText);
             for (i=0; i < announce.results.length; i++){
-                tmp.append('<li>' + announce.results[i].title + ' <a href="/announce/view/' + announce.results[i].id + '">閱讀更多</a></li>');
+                link = document.createElement('a');
+                link.href = '/announce/view/' + announce.results[i].id;
+                link.textContent = announce.results[i].title;
+                news = document.createElement('li');
+                news.appendChild(link);
+                tmp.append(news);
             }
             req = null;
         }

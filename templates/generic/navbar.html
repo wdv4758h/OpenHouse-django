@@ -11,42 +11,10 @@
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">研發替代役<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li><a tabindex="-1" href="/2014/rdss">役諾千金</a></li>
-                <li><a tabindex="-1" href="/2014/rdss/default/list">廠商徵才資訊</a></li>
-                <li><a tabindex="-1" href="/2014/rdss/default/index#forum">說明會</a></li>
-                <li><a tabindex="-1" href="/2014/rdss/default/index#interview">就博會</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">校園徵才<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li><a tabindex="-1" href="/2014/recruit">狩獵新未來</a></li>
-                <li><a tabindex="-1" href="/2014/recruit/default/list">廠商徵才資訊</a></li>
-                <li><a tabindex="-1" href="/2014/recruit/default/index#forum">座談會</a></li>
-                <li><a tabindex="-1" href="/2014/recruit/default/index#show">展示會</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">交大人才庫<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li><a tabindex="-1" href="{% url 'hrdb_create' %}">填寫資料</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">歷屆研替<b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a tabindex="-1" href="https://openhouse.nctu.edu.tw/2013/index.php?r=rdss">2012 役言為定</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">歷屆校徵 <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li><a tabindex="-1" href="https://openhouse.nctu.edu.tw/2013/index.php">2013 阿波羅計劃</a></li>
-            </ul>
-        </li>
+        <li><a href="/rdss/">研發替代役</a></li>
+        <li><a href="/recruit/">校園徵才</a></li>
+        <li><a href="/hrdb/">交大人才庫</a></li>
+        {% include 'generic/announce.html' with max_rows=1 row_height=50 notdiv=1 %}
       </ul>
       <ul class="nav navbar-nav navbar-right">
       {% if user.is_authenticated %}
@@ -147,3 +115,9 @@
     </div><!-- /.nav-collapse -->
   </div><!-- /.container -->
 </div><!-- /.navbar -->
+<style type="text/css">
+.nav ul {
+    padding-left: 0;
+    padding-right: 0;
+}
+</style>
