@@ -6,13 +6,16 @@ from django import forms
 from django.contrib.auth.models import AbstractBaseUser
 import datetime
 
-class Staff(AbstractBaseUser):
-    #id
-    #studentid = models.PositiveIntegerField(default=0)
+#class HTML5DateTimeLocal(forms.DateInput):
+#    input_type = 'datetime-local'
+
+#class Staff(AbstractBaseUser):
+class Staff(models.Model):
+    GENDER = (('男', '男'), ('女', '女'))
     studentid = models.CharField('學號', max_length=100)
     #password  = models.CharField(max_length=32)
     name      = models.CharField('姓名', max_length=100)
-    gender    = models.BooleanField('性別')
+    gender    = models.CharField('性別', choices=GENDER, max_length=10)
     birthday  = models.DateField('出生年月日')
     role      = models.CharField('職稱', max_length=300)
     mobile    = models.CharField('手機號碼', max_length=16)
@@ -27,11 +30,13 @@ class Staff(AbstractBaseUser):
     USERNAME_FIELD = 'studentid'
     REQUIRED_FIELDS = []
 
+    class Meta:
+        db_table = 'staff'
+
     def __unicode__(self):
         return self.studentid
 
 class Resume(models.Model):
-    #id
     uid          = models.CharField(max_length=7)
     name         = models.CharField(max_length=100)
     gender       = models.BooleanField()
@@ -69,7 +74,6 @@ class Salary(models.Model):
         #STAFFS.append((i['studentid'], i['studentid'] + ' - ' + i['name']))    #(value, display_text)
         STAFFS.append((i['id'], i['studentid'] + ' - ' + i['name']))    #(value, display_text)
 
-    #id
     staff_id    = models.IntegerField('工作人員', max_length=100, choices=STAFFS)
     description = models.CharField('工作內容', max_length=100, help_text='工作內容')
     start_time  = models.DateTimeField('開始時間', help_text='開始時間')
