@@ -28,7 +28,7 @@ class Company(models.Model):
     postal_code  = models.CharField('郵遞區號', max_length=5)
     address      = models.CharField('公司地址', max_length=128)
     website      = models.CharField('公司網站', max_length=64)
-    logo_webpath = models.TextField('LOGO')
+    logo_webpath = models.URLField('LOGO')
     brief        = models.CharField('公司簡介', max_length=110)
     introduction = models.CharField('公司介紹', max_length=260)
     hr_name      = models.CharField('人資姓名', max_length=32)
@@ -37,6 +37,12 @@ class Company(models.Model):
     hr_mobile    = models.CharField('人資手機', max_length=32)
     hr_email     = models.CharField('人資信箱', max_length=64)
     timestamp    = models.DateField(editable=False)
+
+    class Meta:
+        db_table = 'company'
+
+    def __unicode__(self):
+        return self.shortname
 
 class CompanyForm(ModelForm):
     class Meta:
