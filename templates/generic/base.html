@@ -1,5 +1,6 @@
+{% load wagtailuserbar %}
 <!DOCTYPE html>
-<html lang="zh-tw">
+<html lang="zh-tw" data-ng-app="OpenHouse">
   <head>
     <meta charset="utf-8">
     <title>Open House</title>
@@ -8,15 +9,15 @@
   </head>
 
   <body>
-
+    {% wagtailuserbar %}
     {% include 'generic/navbar.html' %}
 
-    <div class="container" style="margin-top: 50px;">
+    <div class="container content">
 
       {% block CONTENT %}
       {% endblock %}
 
-    </div> <!-- /container -->
+    </div>
 
     {% include 'generic/post_css_js.html' %}
     {% include 'generic/footer.html' %}

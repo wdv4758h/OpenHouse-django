@@ -14,6 +14,10 @@ body {
     min-height: 31%;
 }
 
+#wagtail-userbar {
+    top: 10%;
+}
+
 
 #page
 {
