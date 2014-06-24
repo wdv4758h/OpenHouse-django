@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block CONTENT %}
+    <h1>{{ self.title }}</h1>
+    <br />
+    <div>
+        <table class="table">
+            <thead>
+              <tr>
+                <th>標題</th>
+                <th>發佈時間</th>
+                <th>更新時間</th>
+              </tr>
+            </thead>
+
+            {% for i in self.news %}
+            <tr class="{% cycle 'odd' 'even' %}">
+              <td><a href="{{ i.url }}">{{ i.title }}</a></td>
+              <td>{{ i.create_time }}</td>
+              <td>{{ i.update_time }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
