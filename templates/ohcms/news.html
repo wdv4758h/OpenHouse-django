@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load pageurl rich_text %}
+
+{% block CONTENT %}
+    <div class="news-head">
+        <h1>{{ self.title }}</h1>
+        <p>
+            發佈時間: {{ self.create_time }}
+            &nbsp;&nbsp;&nbsp;
+            更新時間: {{ self.update_time }}
+        </p>
+    </div>
+    {{ self.body|richtext }}
+{% endblock %}

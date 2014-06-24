@@ -18,6 +18,15 @@ body {
     top: 10%;
 }
 
+.news-head {
+    border-bottom-style: solid;
+    border-color: #878A84;
+    margin-bottom: 3%;
+}
+
+.rich-text {
+    font-size: 16px;
+}
 
 #page
 {
