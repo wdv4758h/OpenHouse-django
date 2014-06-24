@@ -235,6 +235,39 @@ div.search-form
 	background: #80CFFF;
 }
 
+/* conent head */
+
+.content-head {
+    border-bottom-style: solid;
+    border-color: #878A84;
+    margin-top: 2%;
+    margin-bottom: 3%;
+}
+
+/* form */
+
+.form-field {
+    font-size: 16px;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.form-field textarea {
+    width: 50%;
+}
+
+.form-field input {
+    width: 40%;
+}
+
+.form-field input[type='checkbox'] {
+    width: 1.5%;
+    display: inline;
+    vertical-align: middle;
+    margin-left: 1%;
+}
+
+
 /* tablesorter */
 .tablesorter-default thead .tablesorter-headerAsc {
 	background: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7) no-repeat center right;

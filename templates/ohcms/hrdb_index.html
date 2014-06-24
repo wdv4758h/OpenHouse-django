@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load pageurl rich_text %}
+
+{% block CONTENT %}
+    <h1>交大人才庫</h1>
+    {{ self.body|richtext }}
+    <br />
+    {% include 'pdf/pdfview.html' with FILE_PATH=self.pdf.url %}
+{% endblock %}
