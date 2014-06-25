@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load pageurl rich_text %}
+
+{% block CONTENT %}
+    <div class="content-head">
+        <h1 class="page-header">
+            <span class="big-head">{{ self.title }}</span>
+            <small>{{ self.sub_title }}</small>
+        </h1>
+    </div>
+    <div class="row">
+        <div id="toc" class="col-md-4"></div>
+        <div class="col-md-8 event-content gen-sub-nav has-toc">
+            {{ self.body | richtext }}
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block extra_css_js %}
+<script src="{{ STATIC_URL }}js/toc.js"></script>
+<script>
+    $('#toc').toc({
+        'selectors': 'h2, h3, h4',                      //elements to use as headings
+        'container': 'body',                            //element to find all selectors in
+        'smoothScrolling': true,
+        'prefix': '',                                   //prefix for anchor tags and class names
+        'highlightOnScroll': true,
+        'anchorName': function(i, heading, prefix) {    //custom function for anchor name
+            return prefix + heading.innerText;
+        },
+    });
+</script>
+{% endblock %}
