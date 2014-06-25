@@ -27,12 +27,14 @@ class YearIndex(Page):
 # Rdss Pages
 
 class RdssIndex(Page):
+    sub_title = models.CharField('副標', max_length=255, blank=True, help_text='副標')
     body = RichTextField('內文', blank=True)
 
     search_name = '研發替代役'
 
     content_panels = [
         FieldPanel('title', classname='full'),
+        FieldPanel('sub_title', classname='full'),
         FieldPanel('body', classname='full'),
     ]
 
