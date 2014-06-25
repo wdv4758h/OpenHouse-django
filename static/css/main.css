@@ -249,6 +249,23 @@ div.search-form
     display: block;
 }
 
+/* history menu */
+
+li.dropdown                    { position: relative; }
+
+    /* history menu - description */
+li.dropdown a:hover            { color: #000; }
+li.dropdown a:active           { color: #ffa500; }
+
+    /* history menu - list of links */
+li.dropdown ul                 { width: auto; visibility: hidden; position: absolute; top: 100%; left: 0; background: #ccc;}
+li.dropdown ul li              { font-weight: normal; background: #f6f6f6; color: #000;
+                                  border-bottom: 1px solid #ccc; float: none; }
+
+    /* history menu - links in list */
+li.dropdown ul a               { font-size: 18px; font-weight: bold; width: 100%;
+                                 display: inline-block; padding-top: 10%; padding-bottom: 10%; }
+
 /* form */
 
 .form-field {
@@ -285,7 +302,7 @@ div.search-form
     height: 100%;
     position: static;
     float: left;
-    background: rgba(255, 255, 255, 0);;
+    background: rgba(255, 255, 255, 0);
     box-shadow: inset 0 0 0 0 #8D6868;
     width: auto;
     color: #fff;
