@@ -19,6 +19,9 @@ class YearIndex(Page):
 
     search_name = '首頁'
 
+    class Meta:
+        verbose_name = '每年首頁'
+
     content_panels = [
         FieldPanel('title', classname='full'),
         FieldPanel('body', classname='full'),
@@ -31,6 +34,9 @@ class RdssIndex(Page):
     body = RichTextField('內文', blank=True)
 
     search_name = '研發替代役'
+
+    class Meta:
+        verbose_name = '研發替代役 - 首頁'
 
     content_panels = [
         FieldPanel('title', classname='full'),
@@ -45,6 +51,9 @@ class RecruitIndex(Page):
     body = RichTextField('內文')
 
     search_name = '校園徵才'
+
+    class Meta:
+        verbose_name = '校園徵才 - 首頁'
 
     content_panels = [
         FieldPanel('title', classname='full'),
@@ -66,6 +75,9 @@ class NewsIndex(Page):
         FieldPanel('body', classname='full'),
     ]
 
+    class Meta:
+        verbose_name = '公告 - 首頁'
+
     def news(self):
         # Get list of live News that are descendants of this page
         news = News.objects.live().descendant_of(self)
@@ -79,6 +91,9 @@ class News(Page):
     body = RichTextField('內文')
     create_time = models.DateTimeField('發佈時間', auto_now_add=True)
     update_time = models.DateTimeField('更新時間', auto_now=True)
+
+    class Meta:
+        verbose_name = '公告'
 
     content_panels = [
         FieldPanel('title', classname='full'),
@@ -99,6 +114,9 @@ class HrdbIndex(Page):
 
     search_name = '人才庫'
 
+    class Meta:
+        verbose_name = '人才庫 - 首頁'
+
     content_panels = [
         FieldPanel('title', classname='full'),
         FieldPanel('body', classname='full'),
@@ -110,6 +128,9 @@ class HrdbFormField(AbstractFormField):
 
 class HrdbForm(AbstractForm):
     explain = RichTextField('說明', blank=True)
+
+    class Meta:
+        verbose_name = '人才庫 - 表單'
 
 HrdbForm.content_panels = [
     FieldPanel('title', classname='full'),
