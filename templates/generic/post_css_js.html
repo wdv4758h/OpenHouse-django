@@ -1,4 +1,7 @@
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+{% load compress i18n %}
+
+{% compress js %}
+<script src="{{ STATIC_URL }}js/jquery.min.js"></script>
 <script src="{{ STATIC_URL }}js/jquery.tablesorter.min.js"></script>
 <script src="{{ STATIC_URL }}js/jquery.tablesorter.widgets.min.js"></script>
 <script>
@@ -7,22 +10,23 @@
     });
 </script>
 <script>
-// Dropdown
-$(function(){
+    // Dropdown
+    $(function(){
 
-    $("li.dropdown").hover(function(){
+        $("li.dropdown").hover(function(){
 
-        $(this).addClass("hover");
-        $('ul:first',this).css('visibility', 'visible');
+            $(this).addClass("hover");
+            $('ul:first',this).css('visibility', 'visible');
 
-    }, function(){
+        }, function(){
 
-        $(this).removeClass("hover");
-        $('ul:first',this).css('visibility', 'hidden');
+            $(this).removeClass("hover");
+            $('ul:first',this).css('visibility', 'hidden');
+
+        });
+
+        $("li.dropdown ul li:has(ul)").find("a:first").append(" &raquo; ");
 
     });
-
-    $("li.dropdown ul li:has(ul)").find("a:first").append(" &raquo; ");
-
-});
 </script>
+{% endcompress %}
