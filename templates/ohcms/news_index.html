@@ -4,6 +4,7 @@
     <h1>{{ self.title }}</h1>
     <br />
     <div>
+        {% if self.news %}
         <table class="table">
             <thead>
               <tr>
@@ -21,5 +22,8 @@
             </tr>
             {% endfor %}
         </table>
+        {% else %}
+        <p>目前沒有東西 :p</p>
+        {% endif %}
     </div>
 {% endblock %}
