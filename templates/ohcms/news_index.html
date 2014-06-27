@@ -17,8 +17,8 @@
             {% for i in self.news %}
             <tr class="{% cycle 'odd' 'even' %}">
               <td><a href="{{ i.url }}">{{ i.title }}</a></td>
-              <td>{{ i.create_time }}</td>
-              <td>{{ i.update_time }}</td>
+              <td>{{ i.create_time | date:"Y-m-d H:i D" }}</td>
+              <td>{{ i.update_time | date:"Y-m-d H:i D" }}</td>
             </tr>
             {% endfor %}
         </table>

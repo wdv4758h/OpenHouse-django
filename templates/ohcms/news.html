@@ -5,9 +5,9 @@
     <div class="news-head">
         <h1>{{ self.title }}</h1>
         <p>
-            發佈時間: {{ self.create_time }}
+            發佈時間: {{ self.create_time | date:"Y-m-d H:i D" }}
             &nbsp;&nbsp;&nbsp;
-            更新時間: {{ self.update_time }}
+            更新時間: {{ self.update_time | date:"Y-m-d H:i D" }}
         </p>
     </div>
     {{ self.body|richtext }}

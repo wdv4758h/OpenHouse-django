@@ -2,10 +2,12 @@
 {% load pageurl rich_text %}
 
 {% block CONTENT %}
-    <h1 class="page-header">
-        <span class="big-head">{{ self.title }}</span>
-        <small>{{ self.sub_title }}</small>
-    </h1>
+    <div class="news-head">
+        <h1 class="page-header">
+            <span class="big-head">{{ self.title }}</span>
+            <small>{{ self.sub_title }}</small>
+        </h1>
+    </div>
     {{ self.body | richtext }}
     <br />
     <div>
@@ -30,8 +32,8 @@
               <td>{{ i.abbr }}</td>
               <td>{{ i.category }}</td>
               <td>{{ i.title }}</td>
-              <td>{{ i.start_time }}</td>
-              <td>{{ i.end_time }}</td>
+              <td>{{ i.start_time | date:"Y-m-d H:i D" }}</td>
+              <td>{{ i.end_time | date:"Y-m-d H:i D" }}</td>
               <td>{{ i.speaker }}</td>
               <td>{{ i.place }}</td>
               <td>{{ i.mode }}</td>
