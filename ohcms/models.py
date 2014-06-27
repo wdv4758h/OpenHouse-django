@@ -12,7 +12,7 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.wagtailsnippets.models import register_snippet
 
-from datetime import date
+from datetime import date, datetime
 
 # Index Page
 
@@ -191,6 +191,8 @@ class TeachIndex(Page):
     sub_title = models.CharField('副標', max_length=255, blank=True, default='企業職場導師講座報名')
     body = RichTextField('內文', blank=True)
 
+    subpage_types = ('Teach', )
+
     def __init__(self, *args, **kwargs):
         self._meta.get_field('title').default           = ''
         self._meta.get_field('slug').default            = 'teach'
@@ -205,3 +207,37 @@ class TeachIndex(Page):
         FieldPanel('sub_title', classname='full'),
         FieldPanel('body', classname='full'),
     ]
+
+    def teaches(self):
+        teaches = Teach.objects.live().descendant_of(self).order_by('-start_time')
+        return teaches
+
+class Teach(Page):
+    start_time  = models.DateTimeField('開始時間')
+    end_time    = models.DateTimeField('結束時間')
+    speaker     = models.CharField('主講人', max_length=20, blank=True)
+    place       = models.CharField('地點', max_length=20, blank=True)
+    mode        = models.CharField('進行方式', max_length=20, blank=True)
+    body        = RichTextField('內文', blank=True)
+
+    content_panels = [
+        # company choose (WIP)
+        FieldPanel('title', classname='full'),
+        FieldPanel('start_time', classname='full'),
+        FieldPanel('end_time', classname='full'),
+        FieldPanel('speaker', classname='full'),
+        FieldPanel('place', classname='full'),
+        FieldPanel('mode', classname='full'),
+        FieldPanel('body', classname='full'),
+    ]
+
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('title').default           = ''
+        self._meta.get_field('slug').default            = ''
+        self._meta.get_field('show_in_menus').default   = False
+        super(Teach, self).__init__(*args, **kwargs)
+
+    def in_time(self):
+        end = '{}'.format(self.start_time)
+        end = datetime.strptime(end, "%Y-%m-%d %H:%M:%S")
+        return datetime.now() < end
