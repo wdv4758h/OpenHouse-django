@@ -12,6 +12,8 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.wagtailsnippets.models import register_snippet
 
+from datetime import date
+
 # Index Page
 
 class YearIndex(Page):
@@ -20,6 +22,13 @@ class YearIndex(Page):
     search_name = '首頁'
 
     subpage_types = ('RdssIndex', 'RecruitIndex', 'HrdbIndex', 'NewsIndex')
+
+    def __init__(self, *args, **kwargs):
+        year = str(date.today().year + 1)
+        self._meta.get_field('title').default           = year
+        self._meta.get_field('slug').default            = year
+        self._meta.get_field('show_in_menus').default   = False
+        super(YearIndex, self).__init__(*args, **kwargs)
 
     class Meta:
         verbose_name = '每年首頁'
@@ -39,6 +48,12 @@ class RdssIndex(Page):
 
     subpage_types = ('TeachIndex', )
 
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('title').default           = '研發替代役'
+        self._meta.get_field('slug').default            = 'rdss'
+        self._meta.get_field('show_in_menus').default   = True
+        super(RdssIndex, self).__init__(*args, **kwargs)
+
     class Meta:
         verbose_name = '研發替代役 - 首頁'
 
@@ -57,6 +72,12 @@ class RecruitIndex(Page):
     search_name = '校園徵才'
 
     subpage_types = ('TeachIndex', )
+
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('slug').default            = 'recruit'
+        self._meta.get_field('title').default           = '校園徵才'
+        self._meta.get_field('show_in_menus').default   = True
+        super(RecruitIndex, self).__init__(*args, **kwargs)
 
     class Meta:
         verbose_name = '校園徵才 - 首頁'
@@ -83,6 +104,12 @@ class NewsIndex(Page):
         FieldPanel('body', classname='full'),
     ]
 
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('slug').default            = 'news'
+        self._meta.get_field('title').default           = '最新公告'
+        self._meta.get_field('show_in_menus').default   = True
+        super(NewsIndex, self).__init__(*args, **kwargs)
+
     class Meta:
         verbose_name = '公告 - 首頁'
 
@@ -99,6 +126,12 @@ class News(Page):
     body = RichTextField('內文')
     create_time = models.DateTimeField('發佈時間', auto_now_add=True)
     update_time = models.DateTimeField('更新時間', auto_now=True)
+
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('slug').default            = ''
+        self._meta.get_field('title').default           = ''
+        self._meta.get_field('show_in_menus').default   = False
+        super(News, self).__init__(*args, **kwargs)
 
     class Meta:
         verbose_name = '公告'
@@ -121,6 +154,12 @@ class HrdbIndex(Page):
     )
 
     search_name = '人才庫'
+
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('slug').default            = 'hrdb'
+        self._meta.get_field('title').default           = '交大人才庫'
+        self._meta.get_field('show_in_menus').default   = True
+        super(HrdbIndex, self).__init__(*args, **kwargs)
 
     class Meta:
         verbose_name = '人才庫 - 首頁'
