@@ -266,6 +266,22 @@ li.dropdown ul li              { font-weight: normal; background: #f6f6f6; color
 li.dropdown ul a               { font-size: 18px; font-weight: bold; width: 100%;
                                  display: inline-block; padding-top: 10%; padding-bottom: 10%; }
 
+/* time */
+
+.time {
+    font-size: 150%;
+    font-weight: bold;
+    color: rgb(37, 44, 218);
+}
+
+/* bold black */
+
+.bb {
+    font-size: 150%;
+    font-weight: bold;
+    color: black;
+}
+
 /* form */
 
 .form-field {
