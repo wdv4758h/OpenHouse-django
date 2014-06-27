@@ -19,6 +19,8 @@ class YearIndex(Page):
 
     search_name = '首頁'
 
+    subpage_types = ('RdssIndex', 'RecruitIndex', 'HrdbIndex', 'NewsIndex')
+
     class Meta:
         verbose_name = '每年首頁'
 
@@ -34,6 +36,8 @@ class RdssIndex(Page):
     body = RichTextField('內文', blank=True)
 
     search_name = '研發替代役'
+
+    subpage_types = ('TeachIndex', )
 
     class Meta:
         verbose_name = '研發替代役 - 首頁'
@@ -52,6 +56,8 @@ class RecruitIndex(Page):
 
     search_name = '校園徵才'
 
+    subpage_types = ('TeachIndex', )
+
     class Meta:
         verbose_name = '校園徵才 - 首頁'
 
@@ -68,6 +74,8 @@ class NewsIndex(Page):
     body = RichTextField('內文', blank=True)
 
     search_name = '公告'
+
+    subpage_types = ('News', )
 
     content_panels = [
         FieldPanel('title', classname='full'),
