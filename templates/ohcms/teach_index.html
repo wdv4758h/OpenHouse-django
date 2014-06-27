@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load pageurl rich_text %}
+
+{% block CONTENT %}
+    <h1 class="page-header">
+        <span class="big-head">{{ self.title }}</span>
+        <small>{{ self.sub_title }}</small>
+    </h1>
+    {{ self.body | richtext }}
+    <br />
+    <div>
+        {% if self.teaches %}
+        <table class="table">
+            <thead>
+              <tr>
+                <th>公司簡稱</th>
+                <th>類別</th>
+                <th>標題</th>
+                <th>開始時間</th>
+                <th>結束時間</th>
+                <th>主講人</th>
+                <th>地點</th>
+                <th>進行方式</th>
+                <th></th>
+              </tr>
+            </thead>
+
+            {% for i in self.teaches %}
+            <tr class="{% cycle 'odd' 'even' %}">
+              <td>{{ i.abbr }}</td>
+              <td>{{ i.category }}</td>
+              <td>{{ i.title }}</td>
+              <td>{{ i.start_time }}</td>
+              <td>{{ i.end_time }}</td>
+              <td>{{ i.speaker }}</td>
+              <td>{{ i.place }}</td>
+              <td>{{ i.mode }}</td>
+              <td><a href="{{ i.url }}">報名</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>目前沒有東西 :p</p>
+        {% endif %}
+    </div>
+{% endblock %}

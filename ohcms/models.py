@@ -184,3 +184,24 @@ HrdbForm.content_panels = [
     FieldPanel('explain', classname='full'),
     InlinePanel(HrdbForm, 'form_fields', label="Form fields"),
 ]
+
+# Teach
+
+class TeachIndex(Page):
+    sub_title = models.CharField('副標', max_length=255, blank=True, default='企業職場導師講座報名')
+    body = RichTextField('內文', blank=True)
+
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('title').default           = ''
+        self._meta.get_field('slug').default            = 'teach'
+        self._meta.get_field('show_in_menus').default   = False
+        super(TeachIndex, self).__init__(*args, **kwargs)
+
+    class Meta:
+        verbose_name = '職場導師講座 - 首頁'
+
+    content_panels = [
+        FieldPanel('title', classname='full'),
+        FieldPanel('sub_title', classname='full'),
+        FieldPanel('body', classname='full'),
+    ]
