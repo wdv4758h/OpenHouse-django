@@ -14,18 +14,10 @@ body {
     min-height: 31%;
 }
 
-#wagtail-userbar {
-    top: 10%;
-}
-
 .news-head {
     border-bottom-style: solid;
     border-color: #878A84;
     margin-bottom: 3%;
-}
-
-.rich-text {
-    font-size: 16px;
 }
 
 #page
@@ -233,6 +225,29 @@ div.search-form
 .operations li a:hover
 {
 	background: #80CFFF;
+}
+
+/* wagtail */
+
+#wagtail-userbar {
+    top: 10%;
+}
+
+.rich-text {
+    font-size: 16px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+img.right {
+    float: right;
+}
+
+img.left {
+    float: left;
 }
 
 /* self head */
