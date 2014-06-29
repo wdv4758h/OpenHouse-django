@@ -235,6 +235,8 @@ div.search-form
 
 .rich-text {
     font-size: 16px;
+    padding-top: 2%;
+    padding-bottom: 2%;
 }
 
 img {

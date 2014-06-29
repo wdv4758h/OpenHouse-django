@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load image_tags %}
+{% load pageurl rich_text %}
+
+{% block CONTENT %}
+    <div class="content-head">
+        <h1 class="page-header">
+            <span class="big-head">{{ self.title }}</span>
+            <small>{{ self.sub_title }}</small>
+        </h1>
+    </div>
+    <h2>{{ self.place }}</h2>
+    {% image self.image original %}
+    {{ self.body|richtext }}
+{% endblock %}
