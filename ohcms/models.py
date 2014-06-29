@@ -179,6 +179,12 @@ class HrdbFormField(AbstractFormField):
 class HrdbForm(AbstractForm):
     explain = RichTextField('說明', blank=True)
 
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('slug').default            = 'create'
+        self._meta.get_field('title').default           = '填寫資料'
+        self._meta.get_field('show_in_menus').default   = True
+        super(HrdbForm, self).__init__(*args, **kwargs)
+
     class Meta:
         verbose_name = '人才庫 - 表單'
 
