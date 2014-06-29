@@ -29,4 +29,18 @@
 
     });
 </script>
+<script>
+    function addCSSRule(sheet, selector, rules, index) {
+        if (sheet.insertRule) {
+            sheet.insertRule(selector + "{" + rules + "}", index);
+        } else {
+            sheet.addRule(selector, rules, index);
+        }
+    }
+
+    /* this hack is due to slow navbar load that cause unexpect css ... */
+    window.onload = function(){
+        addCSSRule(document.styleSheets[0], "li.dropdown ul li", "padding: 2% 15% 2% 15%;");
+    };
+</script>
 {% endcompress %}

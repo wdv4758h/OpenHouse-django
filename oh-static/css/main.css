@@ -275,13 +275,16 @@ li.dropdown a:hover            { color: #000; }
 li.dropdown a:active           { color: #ffa500; }
 
     /* history menu - list of links */
-li.dropdown ul                 { width: auto; visibility: hidden; position: absolute; top: 100%; left: 0; background: #ccc;}
+li.dropdown ul                 { width: auto; visibility: hidden;
+                                 position: absolute; top: 100%; left: 0;
+                                 background: #ccc; list-style-type: none;
+                                 padding-left: 0%; min-width: 100%; white-space: nowrap; }
 li.dropdown ul li              { font-weight: normal; background: #f6f6f6; color: #000;
-                                  border-bottom: 1px solid #ccc; float: none; }
+                                 float: none;
+                                 padding: 2% 15% 2% 15%; /* up right down left */}
 
     /* history menu - links in list */
-li.dropdown ul a               { font-size: 18px; font-weight: bold; width: 100%;
-                                 display: inline-block; padding-top: 10%; padding-bottom: 10%; }
+li.dropdown ul a               { font-size: 150%; font-weight: bold; width: 100%; }
 
 /* time */
 
