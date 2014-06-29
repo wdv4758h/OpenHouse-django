@@ -46,7 +46,7 @@ class RdssIndex(Page):
 
     search_name = '研發替代役'
 
-    subpage_types = ('TeachIndex', )
+    subpage_types = ('TeachIndex', 'VisitIndex')
 
     def __init__(self, *args, **kwargs):
         self._meta.get_field('title').default           = '研發替代役'
@@ -71,7 +71,7 @@ class RecruitIndex(Page):
 
     search_name = '校園徵才'
 
-    subpage_types = ('TeachIndex', )
+    subpage_types = ('TeachIndex', 'VisitIndex')
 
     def __init__(self, *args, **kwargs):
         self._meta.get_field('slug').default            = 'recruit'
@@ -231,11 +231,69 @@ class Teach(Page):
         FieldPanel('body', classname='full'),
     ]
 
+    class Meta:
+        verbose_name = '企業職場導師講座 - 報名'
+
     def __init__(self, *args, **kwargs):
         self._meta.get_field('title').default           = ''
         self._meta.get_field('slug').default            = ''
         self._meta.get_field('show_in_menus').default   = False
         super(Teach, self).__init__(*args, **kwargs)
+
+    def in_time(self):
+        end = '{}'.format(self.start_time)
+        end = datetime.strptime(end, "%Y-%m-%d %H:%M:%S")
+        return datetime.now() < end
+
+class VisitIndex(Page):
+    sub_title   = models.CharField('副標', max_length=255, blank=True, default='企業參訪報名')
+    body        = RichTextField('內文', blank=True)
+
+    content_panels = [
+        FieldPanel('title', classname='full'),
+        FieldPanel('sub_title', classname='full'),
+        FieldPanel('body', classname='full'),
+    ]
+
+    subpage_types = ('Visit', )
+
+    class Meta:
+        verbose_name = '企業參訪 - 首頁'
+
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('title').default           = ''
+        self._meta.get_field('slug').default            = 'visit'
+        self._meta.get_field('show_in_menus').default   = False
+        super(VisitIndex, self).__init__(*args, **kwargs)
+
+    def visits(self):
+        visits = Visit.objects.live().descendant_of(self).order_by('-start_time')
+        return visits
+
+class Visit(Page):
+    abbr        = models.CharField('公司簡稱', max_length=20, blank=True)
+    limit       = models.CharField('限制科系', max_length=20, blank=True)
+    body        = RichTextField('內文', blank=True)
+    start_time  = models.DateTimeField('開始時間')
+    end_time    = models.DateTimeField('結束時間')
+
+    content_panels = [
+        FieldPanel('title', classname='full'),
+        FieldPanel('abbr', classname='full'),
+        FieldPanel('limit', classname='full'),
+        FieldPanel('body', classname='full'),
+        FieldPanel('start_time', classname='full'),
+        FieldPanel('end_time', classname='full'),
+    ]
+
+    class Meta:
+        verbose_name = '企業參訪 - 報名'
+
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('title').default           = ''
+        self._meta.get_field('slug').default            = ''
+        self._meta.get_field('show_in_menus').default   = False
+        super(Visit, self).__init__(*args, **kwargs)
 
     def in_time(self):
         end = '{}'.format(self.start_time)
