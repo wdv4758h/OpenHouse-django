@@ -1,4 +1,7 @@
 *.pyc
 *.swp
-oh/
 env/
+CACHE/
+wagtail/
+static/
+oh/
