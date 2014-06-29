@@ -47,7 +47,7 @@ class RdssIndex(Page):
 
     search_name = '研發替代役'
 
-    subpage_types = ('TeachIndex', 'VisitIndex', 'JobFair')
+    subpage_types = ('TeachIndex', 'VisitIndex', 'JobFair', 'ForumIndex')
 
     def __init__(self, *args, **kwargs):
         self._meta.get_field('title').default           = '研發替代役'
@@ -72,7 +72,7 @@ class RecruitIndex(Page):
 
     search_name = '校園徵才'
 
-    subpage_types = ('TeachIndex', 'VisitIndex', 'JobFair')
+    subpage_types = ('TeachIndex', 'VisitIndex', 'JobFair', 'ForumIndex')
 
     def __init__(self, *args, **kwargs):
         self._meta.get_field('slug').default            = 'recruit'
@@ -314,6 +314,8 @@ class JobFair(Page):
                         verbose_name='位置圖 (原檔)'
                     )
     body        = RichTextField('內文', blank=True)
+    # need to change to choose company
+    # company links
 
     content_panels = [
         FieldPanel('title', classname='full'),
@@ -331,3 +333,59 @@ class JobFair(Page):
         self._meta.get_field('slug').default            = 'job'
         self._meta.get_field('show_in_menus').default   = False
         super(JobFair, self).__init__(*args, **kwargs)
+
+class ForumIndex(Page):
+    sub_title   = models.CharField('副標', max_length=255, blank=True)
+    body        = RichTextField('內文', blank=True)
+
+    content_panels = [
+        FieldPanel('title', classname='full'),
+        FieldPanel('sub_title', classname='full'),
+        FieldPanel('body', classname='full'),
+    ]
+
+    subpage_types = ('Forum', )
+
+    class Meta:
+        verbose_name = '加開講座 - 首頁'
+
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('title').default           = '加開講座報名'
+        self._meta.get_field('slug').default            = 'forum'
+        self._meta.get_field('show_in_menus').default   = False
+        super(ForumIndex, self).__init__(*args, **kwargs)
+
+    def forums(self):
+        forums = Forum.objects.live().descendant_of(self).order_by('-start_time')
+        return forums
+
+class Forum(Page):
+    # need to change to choose company
+    abbr        = models.CharField('公司簡稱', max_length=20, blank=True)
+    place       = models.CharField('地點', max_length=20, blank=True)
+    start_time  = models.DateTimeField('開始時間')
+    end_time    = models.DateTimeField('結束時間')
+    body        = RichTextField('內文', blank=True)
+
+    content_panels = [
+        FieldPanel('title', classname='full'),
+        FieldPanel('abbr', classname='full'),
+        FieldPanel('place', classname='full'),
+        FieldPanel('start_time', classname='full'),
+        FieldPanel('end_time', classname='full'),
+        FieldPanel('body', classname='full'),
+    ]
+
+    class Meta:
+        verbose_name = '企業職場導師講座 - 報名'
+
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('title').default           = ''
+        self._meta.get_field('slug').default            = ''
+        self._meta.get_field('show_in_menus').default   = False
+        super(Forum, self).__init__(*args, **kwargs)
+
+    def in_time(self):
+        end = '{}'.format(self.start_time)
+        end = datetime.strptime(end, "%Y-%m-%d %H:%M:%S")
+        return datetime.now() < end
