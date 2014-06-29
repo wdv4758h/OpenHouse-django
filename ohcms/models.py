@@ -28,7 +28,7 @@ class YearIndex(Page):
         year = str(date.today().year + 1)
         self._meta.get_field('title').default           = year
         self._meta.get_field('slug').default            = year
-        self._meta.get_field('show_in_menus').default   = False
+        self._meta.get_field('show_in_menus').default   = True
         super(YearIndex, self).__init__(*args, **kwargs)
 
     class Meta:
@@ -199,7 +199,7 @@ class TeachIndex(Page):
     def __init__(self, *args, **kwargs):
         self._meta.get_field('title').default           = ''
         self._meta.get_field('slug').default            = 'teach'
-        self._meta.get_field('show_in_menus').default   = False
+        self._meta.get_field('show_in_menus').default   = True
         super(TeachIndex, self).__init__(*args, **kwargs)
 
     class Meta:
@@ -268,7 +268,7 @@ class VisitIndex(Page):
     def __init__(self, *args, **kwargs):
         self._meta.get_field('title').default           = ''
         self._meta.get_field('slug').default            = 'visit'
-        self._meta.get_field('show_in_menus').default   = False
+        self._meta.get_field('show_in_menus').default   = True
         super(VisitIndex, self).__init__(*args, **kwargs)
 
     def visits(self):
@@ -339,7 +339,7 @@ class JobFair(Page):
     def __init__(self, *args, **kwargs):
         self._meta.get_field('title').default           = ''
         self._meta.get_field('slug').default            = 'job'
-        self._meta.get_field('show_in_menus').default   = False
+        self._meta.get_field('show_in_menus').default   = True
         super(JobFair, self).__init__(*args, **kwargs)
 
 class ForumIndex(Page):
@@ -360,7 +360,7 @@ class ForumIndex(Page):
     def __init__(self, *args, **kwargs):
         self._meta.get_field('title').default           = '加開講座報名'
         self._meta.get_field('slug').default            = 'forum'
-        self._meta.get_field('show_in_menus').default   = False
+        self._meta.get_field('show_in_menus').default   = True
         super(ForumIndex, self).__init__(*args, **kwargs)
 
     def forums(self):
