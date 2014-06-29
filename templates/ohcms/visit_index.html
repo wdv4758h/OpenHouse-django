@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load pageurl rich_text %}
+
+{% block CONTENT %}
+    <div class="news-head">
+        <h1 class="page-header">
+            <span class="big-head">{{ self.title }}</span>
+            <small>{{ self.sub_title }}</small>
+        </h1>
+    </div>
+    {{ self.body | richtext }}
+    <br />
+    <div>
+        {% if self.visits %}
+        <table class="table">
+            <thead>
+              <tr>
+                <th>公司簡稱</th>
+                <th>限定科系</th>
+                <th>開始時間</th>
+                <th>結束時間</th>
+                <th></th>
+              </tr>
+            </thead>
+
+            {% for i in self.visits %}
+            <tr class="{% cycle 'odd' 'even' %}">
+              <td>{{ i.abbr }}</td>
+              <td>{{ i.limit }}</td>
+              <td>{{ i.start_time | date:"Y-m-d H:i D" }}</td>
+              <td>{{ i.end_time | date:"Y-m-d H:i D" }}</td>
+              <td><a href="{{ i.url }}">報名</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>目前沒有東西 :p</p>
+        {% endif %}
+    </div>
+{% endblock %}
