@@ -1,12 +1,10 @@
 {% load compress i18n %}
 
 {% compress css %}
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.min.css"/>
+<link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
+<link href="{{ STATIC_URL }}css/fa/css/font-awesome.min.css" rel="stylesheet">
 <link href="{{ STATIC_URL }}css/main.css" rel="stylesheet">
 {% endcompress %}
 
 {% compress js %}
-<script src="{{ STATIC_URL }}js/angular.min.js"></script>
-<script src="{{ STATIC_URL }}js/angular-strap.min.js"></script>
-<script src="{{ STATIC_URL }}js/controller-oh.js"></script>
 {% endcompress %}
