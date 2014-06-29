@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load pageurl rich_text %}
+
+{% block CONTENT %}
+    {% if self.in_time %}
+        <div class="news-head">
+            <h1>[講座] {{ self.abbr }} - {{ self.title }}</h1>
+            <p>
+                <div>
+                    開始時間: <span class="time">{{ self.start_time | date:"Y-m-d H:i D" }}</span>
+                    &nbsp;&nbsp;&nbsp;
+                    結束時間: <span class="time">{{ self.end_time | date:"Y-m-d H:i D" }}</span>
+                </div>
+                <div>
+                    地點: <span class="bb">{{ self.place }}</span>
+                </div>
+            </p>
+        </div>
+        {% if self.body %}{{ self.body | richtext }}{% endif %}
+    {% else %}
+        <div class="news-head">
+            <h1>報名截止</h1>
+        </div>
+        <p>本場次報名已截止。</p>
+    {% endif %}
+{% endblock %}
