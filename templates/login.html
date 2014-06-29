@@ -3,7 +3,7 @@
 {% block CONTENT %}
 
 <div class="page-header">
-  <div id="content" style="padding-bottom: 15px;">
+  <div id="content">
       <h1>廠商／工作人員登入</h1>
       <hr>
   </div>
@@ -14,10 +14,10 @@
   {% endif %}
 
 
-  {% if user.is_authenticated %}
-      <p>{{ user.username }} 您好，您已經登入囉!<a href="/accounts/logout">[logout]</a></p>
+  {% if request.user.is_authenticated %}
+      <p>{{ request.user.username }} 您好，您已經登入囉!<a href="../logout/">[logout]</a></p>
   {% else %}
-      <form class="well form-vertical" id="login-form" method="post" action="{% url 'django.contrib.auth.views.login' %}">
+      <form class="well form-vertical" id="login-form" method="post" action="../login/">
           {% csrf_token %}
           <table>
               <tr>
