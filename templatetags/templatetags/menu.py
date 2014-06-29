@@ -10,6 +10,12 @@ def get_site_root(context):
 def get_year(context):
     return context['request'].get_full_path().split('/')[1]
 
+def has_menu_children(page):
+    if page.get_children().filter(live=True, show_in_menus=True):
+        return True
+    else:
+        return False
+
 @register.inclusion_tag('generic/navbar.html', takes_context=True)
 def top_menu(context, parent, top, calling_page=None):
     if top.isalnum():
@@ -17,6 +23,11 @@ def top_menu(context, parent, top, calling_page=None):
             live=True,
             show_in_menus=True
         )
+
+        for menuitem in menuitems:
+            menuitem.show_dropdown = has_menu_children(menuitem)
+            if menuitem.show_dropdown:
+                menuitem.sub_menuitems = menuitem.get_children().filter(live=True, show_in_menus=True)
 
         return {
             'year': top,
