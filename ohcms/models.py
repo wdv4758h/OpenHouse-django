@@ -134,6 +134,8 @@ class News(Page):
         self._meta.get_field('show_in_menus').default   = False
         super(News, self).__init__(*args, **kwargs)
 
+    subpage_types = tuple()
+
     class Meta:
         verbose_name = '公告'
 
@@ -232,6 +234,8 @@ class Teach(Page):
         FieldPanel('body', classname='full'),
     ]
 
+    subpage_types = tuple()
+
     class Meta:
         verbose_name = '企業職場導師講座 - 報名'
 
@@ -288,6 +292,8 @@ class Visit(Page):
         FieldPanel('end_time', classname='full'),
     ]
 
+    subpage_types = tuple()
+
     class Meta:
         verbose_name = '企業參訪 - 報名'
 
@@ -324,6 +330,8 @@ class JobFair(Page):
         ImageChooserPanel('image'),
         FieldPanel('body', classname='full'),
     ]
+
+    subpage_types = tuple()
 
     class Meta:
         verbose_name = '就博會'
@@ -375,6 +383,8 @@ class Forum(Page):
         FieldPanel('end_time', classname='full'),
         FieldPanel('body', classname='full'),
     ]
+
+    subpage_types = tuple()
 
     class Meta:
         verbose_name = '企業職場導師講座 - 報名'
