@@ -6,6 +6,7 @@ from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, PageChooserPanel
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailforms.models import AbstractFormField, AbstractForm
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from modelcluster.fields import ParentalKey
@@ -46,7 +47,7 @@ class RdssIndex(Page):
 
     search_name = '研發替代役'
 
-    subpage_types = ('TeachIndex', 'VisitIndex')
+    subpage_types = ('TeachIndex', 'VisitIndex', 'JobFair')
 
     def __init__(self, *args, **kwargs):
         self._meta.get_field('title').default           = '研發替代役'
@@ -71,7 +72,7 @@ class RecruitIndex(Page):
 
     search_name = '校園徵才'
 
-    subpage_types = ('TeachIndex', 'VisitIndex')
+    subpage_types = ('TeachIndex', 'VisitIndex', 'JobFair')
 
     def __init__(self, *args, **kwargs):
         self._meta.get_field('slug').default            = 'recruit'
@@ -271,6 +272,7 @@ class VisitIndex(Page):
         return visits
 
 class Visit(Page):
+    # need to change to choose company
     abbr        = models.CharField('公司簡稱', max_length=20, blank=True)
     limit       = models.CharField('限制科系', max_length=20, blank=True)
     body        = RichTextField('內文', blank=True)
@@ -299,3 +301,33 @@ class Visit(Page):
         end = '{}'.format(self.start_time)
         end = datetime.strptime(end, "%Y-%m-%d %H:%M:%S")
         return datetime.now() < end
+
+class JobFair(Page):
+    sub_title   = models.CharField('副標', max_length=255, blank=True, default='就博會暨面談會')
+    place       = models.CharField('地點', max_length=20, blank=True)
+    image       = models.ForeignKey(
+                        'wagtailimages.Image',
+                        null=True,
+                        blank=True,
+                        on_delete=models.SET_NULL,
+                        related_name='+',
+                        verbose_name='位置圖 (原檔)'
+                    )
+    body        = RichTextField('內文', blank=True)
+
+    content_panels = [
+        FieldPanel('title', classname='full'),
+        FieldPanel('sub_title', classname='full'),
+        FieldPanel('place', classname='full'),
+        ImageChooserPanel('image'),
+        FieldPanel('body', classname='full'),
+    ]
+
+    class Meta:
+        verbose_name = '就博會'
+
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('title').default           = ''
+        self._meta.get_field('slug').default            = 'job'
+        self._meta.get_field('show_in_menus').default   = False
+        super(JobFair, self).__init__(*args, **kwargs)
