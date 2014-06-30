@@ -1,117 +1,52 @@
-# _*_ coding: utf8 _*_
+# -*- coding: utf-8 -*-
 
 from django.db import models
-from django.forms import ModelForm
-from django import forms
-from django.contrib.auth.models import AbstractBaseUser
-import datetime
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager, Group
 
-#class HTML5DateTimeLocal(forms.DateInput):
-#    input_type = 'datetime-local'
+class Staff(AbstractBaseUser):
+    """
+    A class for OpenHouse staffs
 
-#class Staff(AbstractBaseUser):
-class Staff(models.Model):
-    GENDER = (('男', '男'), ('女', '女'))
-    studentid = models.CharField('學號', max_length=100)
-    #password  = models.CharField(max_length=32)
-    name      = models.CharField('姓名', max_length=100)
-    gender    = models.CharField('性別', choices=GENDER, max_length=10)
+    Look the Default Django User Model for more information :
+    https://github.com/django/django/blob/master/django/contrib/auth/models.py
+    """
+
+    GENDER = (('M', '男生'), ('F', '女生'))
+    studentid = models.CharField('學號', max_length=30, unique=True)
+    name      = models.CharField('姓名', max_length=30)
+    gender    = models.CharField('性別', choices=GENDER, max_length=1)
     birthday  = models.DateField('出生年月日')
-    role      = models.CharField('職稱', max_length=300)
+    role      = models.ManyToManyField(Group, verbose_name=u'職稱', blank=True,
+        related_name='staff_set', related_query_name='staff')
     mobile    = models.CharField('手機號碼', max_length=16)
     email     = models.EmailField('E-mail')
     fb_url    = models.URLField('FB個人首頁連結')
     bs2id     = models.CharField('BS2帳號', max_length=12)
     ohbbsid   = models.CharField('OH BBS帳號', max_length=12)
     postacct  = models.CharField('郵局帳號', max_length=15)
-    verify    = models.BooleanField()
-    timestamp = models.DateField()
+
+    is_active = models.BooleanField('是否啟用', default=False)
+    update    = models.DateTimeField('最後更新時間', auto_now=True)
+    date_join = models.DateTimeField('date joined', auto_now_add=True)
+
+    objects = UserManager()
 
     USERNAME_FIELD = 'studentid'
-    REQUIRED_FIELDS = []
+    #REQUIRED_FIELDS = []
 
     class Meta:
-        db_table = 'staff'
+        verbose_name = 'OpenHouse 工作人員'
+        verbose_name_plural = 'OpenHouse 工作人員'
+        #db_table = 'staff'
 
     def __unicode__(self):
+        return self.get_full_name()
+
+    def __str__(self):
+        return self.get_full_name()
+
+    def get_full_name(self):
+        return self.studentid + ' - ' + self.name
+
+    def get_short_name(self):
         return self.studentid
-
-class Resume(models.Model):
-    uid          = models.CharField(max_length=7)
-    name         = models.CharField(max_length=100)
-    gender       = models.BooleanField()
-    birthday     = models.DateField()
-    department   = models.CharField(max_length=16)     #extra
-    mobile       = models.PositiveIntegerField(default=0)
-    email        = models.EmailField()
-    msn          = models.CharField(max_length=64)     #extra
-    bs2id        = models.CharField(max_length=12)
-    facebook     = models.CharField(max_length=64)     #extra
-    highschool   = models.CharField(max_length=32)     #extra
-    credits      = models.IntegerField()               #extra
-    interests    = models.CharField(max_length=100)    #extra
-    skills       = models.CharField(max_length=100)    #extra
-    experience   = models.CharField(max_length=250)    #extra
-    date         = models.IntegerField()               #extra
-    group_forum  = models.BooleanField()               #extra
-    group_show   = models.BooleanField()               #extra
-    group_design = models.BooleanField()               #extra
-    impression   = models.CharField(max_length=250)    #extra
-    note         = models.CharField(max_length=250)    #extra
-    timestamp    = models.DateField()
-
-    def __unicode__(self):
-        return self.name
-
-class Salary(models.Model):
-
-    #user order_by to insure the order
-    #tmp = Staff.objects.values('studentid', 'name').order_by('studentid')
-    tmp = Staff.objects.values('id', 'studentid', 'name').order_by('studentid')
-
-    STAFFS = []
-    for i in tmp:
-        #STAFFS.append((i['studentid'], i['studentid'] + ' - ' + i['name']))    #(value, display_text)
-        STAFFS.append((i['id'], i['studentid'] + ' - ' + i['name']))    #(value, display_text)
-
-    staff_id    = models.IntegerField('工作人員', max_length=100, choices=STAFFS)
-    description = models.CharField('工作內容', max_length=100, help_text='工作內容')
-    start_time  = models.DateTimeField('開始時間', help_text='開始時間')
-    end_time    = models.DateTimeField('結束時間', help_text='結束時間')
-    verify      = models.CharField(max_length=100, editable=False)  #need to modify
-    deny_reason = models.CharField(max_length=64, editable=False)
-    timestamp   = models.DateTimeField(auto_now_add=True, editable=False)
-
-    def __unicode__(self):
-        return self.staff_id
-
-class SalaryForm(ModelForm):
-    class Meta:
-        model = Salary
-
-    description = forms.CharField(label='工作內容', widget=forms.Textarea, help_text='工作內容')
-
-    # On Python 3: def __str__(self):
-    def __unicode__(self):
-        return self.username
-
-    def save(self, commit=True):
-        salary = Salary()
-
-        #looking for better solution
-        salary.staff_id = self.cleaned_data['staff_id']
-        salary.description = self.cleaned_data['description']
-        salary.start_time = self.cleaned_data['start_time']
-        salary.end_time = self.cleaned_data['end_time']
-        salary.verify = '待審核'
-        salary.deny_reason = ''
-        salary.timestamp = str(datetime.datetime.now()).split('.')[0]
-
-        if commit:
-            salary.save()
-        return salary
-
-class StaffForm(ModelForm):
-    class Meta:
-        model = Staff
-        exclude = ('verify', 'timestamp')
