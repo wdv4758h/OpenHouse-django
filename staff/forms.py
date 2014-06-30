@@ -56,6 +56,7 @@ class StaffCreationForm(forms.ModelForm):
         user.set_password(self.cleaned_data['password1'])
         if commit:
             user.save()
+            self.save_m2m() # save many to many field
         return user
 
 class StaffEditForm(forms.ModelForm):
@@ -110,4 +111,5 @@ class StaffEditForm(forms.ModelForm):
         user.set_password(self.cleaned_data['password1'])
         if commit:
             user.save()
+            self.save_m2m() # save many to many field
         return user
