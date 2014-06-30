@@ -1,9 +1,9 @@
 {% load compress i18n %}
 
 {% compress js %}
-<script src="{{ STATIC_URL }}js/jquery.min.js"></script>
-<script src="{{ STATIC_URL }}js/jquery.tablesorter.min.js"></script>
-<script src="{{ STATIC_URL }}js/jquery.tablesorter.widgets.min.js"></script>
+<script>
+    $(document).pjax('a', '#content')
+</script>
 <script>
     $(function(){
         $('table').tablesorter({});
