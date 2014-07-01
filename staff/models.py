@@ -50,3 +50,7 @@ class Staff(AbstractBaseUser):
 
     def get_short_name(self):
         return self.studentid
+
+    @property
+    def is_staff(self):
+        return True
