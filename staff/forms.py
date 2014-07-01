@@ -51,7 +51,6 @@ class StaffCreationForm(forms.ModelForm):
         return password2
 
     def save(self, commit=True):
-        print(self.cleaned_data)
         user = super(StaffCreationForm, self).save(commit=False)
         user.set_password(self.cleaned_data['password1'])
         if commit:
@@ -108,7 +107,8 @@ class StaffEditForm(forms.ModelForm):
 
     def save(self, commit=True):
         user = super(StaffEditForm, self).save(commit=False)
-        user.set_password(self.cleaned_data['password1'])
+        if self.cleaned_data["password1"]:
+            user.set_password(self.cleaned_data['password1'])
         if commit:
             user.save()
             self.save_m2m() # save many to many field
