@@ -54,3 +54,23 @@ class Staff(AbstractBaseUser):
     @property
     def is_staff(self):
         return True
+
+    @property
+    def is_superuser(self):
+        return True
+
+    def has_perm(self, perm, obj=None):
+        """
+        Returns True if the user has the specified permission. This method
+        queries all available auth backends, but returns immediately if any
+        backend returns True. Thus, a user who has permission from a single
+        auth backend is assumed to have permission in general. If an object is
+        provided, permissions for this specific object are checked.
+        """
+
+        # Active staff have all permissions.
+        if self.is_active:
+            return True
+
+        # Otherwise we need to check the backends.
+        return _user_has_perm(self, perm, obj)
