@@ -80,3 +80,13 @@ class Staff(AbstractBaseUser):
 
         # Otherwise we need to check the backends.
         return _user_has_perm(self, perm, obj)
+
+    def has_module_perms(self, app_label):
+        """
+        Returns True if the user has any permissions in the given app label.
+        Uses pretty much the same logic as has_perm, above.
+        """
+        # Active superusers have all permissions.
+        if self.is_active and self.is_superuser:
+            return True
+        return _user_has_module_perms(self, app_label)
