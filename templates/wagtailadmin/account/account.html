@@ -1,0 +1,24 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+
+{% block titletag %}{% trans "Account" %}{% endblock %}
+{% block content %}
+    {% trans "Account" as account_str %}
+    {% include "wagtailadmin/shared/header.html" with title=account_str %}
+
+    <div class="nice-padding">
+        <ul class="listing">
+            {% if show_change_password %}
+                <li class="row row-flush">
+                    <div class="col6">
+                        <a href="{% url 'wagtailadmin_account_change_password' %}" class="button button-primary">{% trans "Change password" %}</a>
+                    </div>
+
+                    <small class="col6">
+                        {% trans "Change the password you use to log in." %}
+                    </small>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+{% endblock %}
