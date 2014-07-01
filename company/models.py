@@ -1,85 +1,84 @@
-# _*_ coding: utf8 _*_
+# -*- coding: utf-8 -*-
 
 from django.db import models
-from django.forms import ModelForm
-from django import forms
+from django.conf import settings
+from django.contrib.auth.models import AbstractBaseUser, UserManager
 
-class Company(models.Model):
+class Company(AbstractBaseUser):
+    """
+    A class for OpenHouse company
+
+    Look the Default Django User Model for more information :
+    https://github.com/django/django/blob/master/django/contrib/auth/models.py
+    """
 
     CATEGORYS = (
-        ('半導體', '半導體'),
-        ('消費電子', '消費電子'),
-        ('網路通訊', '網路通訊'),
-        ('光電光學', '光電光學'),
-        ('資訊軟體', '資訊軟體'),
-        ('集團', '集團'),
-        ('綜合', '綜合'),
-        ('人力銀行', '人力銀行'),
-        ('機構', '機構')
+        (u'半導體', u'半導體'),
+        (u'消費電子', u'消費電子'),
+        (u'網路通訊', u'網路通訊'),
+        (u'光電光學', u'光電光學'),
+        (u'資訊軟體', u'資訊軟體'),
+        (u'集團', u'集團'),
+        (u'綜合', u'綜合'),
+        (u'人力銀行', u'人力銀行'),
+        (u'機構', u'機構')
     )
 
-    #id
     cid          = models.CharField('統編', max_length=8)
     name         = models.CharField('公司名稱', max_length=64)
     shortname    = models.CharField('公司簡稱', max_length=16)
-    #password
-    category     = models.CharField('類別', max_length=10, choices=CATEGORYS)  #need to be fixed
+    category     = models.CharField('類別', max_length=10, choices=CATEGORYS)
     phone        = models.CharField('公司電話', max_length=32)
     postal_code  = models.CharField('郵遞區號', max_length=5)
     address      = models.CharField('公司地址', max_length=128)
-    website      = models.CharField('公司網站', max_length=64)
-    logo_webpath = models.URLField('LOGO')
-    brief        = models.CharField('公司簡介', max_length=110)
-    introduction = models.CharField('公司介紹', max_length=260)
+    website      = models.URLField('公司網站', max_length=64, help_text='請輸入網址')
+    logo         = models.ImageField('LOGO', upload_to='{}/company/'.format(settings.MEDIA_ROOT))
+    brief        = models.TextField('公司簡介', max_length=110)
+    introduction = models.TextField('公司介紹', max_length=260)
     hr_name      = models.CharField('人資姓名', max_length=32)
     hr_phone     = models.CharField('人資電話', max_length=32)
     hr_fax       = models.CharField('人資傳真', max_length=32)
     hr_mobile    = models.CharField('人資手機', max_length=32)
-    hr_email     = models.CharField('人資信箱', max_length=64)
-    timestamp    = models.DateField(editable=False)
+    hr_email     = models.EmailField('人資信箱', max_length=64)
+
+    is_active    = models.BooleanField('是否啟用', default=False)
+    update       = models.DateTimeField('最後更新時間', auto_now=True)
+    date_join    = models.DateTimeField('date joined', auto_now_add=True)
+
+    objects = UserManager()
+
+    USERNAME_FIELD = 'cid'
+    #REQUIRED_FIELDS = []
 
     class Meta:
-        db_table = 'company'
+        verbose_name = '廠商'
+        verbose_name_plural = '廠商'
 
     def __unicode__(self):
+        return self.get_full_name()
+
+    def __str__(self):
+        return self.get_full_name()
+
+    def username(self):
+        """
+        for someone finding the username field
+        """
         return self.shortname
 
-class CompanyForm(ModelForm):
-    class Meta:
-        model = Company
+    def get_full_name(self):
+        return self.cid + ' - ' + self.shortname
 
-    brief = forms.CharField(label='公司簡介', widget=forms.Textarea)
-    introduction = forms.CharField(label='公司介紹', widget=forms.Textarea)
-    hr_email     = forms.CharField(label='人資信箱', widget=forms.EmailInput, max_length=64)
+    def get_short_name(self):
+        return self.cid
 
-    def __unicode__(self):
-        return self.shortname
+    @property
+    def is_staff(self):
+        return False
 
-    def save(self, commit=True):
-        company = Company()
+    @property
+    def is_superuser(self):
+        return False
 
-        company.cid = self.cleaned_data['cid']
-        company.name = self.cleaned_data['name']
-        company.shortname = self.cleaned_data['shortname']
-        #password
-        #check password
-        company.password = self.cleaned_data['password']
-
-        company.category = self.cleaned_data['category']
-        company.phone = self.cleaned_data['phone']
-        company.postal_code = self.cleaned_data['postal_code']
-        company.address = self.cleaned_data['address']
-        company.website = self.cleaned_data['website']
-        company.logo_webpath = self.cleaned_data['logo_webpath']
-        company.brief = self.cleaned_data['brief']
-        company.introduction = self.cleaned_data['introduction']
-        company.hr_name = self.cleaned_data['hr_name']
-        company.hr_phone = self.cleaned_data['hr_phone']
-        company.hr_fax = self.cleaned_data['hr_fax']
-        company.hr_email = self.cleaned_data['hr_email']
-        company.hr_mobile = self.cleaned_data['hr_mobile']
-        company.timestamp = str(datetime.datetime.now()).split('.')[0]
-
-        if commit:
-            company.save()
-        return company
+    def has_perm(self, perm, obj=None):
+        return False
