@@ -45,6 +45,12 @@ class Staff(AbstractBaseUser):
     def __str__(self):
         return self.get_full_name()
 
+    def username(self):
+        """
+        for someone finding the username field
+        """
+        return self.name
+
     def get_full_name(self):
         return self.studentid + ' - ' + self.name
 
