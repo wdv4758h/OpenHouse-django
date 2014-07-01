@@ -33,7 +33,13 @@ def index(request):
             q = form.cleaned_data['q']
 
             is_searching = True
-            users = User.objects.filter(Q(studentid__icontains=q) | Q(name__icontains=q) | Q(email__icontains=q))
+            users = User.objects.filter(
+                Q(studentid__icontains=q) |
+                Q(name__icontains=q) |
+                Q(email__icontains=q) |
+                Q(mobile__icontains=q) |
+                Q(ohbbsid__icontains=q)
+            )
     else:
         form = SearchForm(placeholder=_("Search users"))
 
