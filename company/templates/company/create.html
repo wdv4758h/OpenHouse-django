@@ -1,0 +1,47 @@
+{% extends "wagtailadmin/base.html" %}
+{% load image_tags %}
+{% load i18n %}
+{% block titletag %}{% trans "Add user" %}{% endblock %}
+{% block bodyclass %}menu-users{% endblock %}
+
+{% block content %}
+
+    {% trans "Add user" as add_user_str %}
+    {% include "wagtailadmin/shared/header.html" with title=add_user_str merged=1 tabbed=1 icon="user" %}
+
+    <ul class="tab-nav merged">
+        <li class="active"><a href="#account">{% trans "廠商" %}</a></li>
+    </ul>
+
+    <form action="{% url 'company_create' %}" method="POST" {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>
+
+        <div class="tab-content">
+            {% csrf_token %}
+            <section id="account" class="active nice-padding">
+                <ul class="fields">
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.cid %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.name %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.shortname %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.category %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.phone %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.postal_code %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.address %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.website %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.logo %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.brief %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.introduction %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.hr_name %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.hr_phone %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.hr_fax %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.hr_mobile %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.hr_email %}
+
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.password1 %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.password2 %}
+
+                    <li><input type="submit" value='{% trans "新增廠商" %}' /></li>
+                </ul>
+            </section>
+        </div>
+    </form>
+{% endblock %}

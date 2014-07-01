@@ -1,0 +1,84 @@
+{% load i18n %}
+{% load gravatar %}
+<table class="listing">
+    <thead>
+        <tr>
+            <th class="cid">
+                {% trans "統編" %}
+                {% if ordering == "cid" %}
+                    <a href="{% url 'company_index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'company_index' %}?ordering=cid" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
+            <th class="shortname">
+                {% trans "公司簡稱" %}
+                {% if ordering == "shortname" %}
+                    <a href="{% url 'company_index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'company_index' %}?ordering=shortname" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
+            <th class="category">
+                {% trans "類別" %}
+                {% if ordering == "category" %}
+                    <a href="{% url 'company_index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'company_index' %}?ordering=category" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
+            <th class="hr_name">
+                {% trans "人資姓名" %}
+                {% if ordering == "hr_name" %}
+                    <a href="{% url 'company_index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'company_index' %}?ordering=hr_name" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
+            <th class="hr_phone">
+                {% trans "人資電話" %}
+                {% if ordering == "hr_phone" %}
+                    <a href="{% url 'company_index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'company_index' %}?ordering=hr_phone" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
+            <th class="hr_mobile">
+                {% trans "人資手機" %}
+                {% if ordering == "hr_mobile" %}
+                    <a href="{% url 'company_index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'company_index' %}?ordering=hr_mobile" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
+            <th class="hr_email">
+                {% trans "人資信箱" %}
+                {% if ordering == "hr_email" %}
+                    <a href="{% url 'company_index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'company_index' %}?ordering=hr_email" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
+            <th class="status">{% trans "Status" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            <tr>
+                <td class="title">
+                    <h2>
+                        <span class="avatar small icon icon-user"><img src="{% gravatar_url user.email 25 %}" /></span>
+                        <a href="{% url 'company_edit' user.id %}">{{ user.cid }}</a>
+                    </h2>
+                </td>
+                <td class="shortname">{{ user.shortname }}</td>
+                <td class="category">{{ user.category }}</td>
+                <td class="hr_name">{{ user.hr_name }}</td>
+                <td class="hr_phone">{{ user.hr_phone }}</td>
+                <td class="hr_mobile">{{ user.hr_mobile }}</td>
+                <td class="hr_email">{{ user.hr_email }}</td>
+                <td class="status"><div class="status-tag {% if user.is_active %}primary{% endif %}">{% if user.is_active %}{% trans "Active" %}{% else %}{% trans "Inactive" %}{% endif %}</div></td>
+            </li>
+        {% endfor %}
+    </tbody>
+</table>
