@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager, Group
+from django.contrib.auth.models import AbstractBaseUser, UserManager, Group
 
 class Staff(AbstractBaseUser):
     """
