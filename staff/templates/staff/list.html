@@ -19,7 +19,30 @@
                     <a href="{% url 'staff_index' %}?ordering=name" class="icon icon-arrow-down-after"></a>
                 {% endif %}
             </th>
-            <th class="level">{% trans "Level" %}</th>
+            <th class="mobile">
+                {% trans "手機" %}
+                {% if ordering == "mobile" %}
+                    <a href="{% url 'staff_index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'staff_index' %}?ordering=mobile" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
+            <th class="email">
+                {% trans "Email" %}
+                {% if ordering == "email" %}
+                    <a href="{% url 'staff_index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'staff_index' %}?ordering=email" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
+            <th class="ohbbsid">
+                {% trans "OH BBS 帳號" %}
+                {% if ordering == "ohbbsid" %}
+                    <a href="{% url 'staff_index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'staff_index' %}?ordering=ohbbsid" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
             <th class="status">{% trans "Status" %}</th>
         </tr>
     </thead>
@@ -33,7 +56,9 @@
                     </h2>
                 </td>
                 <td class="name">{{ user.name }}</td>
-                <td class="level">{% if user.is_superuser %}{% trans "Admin" %}{% endif %}</td>
+                <td class="mobile">{{ user.mobile }}</td>
+                <td class="email">{{ user.email }}</td>
+                <td class="ohbbsid">{{ user.ohbbsid }}</td>
                 <td class="status"><div class="status-tag {% if user.is_active %}primary{% endif %}">{% if user.is_active %}{% trans "Active" %}{% else %}{% trans "Inactive" %}{% endif %}</div></td>
             </li>
         {% endfor %}
