@@ -1,0 +1,31 @@
+{% load wagtailadmin_tags %}
+{% load media_tags %}
+<li class="{% if field.field.required %}required{% endif %} {{ field.css_classes }} {{ field|fieldtype }} {{ li_classes }} {% if field.errors %}error{% endif %}">
+    <div class="field">
+        {{ field.label_tag }}
+        <div class="field-content">
+            <div class="input {{ input_classes }} ">
+                {% block form_field %}
+                    <a href="{{ field.value.url | media }}">
+                        <img src="{{ field.value.url | media }}"></img>
+                    </a>
+                    <br>
+                    變更:
+                    <input id="id_logo" name="logo" type="file">
+                {% endblock %}
+                <span></span>
+            </div>
+            {% if field.help_text %}
+                <p class="help">{{ field.help_text }}</p>
+            {% endif %}
+
+            {% if field.errors %}
+                <p class="error-message">
+                    {% for error in field.errors %}
+                        <span>{{ error|escape }}</span>
+                    {% endfor %}
+                </p>
+            {% endif %}
+        </div>
+    </div>
+</li>
