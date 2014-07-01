@@ -33,3 +33,14 @@ class StaffBackend(ModelBackend):
         groups they belong.
         """
         return self._get_permissions(user_obj, obj, 'role')
+
+    def get_user(self, user_id):
+        """
+        With this method,
+        backend can get the correct Staff
+        """
+        UserModel = get_user_model()
+        try:
+            return UserModel._default_manager.get(pk=user_id)
+        except UserModel.DoesNotExist:
+            return None
