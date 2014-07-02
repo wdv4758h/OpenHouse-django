@@ -1,0 +1,53 @@
+{% extends "wagtailadmin/base.html" %}
+{% load image_tags %}
+{% load i18n %}
+{% block titletag %}{% trans "Editing" %} {{ student.username}}{% endblock %}
+{% block bodyclass %}menu-users{% endblock %}
+{% block content %}
+
+    {% trans "Editing" as editing_str %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=student.name merged=1 tabbed=1 icon="user" %}
+
+    <ul class="tab-nav merged">
+        <li class="active"><a href="#account">{% trans "學生" %}</a></li>
+    </ul>
+
+    <form action="{% url 'hrdb_edit' student.id %}" method="POST">
+        <div class="tab-content">
+            {% csrf_token %}
+
+            <section id="account" class="active nice-padding">
+                <ul class="fields">
+                    {% for i in form %}
+                        {% include "wagtailadmin/shared/field_as_li.html" with field=i %}
+                    {% endfor %}
+                    <div class="field">
+                        <label>學生 IP :</label>
+                        <div class="field-content">
+                            <div class="input">
+                                <p>{{ student.ip }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>建立時間 :</label>
+                        <div class="field-content">
+                            <div class="input   ">
+                                <p>{{ student.create_time | date:"Y-m-d H:i" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>更新時間 :</label>
+                        <div class="field-content">
+                            <div class="input">
+                                <p>{{ student.update_time | date:"Y-m-d H:i" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <li><input type="submit" value="{% trans 'Save' %}" /></li>
+                </ul>
+            </section>
+        </div>
+    </form>
+{% endblock %}

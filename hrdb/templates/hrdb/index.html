@@ -1,0 +1,26 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% load gravatar %}
+{% block titletag %}{% trans "人才庫" %}{% endblock %}
+{% block bodyclass %}menu-users{% endblock %}
+{% block extra_js %}
+    <script>
+        window.headerSearch = {
+            url: "{% url 'hrdb_index' %}",
+            termInput: "#id_q",
+            targetOutput: "#user-results"
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+    {% trans "人才庫" as users_str %}
+    {% trans "新增學生" as add_a_user_str %}
+    {% include "wagtailadmin/shared/header.html" with title=users_str add_link="hrdb_create" add_text=add_a_user_str icon="user" search_url="hrdb_index" %}
+
+    <div class="nice-padding">
+        <div id="user-results" class="users">
+            {% include "hrdb/results.html" %}
+        </div>
+    </div>
+{% endblock %}
