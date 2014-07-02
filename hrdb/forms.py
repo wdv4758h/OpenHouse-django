@@ -7,8 +7,10 @@ class HrdbForm(forms.ModelForm):
         fields = '__all__'
         exclude = ('ip',)
 
-    def save(self, commit=True):
+    def save(self, ip=None, commit=True):
         user = super(HrdbForm, self).save(commit=False)
+        if not user.ip: # pass for the first time
+            user.ip = ip
         if commit:
             user.save()
         return user
