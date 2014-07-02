@@ -3,17 +3,27 @@
 {% load pageurl rich_text %}
 
 {% block CONTENT %}
-    <h1>{{ self.title }}</h1>
+    <h1>{{ self.title }} - {{ self.form_title }}</h1>
     <div class="content-head">
-    {{ self.explain | richtext }}
+        {% if self.explain %}{{ self.explain | richtext }}{% endif %}
+        <p>有 <span class="required"></span> 的欄位為必填作為日後聯絡及重要參考用，其餘欄位同學可以基於隱私緣故自由選填。</p>
+        <p>請勿對系統送出無意義的資訊，本系統有紀錄 IP 位址。</p>
     </div>
-    <form action="{% pageurl self %}" method="POST">
+    <form action="." method="POST">
         {% csrf_token %}
         <div class="form-group">
         {% for field in form %}
             <div class="form-field">
                 <label class="required" >{{ field.label }}</label>
+                {% if field.field.required %}<span class="required"></span>{% endif %}
                 {{ field | add_class:'form-control' }}
+                {% if field.errors %}
+                    <p class="error-message">
+                        {% for error in field.errors %}
+                            <span>{{ error|escape }}</span>
+                        {% endfor %}
+                    </p>
+                {% endif %}
             </div>
         {% endfor %}
         </div>

@@ -3,12 +3,17 @@
 
 {% block CONTENT %}
     <h1>交大人才庫</h1>
-    <br />
-    {{ self.body|richtext }}
+    {% if self.body %}
+        <br />
+        {{ self.body|richtext }}
+    {% endif %}
     <br />
     {% include 'pdf/pdfview.html' with FILE_PATH=self.pdf.url %}
-    <label class="checkbox">
-        <input type="checkbox">我已詳細閱讀並且同意以上條款
-    </label>
-    <button class="btn btn-primary" type="submit">確認</button>
+    <form action="{% pageurl self %}" method="POST">
+        {% csrf_token %}
+        <label class="checkbox">
+            <input id="id_agree" name="agree" type="checkbox">我已詳細閱讀並且同意以上條款
+        </label>
+        <button class="btn btn-primary" type="submit">確認</button>
+    </form>
 {% endblock %}
