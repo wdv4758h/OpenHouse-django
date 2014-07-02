@@ -1,0 +1,61 @@
+{% load i18n %}
+{% load gravatar %}
+<table class="listing">
+    <thead>
+        <tr>
+            <th class="studentid">
+                {% trans "學號" %}
+                {% if ordering == "studentid" %}
+                    <a href="{% url 'salary_index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'salary_index' %}?ordering=studentid" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
+            <th class="name">
+                {% trans "姓名" %}
+                {% if ordering == "name" %}
+                    <a href="{% url 'salary_index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'salary_index' %}?ordering=name" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
+            <th class="start">
+                {% trans "開始" %}
+                {% if ordering == "start" %}
+                    <a href="{% url 'salary_index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'salary_index' %}?ordering=start" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
+            <th class="end">
+                {% trans "結束" %}
+                {% if ordering == "end" %}
+                    <a href="{% url 'salary_index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'salary_index' %}?ordering=end" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
+            <th class="desc">
+                {% trans "內容" %}
+                {% if ordering == "desc" %}
+                    <a href="{% url 'salary_index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'salary_index' %}?ordering=desc" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
+            <th class="status">{% trans "審核狀況" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in salary %}
+            <tr>
+                <td class="title"><h2>{{ i.staff.studentid }}</h2></td>
+                <td class="name">{{ i.staff.name }}</td>
+                <td class="start">{{ i.start | date:"Y-m-d H:i" }}</td>
+                <td class="end">{{ i.end | date:"Y-m-d H:i" }}</td>
+                <td class="desc">{{ i.desc }}</td>
+                <td class="status">{{ i.status }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

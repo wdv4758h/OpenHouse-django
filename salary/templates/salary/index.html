@@ -1,0 +1,26 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% load gravatar %}
+{% block titletag %}{% trans "報帳" %}{% endblock %}
+{% block bodyclass %}menu-users{% endblock %}
+{% block extra_js %}
+    <script>
+        window.headerSearch = {
+            url: "{% url 'salary_index' %}",
+            termInput: "#id_q",
+            targetOutput: "#user-results"
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+    {% trans "報帳" as users_str %}
+    {% trans "新增報帳" as add_a_user_str %}
+    {% include "wagtailadmin/shared/header.html" with title=users_str add_link="salary_create" add_text=add_a_user_str icon="user" search_url="salary_index" %}
+
+    <div class="nice-padding">
+        <div id="user-results" class="users">
+            {% include "salary/results.html" %}
+        </div>
+    </div>
+{% endblock %}
