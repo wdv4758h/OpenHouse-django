@@ -252,6 +252,13 @@ img.left {
     float: left;
 }
 
+/* required */
+
+span.required:before {
+    color: red;
+    content: '*';
+}
+
 /* self head */
 
 .content-head {
