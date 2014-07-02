@@ -1,9 +1,10 @@
+# -*- coding: utf-8 -*-
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.db.models import Q
-from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.wagtailadmin.forms import SearchForm
@@ -28,7 +29,7 @@ def index(request):
     is_searching = False
 
     if 'q' in request.GET:
-        form = SearchForm(request.GET, placeholder=_("Search users"))
+        form = SearchForm(request.GET, placeholder="搜尋工作人員")
         if form.is_valid():
             q = form.cleaned_data['q']
 
@@ -41,7 +42,7 @@ def index(request):
                 Q(ohbbsid__icontains=q)
             )
     else:
-        form = SearchForm(placeholder=_("Search users"))
+        form = SearchForm(placeholder="搜尋工作人員")
 
     if not is_searching:
         users = User.objects
@@ -88,10 +89,10 @@ def create(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            messages.success(request, _("User '{0}' created.").format(user))
+            messages.success(request, "工作人員 '{0}' 已經建立".format(user))
             return redirect('staff_index')
         else:
-            messages.error(request, _("The user could not be created due to errors.") )
+            messages.error(request, "有錯誤，無法儲存")
     else:
         form = UserCreationForm()
 
@@ -107,10 +108,10 @@ def edit(request, user_id):
         form = UserEditForm(request.POST, instance=user)
         if form.is_valid():
             user = form.save()
-            messages.success(request, _("User '{0}' updated.").format(user))
+            messages.success(request, "工作人員 '{0}' 已更新".format(user))
             return redirect('staff_index')
         else:
-            messages.error(request, _("The user could not be saved due to errors."))
+            messages.error(request, "有錯誤，無法儲存")
     else:
         form = UserEditForm(instance=user)
 

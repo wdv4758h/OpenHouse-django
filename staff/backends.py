@@ -22,18 +22,6 @@ class StaffBackend(ModelBackend):
             # difference between an existing and a non-existing user (#20760).
             UserModel().set_password(password)
 
-    def _get_group_permissions(self, user_obj):
-        user_groups_field = get_user_model()._meta.get_field('role')
-        user_groups_query = 'role__%s' % user_groups_field.related_query_name()
-        return Permission.objects.filter(**{user_groups_query: user_obj})
-
-    def get_group_permissions(self, user_obj, obj=None):
-        """
-        Returns a set of permission strings the user `user_obj` has from the
-        groups they belong.
-        """
-        return self._get_permissions(user_obj, obj, 'role')
-
     def get_user(self, user_id):
         """
         With this method,

@@ -16,11 +16,11 @@ class Staff(AbstractBaseUser):
     name      = models.CharField('姓名', max_length=30)
     gender    = models.CharField('性別', choices=GENDER, max_length=1)
     birthday  = models.DateField('出生年月日')
-    role      = models.ManyToManyField(Group, verbose_name=u'職稱', blank=True,
+    groups      = models.ManyToManyField(Group, verbose_name=u'職位', blank=True,
         related_name='staff_set', related_query_name='staff')
     mobile    = models.CharField('手機號碼', max_length=16)
     email     = models.EmailField('E-mail')
-    fb_url    = models.URLField('FB個人首頁連結')
+    fb_url    = models.URLField('FB個人首頁連結', default='https://www.facebook.com/')
     bs2id     = models.CharField('BS2帳號', max_length=12)
     ohbbsid   = models.CharField('OH BBS帳號', max_length=12)
     postacct  = models.CharField('郵局帳號', max_length=15)
