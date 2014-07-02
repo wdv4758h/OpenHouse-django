@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from django.template.response import TemplateResponse
 
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
@@ -10,8 +11,12 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailforms.models import AbstractFormField, AbstractForm
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from modelcluster.fields import ParentalKey
+from wagtail.wagtailcore.utils import camelcase_to_underscore
 
 from wagtail.wagtailsnippets.models import register_snippet
+
+from hrdb.views import create as hrdb_create
+from hrdb.forms import HrdbForm
 
 from datetime import date, datetime
 
@@ -148,7 +153,7 @@ class News(Page):
 
 class HrdbIndex(Page):
     body = RichTextField('內文', blank=True)
-    pdf = models.ForeignKey(
+    pdf  = models.ForeignKey(
         'wagtaildocs.Document',
         null=True,
         on_delete=models.SET_NULL,
@@ -156,43 +161,47 @@ class HrdbIndex(Page):
         verbose_name='條款檔案 (PDF)'
     )
 
+    # Form
+    form_title = models.CharField('表單標題', default='填寫資料',max_length=255)
+    explain    = RichTextField('表單說明', blank=True)
+
     search_name = '人才庫'
+
+    content_panels = [
+        FieldPanel('title', classname='full'),
+        FieldPanel('body', classname='full'),
+        DocumentChooserPanel('pdf'),
+        FieldPanel('form_title', classname='full'),
+        FieldPanel('explain', classname='full'),
+    ]
+
+    class Meta:
+        verbose_name = '人才庫 - 首頁 & 表單填寫'
 
     def __init__(self, *args, **kwargs):
         self._meta.get_field('slug').default            = 'hrdb'
         self._meta.get_field('title').default           = '交大人才庫'
         self._meta.get_field('show_in_menus').default   = True
         super(HrdbIndex, self).__init__(*args, **kwargs)
+        self.template_form = '{}/hrdb_form.html'.format(self._meta.app_label)
+        self.template_form_fin = '{}/hrdb_form_landing.html'.format(self._meta.app_label)
 
-    class Meta:
-        verbose_name = '人才庫 - 首頁'
-
-    content_panels = [
-        FieldPanel('title', classname='full'),
-        FieldPanel('body', classname='full'),
-        DocumentChooserPanel('pdf'),
-    ]
-
-class HrdbFormField(AbstractFormField):
-    page = ParentalKey('HrdbForm', related_name='form_fields')
-
-class HrdbForm(AbstractForm):
-    explain = RichTextField('說明', blank=True)
-
-    def __init__(self, *args, **kwargs):
-        self._meta.get_field('slug').default            = 'create'
-        self._meta.get_field('title').default           = '填寫資料'
-        self._meta.get_field('show_in_menus').default   = True
-        super(HrdbForm, self).__init__(*args, **kwargs)
-
-    class Meta:
-        verbose_name = '人才庫 - 表單'
-
-HrdbForm.content_panels = [
-    FieldPanel('title', classname='full'),
-    FieldPanel('explain', classname='full'),
-    InlinePanel(HrdbForm, 'form_fields', label="Form fields"),
-]
+    def serve(self, request, *args, **kwargs):
+        try:
+            if request.POST.getlist('agree'):
+                if request.POST.getlist('agree')[0] == 'on':
+                    context = self.get_context(request, *args, **kwargs)
+                    context['form'] = HrdbForm
+                    return TemplateResponse(request, self.template_form, context)
+                else:
+                    return super(HrdbIndex, self).serve(request)
+            elif request.POST.getlist('name'):
+                hrdb_create(request, create_only=True)
+                return TemplateResponse(request, self.template_form_fin)
+            else:
+                return super(HrdbIndex, self).serve(request)
+        except:
+            return super(HrdbIndex, self).serve(request)
 
 # Teach
 
