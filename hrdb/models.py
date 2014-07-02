@@ -22,3 +22,9 @@ class Hrdb(models.Model):
         verbose_name_plural = '人才庫'
         #db_table = 'hrdb'
         ordering = ['-id']
+
+    def __unicode__(self):
+        return self.name
+
+    def __str__(self):
+        return self.name
