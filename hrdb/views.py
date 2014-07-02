@@ -84,7 +84,7 @@ def index(request):
             'query_string': q,
         })
 
-def create(request):
+def create(request, create_only=False):
     if request.POST:
         ip = request.META.get('REMOTE_ADDR')
         form = HrdbForm(request.POST)
@@ -97,9 +97,12 @@ def create(request):
     else:
         form = HrdbForm()
 
-    return render(request, 'hrdb/create.html', {
-        'form': form,
-    })
+    if create_only:
+        return form
+    else:
+        return render(request, 'hrdb/create.html', {
+            'form': form,
+        })
 
 def edit(request, user_id):
     student = get_object_or_404(Model, id=user_id)
