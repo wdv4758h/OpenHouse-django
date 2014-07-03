@@ -289,6 +289,31 @@ img.left {
     display: none;
 }
 
+.pagination {
+    text-align: center;
+    width: 100%;
+}
+
+.pagination ul {
+    margin-top: -1.8em;
+}
+
+.pagination p {
+    margin: 0;
+}
+
+.pagination li {
+    list-style-type: none;
+}
+
+.pagination .prev {
+    float: left;
+}
+
+.pagination .next {
+    float: right;
+}
+
 /* required */
 
 span.required:before {
