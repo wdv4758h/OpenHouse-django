@@ -26,10 +26,8 @@ def hrdb_view(request):
 
             is_searching = True
             students = Model.objects.filter(
-                Q(name__icontains=q) |
                 Q(department__icontains=q) |
                 Q(grade__icontains=q) |
-                Q(studentid__icontains=q) |
                 Q(project__icontains=q) |
                 Q(thesis__icontains=q) |
                 Q(teacher__icontains=q) |
@@ -37,8 +35,6 @@ def hrdb_view(request):
                 Q(nsc_project__icontains=q) |
                 Q(language_ability__icontains=q) |
                 Q(email__icontains=q) |
-                Q(ip__icontains=q) |
-                Q(create_time__icontains=q) |
                 Q(update_time__icontains=q)
             )
 
