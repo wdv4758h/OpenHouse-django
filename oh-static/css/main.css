@@ -145,13 +145,6 @@ div.breadcrumbs span
 	font-weight: bold;
 }
 
-div.search-form
-{
-	padding: 10px;
-	margin: 10px 0;
-	background: #eee;
-}
-
 .portlet
 {
 
@@ -261,6 +254,39 @@ img.left {
 .error {
     color: #cd3238;
     font-weight: bold;
+}
+
+/* search */
+
+.search-form {
+    display: inline-block;
+    width: 100%;
+}
+
+#results p {
+    padding-top: 1%;
+    padding-bottom: 1%;
+    font-weight: bold;
+}
+
+.search-form input {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    width: 40%;
+    border: 1px solid #BBBBBB;
+    background: #fff;
+    font-size: 130%;
+    -moz-border-radius:3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.search-form li {
+    list-style-type: none;
+}
+
+.search-form label {
+    display: none;
 }
 
 /* required */
