@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block extra_css_js %}
+<script>
+    window.headerSearch = {
+        url: ".",
+        termInput: "#id_q",
+        targetOutput: "#results"
+    }
+</script>
+<script src="{{ STATIC_URL }}js/head-search.js"></script>
+{% endblock %}
+
+{% block CONTENT %}
+    <h1>交大人才庫</h1>
+    <form class="col search-form" action="." method="get">
+            {% for field in search_form %}
+                {% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small iconfield" input_classes="icon-search" %}
+            {% endfor %}
+    </form>
+    <div id="results">
+        {% include "company/hrdb_results.html" %}
+    </div>
+{% endblock %}

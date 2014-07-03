@@ -1,0 +1,20 @@
+{% load i18n %}
+{% if students %}
+    {% if is_searching %}
+        <p>
+        {% blocktrans count counter=students|length %}
+            有 {{ counter }} 個符合
+        {% plural %}
+            有 {{ counter }} 個符合
+        {% endblocktrans %}
+        </p>
+    {% endif %}
+
+    {% include "company/hrdb_list.html" %}
+
+{% else %}
+    {% if is_searching %}
+         <p>{% blocktrans %}沒有人符合"<em>{{ query_string }}</em>"{% endblocktrans %}</p>
+    {% else %}
+    {% endif %}
+{% endif %}

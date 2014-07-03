@@ -1,0 +1,76 @@
+{% load i18n %}
+<table class="table">
+    <thead>
+        <tr>
+            <th class="studentid">
+                {% trans "學號" %}
+                {% if ordering == "studentid" %}
+                    <a href="{% url 'hrdb_index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'hrdb_index' %}?ordering=studentid" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
+            <th class="name">
+                {% trans "姓名" %}
+                {% if ordering == "name" %}
+                    <a href="{% url 'hrdb_index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'hrdb_index' %}?ordering=name" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
+            <th class="departure">
+                {% trans "系所" %}
+                {% if ordering == "departure" %}
+                    <a href="{% url 'hrdb_index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'hrdb_index' %}?ordering=departure" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
+            <th class="grade">
+                {% trans "年級" %}
+                {% if ordering == "grade" %}
+                    <a href="{% url 'hrdb_index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'hrdb_index' %}?ordering=grade" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
+            <th class="email">
+                {% trans "Email" %}
+                {% if ordering == "email" %}
+                    <a href="{% url 'hrdb_index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'hrdb_index' %}?ordering=email" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
+            <th class="create_time">
+                {% trans "建立時間" %}
+                {% if ordering == "create_time" %}
+                    <a href="{% url 'hrdb_index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'hrdb_index' %}?ordering=create_time" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
+            <th class="update_time">
+                {% trans "更新時間" %}
+                {% if ordering == "update_time" %}
+                    <a href="{% url 'hrdb_index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'hrdb_index' %}?ordering=update_time" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in students %}
+            <tr>
+                <td class="title">{{ i.studentid }}</td>
+                <td class="name">{{ i.name }}</td>
+                <td class="department">{{ i.department }}</td>
+                <td class="grade">{{ i.grade }}</td>
+                <td class="email">{{ i.email }}</td>
+                <td class="create_time">{{ i.create_time | date:"Y-m-d H:i" }}</td>
+                <td class="update_time">{{ i.update_time | date:"Y-m-d H:i" }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
