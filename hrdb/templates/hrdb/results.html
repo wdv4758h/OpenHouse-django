@@ -1,13 +1,9 @@
 {% load i18n %}
 {% if students %}
     {% if is_searching %}
-        <h2>
-        {% blocktrans count counter=students|length %}
-            There is one match
-        {% plural %}
-            There are {{ counter }} matches
-        {% endblocktrans %}
-        </h2>
+        <h2>有 {{ students.paginator.count }} 個符合</h2>
+    {% else %}
+        <h2>總共有 {{ students.paginator.count }} 筆資料</h2>
     {% endif %}
 
     {% include "hrdb/list.html" %}
