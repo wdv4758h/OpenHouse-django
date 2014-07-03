@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load pageurl rich_text %}
+{% load wagtailcore_tags rich_text %}
 
 {% block CONTENT %}
     <h1>交大人才庫</h1>
@@ -9,7 +9,7 @@
     {% endif %}
     <br />
     {% include 'pdf/pdfview.html' with FILE_PATH=self.pdf.url %}
-    <form action="{% pageurl self %}" method="POST">
+    <form action="." method="POST">
         {% csrf_token %}
         <label class="checkbox">
             <input id="id_agree" name="agree" type="checkbox">我已詳細閱讀並且同意以上條款
