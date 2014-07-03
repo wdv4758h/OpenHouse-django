@@ -252,6 +252,17 @@ img.left {
     float: left;
 }
 
+/* message */
+
+.messages ul li {
+    list-style-type: none;
+}
+
+.error {
+    color: #cd3238;
+    font-weight: bold;
+}
+
 /* required */
 
 span.required:before {

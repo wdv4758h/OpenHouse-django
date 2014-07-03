@@ -9,8 +9,14 @@
   </div>
 
   {% if form.errors %}
-  <p>您的帳戶或密碼輸入錯誤，請再試一次</p>
-  <p>Your username and password didn't match. Please try again.</p>
+  <div class="well messages">
+      <ul>
+          <li class="error">
+              您的帳號和密碼輸入錯誤，請再試一次。
+              Your username and password didn't match. Please try again.
+          </li>
+      </ul>
+  </div>
   {% endif %}
 
 
@@ -21,12 +27,12 @@
           {% csrf_token %}
           <table>
               <tr>
-                <label for="id_username" class="required">統編／學號<span class="required">*</span></label>
+                <label for="id_username" class="required">統編／學號<span class="required"></span></label>
                 <input class="form-control" id="id_username" name="username" placeholder="統編/學號" type="text">
               </tr>
               <br>
               <tr>
-                <label for="id_password" class="required">密碼<span class="required">*</span></label>
+                <label for="id_password" class="required">密碼<span class="required"></span></label>
                 <input class="form-control" id="id_password" name="password" placeholder="密碼" type="password">
               </tr>
           </table>
