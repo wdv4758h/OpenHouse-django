@@ -1,6 +1,23 @@
 {% extends "base.html" %}
 
 {% block extra_css_js %}
+{# disable right click and copy #}
+<script>
+$(document).ready(function(){
+    $(document).bind("contextmenu",function(e){
+        return false;
+    });
+});
+</script>
+<script>
+if (window.sidebar){
+    document.onmousedown = function () { return false; }
+    document.onclick = function () { return true; }
+}
+document.onselectstart = new Function ("return false")
+</script>
+
+{# search #}
 <script>
     window.headerSearch = {
         url: ".",
