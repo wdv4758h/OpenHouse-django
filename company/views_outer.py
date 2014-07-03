@@ -52,12 +52,13 @@ def hrdb_view(request):
     if 'ordering' in request.GET:
         ordering = request.GET['ordering']
 
-        if ordering in fields:
+        if ordering in hrdb_fields:
             if ordering != 'id':
                 students = students.order_by(ordering)
     else:
         ordering = 'id'
 
+    total = len(students)
     paginator = Paginator(students, 20)
 
     try:
@@ -73,6 +74,7 @@ def hrdb_view(request):
             'is_searching': is_searching,
             'query_string': q,
             'ordering': ordering,
+            'total': total,
         })
     else:
         return render(request, "company/hrdb.html", {
@@ -81,4 +83,5 @@ def hrdb_view(request):
             'is_searching': is_searching,
             'ordering': ordering,
             'query_string': q,
+            'total': total,
         })
