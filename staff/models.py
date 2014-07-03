@@ -12,22 +12,22 @@ class Staff(AbstractBaseUser):
     """
 
     GENDER = (('M', '男生'), ('F', '女生'))
-    studentid = models.CharField('學號', max_length=30, unique=True)
-    name      = models.CharField('姓名', max_length=30)
-    gender    = models.CharField('性別', choices=GENDER, max_length=1)
-    birthday  = models.DateField('出生年月日')
+    studentid = models.CharField(u'學號', max_length=30, unique=True)
+    name      = models.CharField(u'姓名', max_length=30)
+    gender    = models.CharField(u'性別', choices=GENDER, max_length=1)
+    birthday  = models.DateField(u'出生年月日')
     groups      = models.ManyToManyField(Group, verbose_name=u'職位', blank=True,
         related_name='staff_set', related_query_name='staff')
-    mobile    = models.CharField('手機號碼', max_length=16)
-    email     = models.EmailField('E-mail')
-    fb_url    = models.URLField('FB個人首頁連結', default='https://www.facebook.com/')
-    bs2id     = models.CharField('BS2帳號', max_length=12)
-    ohbbsid   = models.CharField('OH BBS帳號', max_length=12)
-    postacct  = models.CharField('郵局帳號', max_length=15)
+    mobile    = models.CharField(u'手機號碼', max_length=16)
+    email     = models.EmailField(u'E-mail')
+    fb_url    = models.URLField(u'FB個人首頁連結', default='https://www.facebook.com/')
+    bs2id     = models.CharField(u'BS2帳號', max_length=12)
+    ohbbsid   = models.CharField(u'OH BBS帳號', max_length=12)
+    postacct  = models.CharField(u'郵局帳號', max_length=15)
 
-    is_active = models.BooleanField('是否啟用', default=False)
-    update    = models.DateTimeField('最後更新時間', auto_now=True)
-    date_join = models.DateTimeField('date joined', auto_now_add=True)
+    is_active = models.BooleanField(u'是否啟用', default=False)
+    update    = models.DateTimeField(u'最後更新時間', auto_now=True)
+    date_join = models.DateTimeField(u'date joined', auto_now_add=True)
 
     objects = UserManager()
 
@@ -35,8 +35,8 @@ class Staff(AbstractBaseUser):
     #REQUIRED_FIELDS = []
 
     class Meta:
-        verbose_name = 'OpenHouse 工作人員'
-        verbose_name_plural = 'OpenHouse 工作人員'
+        verbose_name = u'OpenHouse 工作人員'
+        verbose_name_plural = u'OpenHouse 工作人員'
         #db_table = 'staff'
 
     def __unicode__(self):
@@ -52,7 +52,7 @@ class Staff(AbstractBaseUser):
         return self.name
 
     def get_full_name(self):
-        return self.studentid + ' - ' + self.name
+        return u'{} - {}'.format(self.studentid, self.name)
 
     def get_short_name(self):
         return self.studentid
