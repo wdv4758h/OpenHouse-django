@@ -5,6 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.db.models import Q
 from django.views.decorators.vary import vary_on_headers
+from django.http import HttpResponse
 
 from wagtail.wagtailadmin.forms import SearchForm
 from salary.forms import SalaryForm
@@ -88,3 +89,47 @@ def create(request):
     return render(request, 'salary/create.html', {
         'form': form,
     })
+
+def verify(request, salary_id):
+    salary = get_object_or_404(Model, id=salary_id)
+
+    # new status
+    # if is_team_leader():
+    #     # team leader
+    #    status = "組長審核通過"
+    #else if is_es():
+    #     # executive secretary
+    #    status = "執秘書審核通過"
+    #else:
+    #    status = None
+    status = u"審核通過"
+
+    if request.POST:
+
+        if status:
+            salary.status = status
+            salary.save()
+        else:
+            status = salary.status
+
+        return HttpResponse(u'<td class="status">{}</td>'.format(status))
+    else:
+        return redirect('salary_index')
+
+def deny(request, salary_id):
+    salary = get_object_or_404(Model, id=salary_id)
+
+    if request.POST:
+
+        reason = request.POST.get('reason')
+
+        if reason:
+            salary.status = reason
+            salary.save()
+        else:
+            salary.status = u'退回'
+            salary.save()
+
+        return HttpResponse(u'<td class="status">{}</td>'.format(salary.status))
+    else:
+        return redirect('salary_index')
