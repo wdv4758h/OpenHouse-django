@@ -19,6 +19,14 @@
                     <a href="{% url 'salary_index' %}?ordering=name" class="icon icon-arrow-down-after"></a>
                 {% endif %}
             </th>
+            <th class="groups">
+                {% trans "職稱" %}
+                {% if ordering == "groups" %}
+                    <a href="{% url 'salary_index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'salary_index' %}?ordering=groups" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
             <th class="start">
                 {% trans "開始" %}
                 {% if ordering == "start" %}
@@ -51,6 +59,7 @@
             <tr>
                 <td class="title"><h2>{{ i.staff.studentid }}</h2></td>
                 <td class="name">{{ i.staff.name }}</td>
+                <td class="name">{{ i.staff.groups.all | join:', ' }}</td>
                 <td class="start">{{ i.start | date:"Y-m-d H:i" }}</td>
                 <td class="end">{{ i.end | date:"Y-m-d H:i" }}</td>
                 <td class="desc">{{ i.desc }}</td>
