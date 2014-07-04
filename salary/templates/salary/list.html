@@ -55,6 +55,8 @@
                 <td class="end">{{ i.end | date:"Y-m-d H:i" }}</td>
                 <td class="desc">{{ i.desc }}</td>
                 <td class="status">{{ i.status }}</td>
+                <td class="pass"><a href="{% url 'salary_pass' i.id %}" class="pass">通過</a></td>
+                <td class="deny"><a href="{% url 'salary_deny' i.id %}" class="deny">退回</a></td>
             </tr>
         {% endfor %}
     </tbody>

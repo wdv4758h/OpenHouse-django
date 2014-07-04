@@ -11,6 +11,12 @@
             targetOutput: "#user-results"
         }
     </script>
+    <script src="{{ STATIC_URL }}js/jquery.cookie.min.js"></script>
+    <script src="{{ STATIC_URL }}js/update.js"></script>
+    <script>
+        update('.pass', '.status');
+        update('.deny', '.status');
+    </script>
 {% endblock %}
 
 {% block content %}
