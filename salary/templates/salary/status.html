@@ -1,0 +1,8 @@
+<td class="status" style="
+    {% if status == '組長審核通過' %}
+        color: blue;
+    {% elif status == '執秘審核通過' %}
+        color: green;
+    {% elif status != '未審核' %}
+        color: red;
+    {% endif %} ">{{ status }}</td>

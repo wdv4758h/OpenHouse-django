@@ -6,7 +6,7 @@
 {% block extra_js %}
     <script>
         window.headerSearch = {
-            url: "{% url 'salary_index' %}",
+            url: "{% if unverify %}{% url 'salary_unverify' %}{% else %}{% url 'salary_index' %}{% endif %}",
             termInput: "#id_q",
             targetOutput: "#user-results"
         }
@@ -22,7 +22,8 @@
 {% block content %}
     {% trans "報帳" as users_str %}
     {% trans "新增報帳" as add_a_user_str %}
-    {% include "wagtailadmin/shared/header.html" with title=users_str add_link="salary_create" add_text=add_a_user_str icon="user" search_url="salary_index" %}
+    {% trans "未審核" as filter_str %}
+    {% include "salary/header.html" with title=users_str add_link="salary_create" add_text=add_a_user_str icon="user" search_url="salary_index" filter_link="salary_unverify" filter_text=filter_str %}
 
     <div class="nice-padding">
         <div id="user-results" class="users">
