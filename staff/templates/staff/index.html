@@ -6,7 +6,7 @@
 {% block extra_js %}
     <script>
         window.headerSearch = {
-            url: "{% url 'staff_index' %}",
+            url: "{% if inactive %}{% url 'staff_inactive' %}{% else %}{% url 'staff_index' %}{% endif %}",
             termInput: "#id_q",
             targetOutput: "#user-results"
         }
@@ -16,7 +16,8 @@
 {% block content %}
     {% trans "工作人員" as users_str %}
     {% trans "新增工作人員" as add_a_user_str %}
-    {% include "wagtailadmin/shared/header.html" with title=users_str add_link="staff_create" add_text=add_a_user_str icon="user" search_url="staff_index" %}
+    {% trans "未開通工作人員" as filter_str %}
+    {% include "shared/header.html" with title=users_str add_link="staff_create" add_text=add_a_user_str icon="user" search_url="staff_index" filter_link="staff_inactive" filter_text=filter_str %}
 
     <div class="nice-padding">
         <div id="user-results" class="users">

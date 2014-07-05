@@ -16,8 +16,10 @@
 {% else %}
     {% if is_searching %}
          <p>{% blocktrans %}Sorry, no users match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
+    {% elif inactive %}
+         <p>{% blocktrans %}大家都開通囉{% endblocktrans %}</p>
     {% else %}
         {% url 'staff_create' as staff_create_url %}
-        <p>{% blocktrans %}There are no users configured. Why not <a href="{{ staff_create_url }}">add some</a>?{% endblocktrans %}</p>
+        <p>{% blocktrans %}沒有工作人員 <a href="{{ staff_create_url }}">趕快來加~</a>{% endblocktrans %}</p>
     {% endif %}
 {% endif %}

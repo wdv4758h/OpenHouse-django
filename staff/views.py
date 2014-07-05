@@ -27,6 +27,7 @@ def index(request):
     q = None
     p = request.GET.get("p", 1)
     is_searching = False
+    inactive = False
 
     if 'q' in request.GET:
         form = SearchForm(request.GET, placeholder="搜尋工作人員")
@@ -73,6 +74,7 @@ def index(request):
             'is_searching': is_searching,
             'query_string': q,
             'ordering': ordering,
+            'inactive': inactive,
         })
     else:
         return render(request, "staff/index.html", {
@@ -81,6 +83,7 @@ def index(request):
             'is_searching': is_searching,
             'ordering': ordering,
             'query_string': q,
+            'inactive': inactive,
         })
 
 @permission_required(change_user_perm)
@@ -119,3 +122,68 @@ def edit(request, user_id):
         'user': user,
         'form': form,
     })
+
+@permission_required(change_user_perm)
+@vary_on_headers('X-Requested-With')
+def inactive(request):
+    q = None
+    p = request.GET.get("p", 1)
+    is_searching = False
+    inactive = True
+
+    if 'q' in request.GET:
+        form = SearchForm(request.GET, placeholder="搜尋工作人員")
+        if form.is_valid():
+            q = form.cleaned_data['q']
+
+            is_searching = True
+            users = User.objects.filter(is_active=False).filter(
+                Q(studentid__icontains=q) |
+                Q(name__icontains=q) |
+                Q(email__icontains=q) |
+                Q(mobile__icontains=q) |
+                Q(ohbbsid__icontains=q)
+            )
+    else:
+        form = SearchForm(placeholder="搜尋工作人員")
+
+    if not is_searching:
+        users = User.objects.filter(is_active=False)
+
+    users = users.order_by('studentid')
+
+    if 'ordering' in request.GET:
+        ordering = request.GET['ordering']
+
+        if ordering in ['name', 'studentid']:
+            if ordering != 'studentid':
+                users = users.order_by(ordering)
+    else:
+        ordering = 'studentid'
+
+    paginator = Paginator(users, 20)
+
+    try:
+        users = paginator.page(p)
+    except PageNotAnInteger:
+        users = paginator.page(1)
+    except EmptyPage:
+        users = paginator.page(paginator.num_pages)
+
+    if request.is_ajax():
+        return render(request, "staff/results.html", {
+            'users': users,
+            'is_searching': is_searching,
+            'query_string': q,
+            'ordering': ordering,
+            'inactive': inactive,
+        })
+    else:
+        return render(request, "staff/index.html", {
+            'search_form': form,
+            'users': users,
+            'is_searching': is_searching,
+            'ordering': ordering,
+            'query_string': q,
+            'inactive': inactive,
+        })
