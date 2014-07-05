@@ -64,8 +64,13 @@
                 <td class="end">{{ i.end | date:"Y-m-d H:i" }}</td>
                 <td class="desc">{{ i.desc }}</td>
                 {% include "salary/status.html" with status=i.status %}
+                {% if i.status in "未審核" %}
                 <td class="pass"><a href="{% url 'salary_pass' i.id %}" class="pass">通過</a></td>
                 <td class="deny"><a href="{% url 'salary_deny' i.id %}" class="deny">退回</a></td>
+                {% else %}
+                <td class="pass"></td>
+                <td class="deny"></td>
+                {% endif %}
             </tr>
         {% endfor %}
     </tbody>
