@@ -1,7 +1,31 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, UserManager, Group
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Group
+from datetime import datetime
+
+class StaffManager(BaseUserManager):
+
+    def _create_user(self, studentid, email, password, is_superuser, **extra_fields):
+        if not email:
+            raise ValueError('The given email must be set')
+        email = self.normalize_email(email)
+        user = self.model(studentid=studentid, email=email, is_active=True,
+                is_superuser=is_superuser, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_user(self, studentid, mail, password=None, **extra_fields):
+        return self._create_user(studentid, email, password, False, **extra_fields)
+
+    def create_superuser(self, studentid, email, password, **extra_fields):
+        return self._create_user(studentid, email, password, True, **extra_fields)
+
+    def create_nonregistered_user(self, studentid, email, password):
+        user = self.model(studentid=studentid, email=email, password=password, is_active=False, is_superuser=False)
+        user.save(using=self._db)
+        return user
 
 class Staff(AbstractBaseUser):
     """
@@ -15,7 +39,7 @@ class Staff(AbstractBaseUser):
     studentid = models.CharField(u'學號', max_length=30, unique=True)
     name      = models.CharField(u'姓名', max_length=30)
     gender    = models.CharField(u'性別', choices=GENDER, max_length=1)
-    birthday  = models.DateField(u'出生年月日')
+    birthday  = models.DateField(u'出生年月日', default=datetime.today())
     groups      = models.ManyToManyField(Group, verbose_name=u'職位', blank=True,
         related_name='staff_set', related_query_name='staff')
     mobile    = models.CharField(u'手機號碼', max_length=16)
@@ -29,10 +53,10 @@ class Staff(AbstractBaseUser):
     update    = models.DateTimeField(u'最後更新時間', auto_now=True)
     date_join = models.DateTimeField(u'date joined', auto_now_add=True)
 
-    objects = UserManager()
+    objects = StaffManager()
 
     USERNAME_FIELD = 'studentid'
-    #REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['email']
 
     class Meta:
         verbose_name = u'OpenHouse 工作人員'
