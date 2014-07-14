@@ -59,7 +59,7 @@
             <tr>
                 <td class="title"><h2>{{ i.staff.studentid }}</h2></td>
                 <td class="name">{{ i.staff.name }}</td>
-                <td class="name">{{ i.staff.groups.all | join:', ' }}</td>
+                <td class="groups">{{ i.staff.groups.all | join:', ' }}</td>
                 <td class="start">{{ i.start | date:"Y-m-d H:i" }}</td>
                 <td class="end">{{ i.end | date:"Y-m-d H:i" }}</td>
                 <td class="desc">{{ i.desc }}</td>
