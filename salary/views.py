@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.wagtailadmin.forms import SearchForm
+from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
 from salary.forms import SalaryForm
 from salary.models import Salary
 
@@ -124,17 +125,15 @@ def deny(request, salary_id):
     if request.POST:
 
         reason = request.POST.get('reason')
-
-        if reason:
+        if reason == '':
+            return render(request, 'salary/status.html', { 'status': salary.status })
+        else:
             salary.status = reason
             salary.save()
-        else:
-            salary.status = u'退回'
-            salary.save()
 
-        return render(request, 'salary/status.html', { 'status': salary.status })
+            return render(request, 'salary/status.html', { 'status': salary.status })
     else:
-        return redirect('salary_index')
+        return render_modal_workflow(request, 'salary/deny.html', 'salary/deny.js', {'id': salary_id})
 
 @vary_on_headers('X-Requested-With')
 def unverify(request):

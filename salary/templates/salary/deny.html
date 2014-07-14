@@ -1,0 +1,14 @@
+{% include "wagtailadmin/shared/header.html" with title="退回" %}
+
+<div class="nice-padding">
+    <form action="{% url 'salary_deny' id %}" method="POST">
+        {% csrf_token %}
+        <div class="field char_field">
+            <label for="id_reason">退回理由:</label>
+            <div class="field-content">
+                <input id="id_reason" name="reason" type="text" required>
+            </div>
+        </div>
+        <input type="submit" value="送出" />
+    </form>
+</div>

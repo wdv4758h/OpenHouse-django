@@ -4,6 +4,7 @@
 {% block titletag %}{% trans "報帳" %}{% endblock %}
 {% block bodyclass %}menu-users{% endblock %}
 {% block extra_js %}
+    <script src="/static/wagtailadmin/js/modal-workflow.js"></script>
     <script>
         window.headerSearch = {
             url: "{% if unverify %}{% url 'salary_unverify' %}{% else %}{% url 'salary_index' %}{% endif %}",
@@ -14,8 +15,20 @@
     <script src="{{ STATIC_URL }}js/jquery.cookie.min.js"></script>
     <script src="{{ STATIC_URL }}js/update.js"></script>
     <script>
+        $(document).on('click', 'a.deny', function () {
+            a = this;
+            ModalWorkflow({
+                'url': a.href,
+                'responses': {
+                    'update': function (data) {
+                        $(a).parent().siblings('.status').replaceWith(data);
+                        return false;
+                    }
+                }
+            });
+            return false;   // avoid direct to the link
+        });
         update('.pass', '.status');
-        update('.deny', '.status');
     </script>
 {% endblock %}
 
