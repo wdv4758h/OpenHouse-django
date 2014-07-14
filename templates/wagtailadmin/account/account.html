@@ -18,6 +18,14 @@
 
                 </small>
             </li>
+            <li class="row row-flush">
+                <div class="col6">
+                    <a href="{% url 'staff_edit' user.id %}" class="button button-primary">編輯資料</a>
+                </div>
+                <small class="col6">
+                    修改個人資料
+                </small>
+            </li>
             {% if show_change_password %}
                 <li class="row row-flush">
                     <div class="col6">
