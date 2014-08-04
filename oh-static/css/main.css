@@ -18,6 +18,15 @@ body {
 	font-weight:bold;
 }
 
+.big-font {
+    font-size: 150%;
+}
+
+.important {
+	font-weight:bold;
+    color: red;
+}
+
 .content {
     min-height: 31%;
 }

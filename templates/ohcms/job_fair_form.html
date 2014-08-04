@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load image_tags %}
+{% load wagtailcore_tags rich_text %}
+
+{% block CONTENT %}
+    <div class="content-head">
+        <h1 class="page-header">
+            <span class="big-head">{{ self.title }}</span>
+            <small>{{ self.sub_title }}</small>
+        </h1>
+    </div>
+    <h2 class='center'>{{ self.place }}</h2>
+    {% image self.image1 original %}
+    {% image self.image2 original %}
+    {{ self.body|richtext }}
+    <form class='big-font' action="." method="POST">
+        {% csrf_token %}
+        <span class='important'>請選擇想要的位置後按下送出</span>
+        <br>
+        <br>
+        <select name='position'>
+            {% for i in self.position_company.all %}
+            <option value='{{ i.position }}'>{{ i.position }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <button class="btn btn-primary" type="submit">送出</button>
+    </form>
+{% endblock %}
