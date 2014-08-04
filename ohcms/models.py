@@ -3,6 +3,9 @@
 from django.db import models
 from django.template.response import TemplateResponse
 from django.http import Http404
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.db import transaction
 
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
@@ -331,7 +334,7 @@ class Visit(Page):
 class PositionCompany(models.Model):
 
     position = models.CharField('位置', max_length=5, blank=True)
-    company  = models.ForeignKey(Company, related_name='+', verbose_name='廠商')
+    company  = models.ForeignKey(Company, related_name='+', verbose_name='廠商', null=True, blank=True)
 
     panels = [
         FieldPanel('position', classname='full'),
@@ -382,19 +385,40 @@ class JobFair(Page):
         self._meta.get_field('slug').default            = 'job'
         self._meta.get_field('show_in_menus').default   = True
         super(JobFair, self).__init__(*args, **kwargs)
+        self.template_form = '{}/job_fair_form.html'.format(self._meta.app_label)
 
     def route(self, request, path):
 
-        def choose(self, request):
-            # POST data check
-            # Company check
-            #   attend
-            #   in time
-            # ORM select_for_update and lock
-            # update
-            # save
-            # return to JabFair Home Page
-            raise Http404
+        @transaction.atomic
+        @method_decorator(login_required)
+        def choose(self, request, *args, **kwargs):
+
+            if request.POST and not request.user.is_staff:
+                # Todo:
+                #   get event name and year
+                #   company attend check else redirect
+                #   company in time check else redirect
+
+                try:
+
+                    pos = request.POST.get('position')
+                    company = request.user.id
+                    new = self.position_company.select_for_update().get(position = pos)
+
+                    # check the place is truely exist and no one has chosen
+                    if new and new.company_id:
+                        raise ValueError
+
+                    self.position_company.filter(company_id = company).update(company = None)
+                    new.company_id = company
+                    new.save()
+
+                except Exception as e:
+                    print('job fair choose error, may have duplicate request')
+                    pass
+
+            context = self.get_context(request, *args, **kwargs)
+            return TemplateResponse(request, self.template_form, context)
 
         page = ('choose',)
         path = ' '.join(path)
