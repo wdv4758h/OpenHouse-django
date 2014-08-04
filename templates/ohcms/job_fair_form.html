@@ -13,6 +13,26 @@
     {% image self.image1 original %}
     {% image self.image2 original %}
     {{ self.body|richtext }}
+
+    <table class='table'>
+        <tr>
+        {% for i in self.position_company.all %}
+            <td>
+                <span class='bold'>{{ i.position }}</span>:
+                {% if i.company %}
+                    {{ i.company.shortname }}
+                {% else %}
+                    空的
+                {% endif %}
+            </td>
+            {% if forloop.counter|divisibleby:'4' %}
+        </tr>
+        <tr>
+            {% endif %}
+        {% endfor %}
+        </tr>
+    </table>
+
     <form class='big-font center' action="." method="POST">
         {% csrf_token %}
         <span class='important'>請選擇想要的位置後按下送出</span>
@@ -20,7 +40,9 @@
         <br>
         <select name='position'>
             {% for i in self.position_company.all %}
-            <option value='{{ i.position }}'>{{ i.position }}</option>
+                {% if not i.company %}
+                    <option value='{{ i.position }}'>{{ i.position }}</option>
+                {% endif %}
             {% endfor %}
         </select>
         <br>

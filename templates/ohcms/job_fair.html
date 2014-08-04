@@ -18,7 +18,11 @@
         {% for i in self.position_company.all %}
             <td>
                 <span class='bold'>{{ i.position }}</span>:
-                {{ i.company }}
+                {% if i.company %}
+                    {{ i.company.shortname }}
+                {% else %}
+                    空的
+                {% endif %}
             </td>
             {% if forloop.counter|divisibleby:'4' %}
         </tr>
