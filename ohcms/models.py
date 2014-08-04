@@ -2,6 +2,7 @@
 
 from django.db import models
 from django.template.response import TemplateResponse
+from django.http import Http404
 
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
@@ -12,8 +13,8 @@ from wagtail.wagtailforms.models import AbstractFormField, AbstractForm
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from modelcluster.fields import ParentalKey
 from wagtail.wagtailcore.utils import camelcase_to_underscore
-
 from wagtail.wagtailsnippets.models import register_snippet
+from wagtail.wagtailcore.url_routing import RouteResult
 
 from hrdb.views import create as hrdb_create
 from hrdb.forms import HrdbForm
@@ -381,6 +382,37 @@ class JobFair(Page):
         self._meta.get_field('slug').default            = 'job'
         self._meta.get_field('show_in_menus').default   = True
         super(JobFair, self).__init__(*args, **kwargs)
+
+    def route(self, request, path):
+
+        def choose(self, request):
+            # POST data check
+            # Company check
+            #   attend
+            #   in time
+            # ORM select_for_update and lock
+            # update
+            # save
+            # return to JabFair Home Page
+            raise Http404
+
+        page = ('choose',)
+        path = ' '.join(path)
+
+        if path in page:
+            return RouteResult(self, kwargs={'method': eval(path)})
+        elif path == '':
+            if self.live:
+                return RouteResult(self)
+            else:
+                raise Http404
+        else:
+            raise Http404
+
+    def serve(self, request, *args, **kwargs):
+        if kwargs:
+            return kwargs['method'](self, request)
+        return super(JobFair, self).serve(request)
 
 JobFair.content_panels = [
     FieldPanel('title', classname='full'),
