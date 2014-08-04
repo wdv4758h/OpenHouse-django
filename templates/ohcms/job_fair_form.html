@@ -13,7 +13,7 @@
     {% image self.image1 original %}
     {% image self.image2 original %}
     {{ self.body|richtext }}
-    <form class='big-font' action="." method="POST">
+    <form class='big-font center' action="." method="POST">
         {% csrf_token %}
         <span class='important'>請選擇想要的位置後按下送出</span>
         <br>
