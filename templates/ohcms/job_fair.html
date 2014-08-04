@@ -9,7 +9,22 @@
             <small>{{ self.sub_title }}</small>
         </h1>
     </div>
-    <h2>{{ self.place }}</h2>
-    {% image self.image original %}
+    <h2 class='center'>{{ self.place }}</h2>
+    {% image self.image1 original %}
+    {% image self.image2 original %}
     {{ self.body|richtext }}
+    <table class='table'>
+        <tr>
+        {% for i in self.position_company.all %}
+            <td>
+                <span class='bold'>{{ i.position }}</span>:
+                {{ i.company }}
+            </td>
+            {% if forloop.counter|divisibleby:'4' %}
+        </tr>
+        <tr>
+            {% endif %}
+        {% endfor %}
+        </tr>
+    </table>
 {% endblock %}

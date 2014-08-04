@@ -18,6 +18,8 @@ from wagtail.wagtailsnippets.models import register_snippet
 from hrdb.views import create as hrdb_create
 from hrdb.forms import HrdbForm
 
+from company.models import Company
+
 from datetime import date, datetime
 
 # Index Page
@@ -323,39 +325,72 @@ class Visit(Page):
         end = datetime.strptime(end, "%Y-%m-%d %H:%M:%S")
         return datetime.now() < end
 
+# Job Fair
+
+class PositionCompany(models.Model):
+
+    position = models.CharField('位置', max_length=5, blank=True)
+    company  = models.ForeignKey(Company, related_name='+', verbose_name='廠商')
+
+    panels = [
+        FieldPanel('position', classname='full'),
+        FieldPanel('company', classname='full'),
+    ]
+
+    class Meta:
+        abstract = True
+
+class PositionCompanyChoose(PositionCompany):
+    page = ParentalKey('ohcms.JobFair', related_name='position_company')
+
+
 class JobFair(Page):
+    '''
+    Model for Job Fair Company position choose
+    '''
     sub_title   = models.CharField('副標', max_length=255, blank=True, default='就博會暨面談會')
     place       = models.CharField('地點', max_length=20, blank=True)
-    image       = models.ForeignKey(
+    image1      = models.ForeignKey(
                         'wagtailimages.Image',
                         null=True,
                         blank=True,
                         on_delete=models.SET_NULL,
                         related_name='+',
-                        verbose_name='位置圖 (原檔)'
+                        verbose_name='位置圖'
+                    )
+
+    image2      = models.ForeignKey(
+                        'wagtailimages.Image',
+                        null=True,
+                        blank=True,
+                        on_delete=models.SET_NULL,
+                        related_name='+',
+                        verbose_name='位置圖 2'
                     )
     body        = RichTextField('內文', blank=True)
-    # need to change to choose company
-    # company links
-
-    content_panels = [
-        FieldPanel('title', classname='full'),
-        FieldPanel('sub_title', classname='full'),
-        FieldPanel('place', classname='full'),
-        ImageChooserPanel('image'),
-        FieldPanel('body', classname='full'),
-    ]
 
     subpage_types = tuple()
+
+    search_name = '位置圖'
 
     class Meta:
         verbose_name = '就博會'
 
     def __init__(self, *args, **kwargs):
-        self._meta.get_field('title').default           = ''
+        self._meta.get_field('title').default           = '就博會'
         self._meta.get_field('slug').default            = 'job'
         self._meta.get_field('show_in_menus').default   = True
         super(JobFair, self).__init__(*args, **kwargs)
+
+JobFair.content_panels = [
+    FieldPanel('title', classname='full'),
+    FieldPanel('sub_title', classname='full'),
+    FieldPanel('place', classname='full'),
+    ImageChooserPanel('image1'),
+    ImageChooserPanel('image2'),
+    FieldPanel('body', classname='full'),
+    InlinePanel(JobFair, 'position_company', label='位置'),
+]
 
 class ForumIndex(Page):
     sub_title   = models.CharField('副標', max_length=255, blank=True)
