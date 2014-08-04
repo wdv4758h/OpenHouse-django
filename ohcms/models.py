@@ -413,7 +413,7 @@ class JobFair(Page):
                     new.company_id = company
                     new.save()
 
-                except Exception as e:
+                except ValueError:
                     print('job fair choose error, may have duplicate request')
                     pass
 
