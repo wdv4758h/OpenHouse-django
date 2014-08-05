@@ -19,6 +19,15 @@
         {% top_menu parent=site_root calling_page=self top=year%}
 
         <div id="content" class="container content">
+            {% if messages %}
+                <div class="messages">
+                    <ul>
+                        {% for message in messages %}
+                            <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
 {% endif %}
 
           {% block CONTENT %}
