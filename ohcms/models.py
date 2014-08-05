@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from django.db import models
+from django.db import models, transaction
 from django.template.response import TemplateResponse
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.db import transaction
+from django.contrib import messages
+from django.shortcuts import redirect
 
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
@@ -19,10 +20,13 @@ from wagtail.wagtailcore.utils import camelcase_to_underscore
 from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailcore.url_routing import RouteResult
 
+from oh.settings import LOGIN_REDIRECT_URL as IndexURL
+
 from hrdb.views import create as hrdb_create
 from hrdb.forms import HrdbForm
 
 from company.models import Company
+from company.forms import CompanyCreationForm
 
 from datetime import date, datetime
 
@@ -58,7 +62,7 @@ class RdssIndex(Page):
 
     search_name = '研發替代役'
 
-    subpage_types = ('TeachIndex', 'VisitIndex', 'JobFair', 'ForumIndex')
+    subpage_types = ('TeachIndex', 'VisitIndex', 'JobFair', 'ForumIndex', 'CompanyRegist')
 
     def __init__(self, *args, **kwargs):
         self._meta.get_field('title').default           = '研發替代役'
@@ -83,7 +87,7 @@ class RecruitIndex(Page):
 
     search_name = '校園徵才'
 
-    subpage_types = ('TeachIndex', 'VisitIndex', 'JobFair', 'ForumIndex')
+    subpage_types = ('TeachIndex', 'VisitIndex', 'JobFair', 'ForumIndex', 'CompanyRegist')
 
     def __init__(self, *args, **kwargs):
         self._meta.get_field('slug').default            = 'recruit'
@@ -505,3 +509,46 @@ class Forum(Page):
         end = '{}'.format(self.start_time)
         end = datetime.strptime(end, "%Y-%m-%d %H:%M:%S")
         return datetime.now() < end
+
+class CompanyRegist(Page):
+    body = RichTextField('內文', blank=True)
+
+    content_panels = [
+        FieldPanel('title', classname='full'),
+        FieldPanel('body', classname='full'),
+    ]
+
+    subpage_types = tuple()
+
+    class Meta:
+        verbose_name = '廠商註冊頁面'
+
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('title').default           = '廠商註冊'
+        self._meta.get_field('slug').default            = 'regist'
+        self._meta.get_field('show_in_menus').default   = False
+        super(CompanyRegist, self).__init__(*args, **kwargs)
+        self.template_regist = '{}/company_regist.html'.format(self._meta.app_label)
+
+
+    def serve(self, request, *args, **kwargs):
+        if request.POST:
+            # form need to change (there is a active check box)
+            form = CompanyCreationForm(request.POST, request.FILES)
+            if form.is_valid():
+                company = form.save()
+                messages.success(request, '帳號已建立')
+                # event detect
+                # event on
+                return redirect(IndexURL)
+            #else:
+            #    for error_message in form.error_messages.values():
+            #        messages.error(request, error_message)
+        else:
+            form = CompanyCreationForm()
+
+        # the dict return by get_context will have self which contain page content
+        context = self.get_context(request, *args, **kwargs)
+        context['form'] = form
+
+        return TemplateResponse(request, self.template_regist, context)
