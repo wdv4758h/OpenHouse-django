@@ -388,6 +388,19 @@ li.dropdown ul a               { font-size: 150%; font-weight: bold; width: 100%
     color: black;
 }
 
+/* message */
+
+.messages {
+    background-color: rgba(182, 222, 172, 0.99);
+    border-radius: 3px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+.messages ul li {
+    list-style-type: initial;
+}
+
 /* form */
 
 .form-field {
