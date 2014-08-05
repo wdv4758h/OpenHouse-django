@@ -25,7 +25,7 @@ class Company(AbstractBaseUser):
         (u'機構', u'機構')
     )
 
-    cid          = models.CharField(u'統編', max_length=8, validators=[MinLengthValidator(8)])
+    cid          = models.CharField(u'統編', unique=True, max_length=8, validators=[MinLengthValidator(8)])
     name         = models.CharField(u'公司名稱', max_length=64)
     shortname    = models.CharField(u'公司簡稱', max_length=16)
     category     = models.CharField(u'類別', max_length=10, choices=CATEGORYS)
