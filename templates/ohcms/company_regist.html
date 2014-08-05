@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% load wagtailcore_tags rich_text %}
+
+{% block CONTENT %}
+    <div class="news-head">
+        <h1 class="page-header">
+            <span class="big-head">{{ self.title }}</span>
+        </h1>
+    </div>
+    {% if self.body %}{{ self.body | richtext }}{% endif %}
+    <br />
+    <form action="." method="POST">
+        * 表示必要的欄位
+        {% csrf_token %}
+
+        <div class="form-group">
+        {% for field in form %}
+            <div class="form-field">
+                <label class="form-label required">{{ field.label }}</label>
+                {% if field.field.required %}<span class="required"></span>{% endif %}
+                <div class="input-block">
+                    {{ field | add_class:'form-control' }}
+                    <span class="help-block">{{ field.help_text }}</span>
+                    {% if field.errors %}
+                        <p class="error-message">
+                            {% for error in field.errors %}
+                                <span class="error">{{ error|escape }}</span>
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+        <p>請確認上述資料是否已全部填寫完畢無誤，並<strong>務必</strong>上傳公司Logo。</p>
+        <button class="btn btn-primary" type="submit">送出</button>
+    </form>
+{% endblock %}
