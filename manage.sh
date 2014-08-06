@@ -19,10 +19,18 @@ refresh(){
     echo "yes" | python2 manage.py collectstatic
 }
 
+run(){
+    source env/bin/activate
+    python2 manage.py runserver openhouse.nctu.edu.tw:8000
+}
+
 if [ $1 == 'update' -o $1 == 'u' ]
 then
     update
 elif [ $1 == 'refresh' -o $1 == 'r' ]
 then
     refresh
+elif [ $1 == 'run' ]
+then
+    run
 fi
