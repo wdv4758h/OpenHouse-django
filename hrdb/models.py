@@ -5,7 +5,7 @@ class Hrdb(models.Model):
     name                = models.CharField('姓名', max_length=32)
     department          = models.CharField('系所', max_length=32)
     grade               = models.CharField('年級', max_length=10)
-    studentid           = models.CharField('學號', max_length=7)
+    studentid           = models.CharField('學號', max_length=10)
     project             = models.TextField('大學專題題目', max_length=100, blank=True)
     thesis              = models.TextField('研究所論文題目', max_length=100, blank=True)
     teacher             = models.CharField('指導教授', blank=True, max_length=30)
@@ -20,7 +20,7 @@ class Hrdb(models.Model):
     class Meta:
         verbose_name = '人才庫'
         verbose_name_plural = '人才庫'
-        #db_table = 'hrdb'
+        db_table = 'hrdb'
         ordering = ['-id']
 
     def __unicode__(self):

@@ -45,7 +45,7 @@ class Company(AbstractBaseUser):
     hr_email     = models.EmailField(u'人資信箱', max_length=64)
 
     is_active    = models.BooleanField(u'是否啟用', default=False)
-    update       = models.DateTimeField(u'最後更新時間', auto_now=True)
+    last_update  = models.DateTimeField(u'最後更新時間', auto_now=True)
     date_join    = models.DateTimeField(u'date joined', auto_now_add=True)
 
     objects = UserManager()
@@ -56,6 +56,7 @@ class Company(AbstractBaseUser):
     class Meta:
         verbose_name = u'廠商'
         verbose_name_plural = u'廠商'
+        db_table = 'company'
 
     def __unicode__(self):
         return self.get_full_name()
