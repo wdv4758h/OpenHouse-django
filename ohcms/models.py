@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import hashlib
 from django.db import models, transaction
 from django.template.response import TemplateResponse
 from django.http import Http404
@@ -7,6 +8,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.hashers import make_password, check_password
 
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
@@ -62,7 +65,7 @@ class RdssIndex(Page):
 
     search_name = '研發替代役'
 
-    subpage_types = ('TeachIndex', 'VisitIndex', 'JobFair', 'ForumIndex', 'CompanyRegist')
+    subpage_types = ('TeachIndex', 'VisitIndex', 'JobFair', 'ForumIndex', 'CompanyRegist', 'CompanyRetrieve')
 
     def __init__(self, *args, **kwargs):
         self._meta.get_field('title').default           = '研發替代役'
@@ -87,7 +90,7 @@ class RecruitIndex(Page):
 
     search_name = '校園徵才'
 
-    subpage_types = ('TeachIndex', 'VisitIndex', 'JobFair', 'ForumIndex', 'CompanyRegist')
+    subpage_types = ('TeachIndex', 'VisitIndex', 'JobFair', 'ForumIndex', 'CompanyRegist', 'CompanyRetrieve')
 
     def __init__(self, *args, **kwargs):
         self._meta.get_field('slug').default            = 'recruit'
@@ -551,3 +554,53 @@ class CompanyRegist(Page):
         context['form'] = form
 
         return TemplateResponse(request, self.template_regist, context)
+
+class CompanyRetrieve(Page):
+    body = RichTextField('內文', blank=True)
+    sub_title = models.CharField('副標', max_length=255, blank=True, help_text='副標')
+
+    content_panels = [
+        FieldPanel('title', classname='full'),
+        FieldPanel('sub_title', classname='full'),
+        FieldPanel('body', classname='full'),
+    ]
+
+    subpage_types = tuple()
+
+    class Meta:
+        verbose_name = '廠商去年資料匯入'
+
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('title').default           = '廠商去年資料匯入'
+        self._meta.get_field('sub_title').default       = '請填入以前的帳號密碼'
+        self._meta.get_field('slug').default            = 'retrieve'
+        self._meta.get_field('show_in_menus').default   = False
+        super(CompanyRetrieve, self).__init__(*args, **kwargs)
+        self.template_retrieve = '{}/company_retrieve.html'.format(self._meta.app_label)
+
+    def serve(self, request, *args, **kwargs):
+        if request.POST:
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+
+            try:
+                company = Company.objects.get(cid = username)
+                if company.password == hashlib.sha1(password).hexdigest():
+                    company.password = make_password(password)
+                    company.is_active = True
+                    company.save()
+                    messages.success(request, '匯入成功')
+                    return redirect(IndexURL)
+                elif check_password(password, company.password):
+                    company.is_active = True
+                    company.save()
+                    messages.success(request, '匯入成功')
+                    return redirect(IndexURL)
+                else:
+                    messages.error(request, '沒有這個帳號或密碼錯誤')
+            except ObjectDoesNotExist:
+                messages.error(request, '沒有這個帳號或密碼錯誤')
+
+        context = self.get_context(request, *args, **kwargs)
+
+        return TemplateResponse(request, self.template_retrieve, context)
