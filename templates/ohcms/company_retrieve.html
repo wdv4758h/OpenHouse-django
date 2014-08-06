@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% load wagtailcore_tags rich_text %}
+
+{% block CONTENT %}
+    <div class="news-head">
+        <h1 class="page-header">
+            <span class="big-head">{{ self.title }}</span>
+            <small>{{ self.sub_title }}</small>
+        </h1>
+    </div>
+    {% if self.body %}{{ self.body | richtext }}{% endif %}
+    <br />
+    <form action="." method="POST">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <div class="form-field">
+                <label class="form-label required">帳號<span class="required"></span></label>
+                <div class="input-block">
+                    <input class="form-control" id="id_username" name="username" placeholder="統編" type="text">
+                </div>
+            </div>
+            <div class="form-field">
+                <label class="form-label required">密碼<span class="required"></label>
+                <div class="input-block">
+                    <input class="form-control" id="id_password" name="password" placeholder="密碼" type="password">
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">送出</button>
+    </form>
+{% endblock %}
