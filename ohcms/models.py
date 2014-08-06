@@ -26,7 +26,7 @@ from hrdb.views import create as hrdb_create
 from hrdb.forms import HrdbForm
 
 from company.models import Company
-from company.forms import CompanyCreationForm
+from company.forms import CompanySelfCreationForm
 
 from datetime import date, datetime
 
@@ -533,8 +533,7 @@ class CompanyRegist(Page):
 
     def serve(self, request, *args, **kwargs):
         if request.POST:
-            # form need to change (there is a active check box)
-            form = CompanyCreationForm(request.POST, request.FILES)
+            form = CompanySelfCreationForm(request.POST, request.FILES)
             if form.is_valid():
                 company = form.save()
                 messages.success(request, '帳號已建立')
@@ -545,7 +544,7 @@ class CompanyRegist(Page):
             #    for error_message in form.error_messages.values():
             #        messages.error(request, error_message)
         else:
-            form = CompanyCreationForm()
+            form = CompanySelfCreationForm()
 
         # the dict return by get_context will have self which contain page content
         context = self.get_context(request, *args, **kwargs)

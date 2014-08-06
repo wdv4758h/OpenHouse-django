@@ -77,3 +77,10 @@ class CompanyEditForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+class CompanySelfCreationForm(CompanyCreationForm):
+
+    class Meta:
+        model = Company
+        fields = '__all__'
+        exclude = ('last_login', 'password', 'is_active')
