@@ -117,6 +117,9 @@ class Company(AbstractBaseUser):
     def has_perm(self, perm, obj=None):
         return False
 
+    def get_logo_url(self):
+        return self.logo.url.partition('media/')[2]
+
 class Requirement(models.Model):
     requirement = models.TextField(u'徵才需求', max_length=260, help_text=u'字數限制為260字')
     resume_to   = models.TextField(u'投履歷至', max_length=100, help_text=u'字數限制為100字')
