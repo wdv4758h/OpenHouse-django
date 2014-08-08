@@ -401,6 +401,13 @@ li.dropdown ul a               { font-size: 150%; font-weight: bold; width: 100%
     list-style-type: initial;
 }
 
+/* table */
+
+.vertical-table td:first-of-type {
+    width: 120px;
+	font-weight:bold;
+}
+
 /* form */
 
 .form-field {
