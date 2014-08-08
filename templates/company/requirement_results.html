@@ -1,0 +1,17 @@
+{% load i18n %}
+{% if company %}
+    {% if is_searching %}
+        <p>總共有 {{ total }} 個符合</p>
+    {% else %}
+        <p>總共有 {{ total }} 筆資料</p>
+    {% endif %}
+
+    {% include "company/requirement_list.html" %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=company is_searching=is_searching linkurl="." %}
+
+{% else %}
+    {% if is_searching %}
+         <p>{% blocktrans %}沒有符合"<em>{{ query_string }}</em>"{% endblocktrans %}</p>
+    {% else %}
+    {% endif %}
+{% endif %}
