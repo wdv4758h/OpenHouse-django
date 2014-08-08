@@ -626,10 +626,10 @@ class CompanyRequirementShow(Page):
         abstract = True
 
     def __init__(self, *args, **kwargs):
-        self._meta.get_field('title').default           = '廠商徵才需求'
+        self._meta.get_field('title').default           = '廠商徵才資訊'
         self._meta.get_field('sub_title').default       = ''
         self._meta.get_field('slug').default            = 'requirement'
-        self._meta.get_field('show_in_menus').default   = False
+        self._meta.get_field('show_in_menus').default   = True
         super(CompanyRequirementShow, self).__init__(*args, **kwargs)
 
 class RdssCompanyRequirement(CompanyRequirementShow):
@@ -638,7 +638,7 @@ class RdssCompanyRequirement(CompanyRequirementShow):
         return requirement_view(request, 'rdss', self)
 
     class Meta:
-        verbose_name = '[研替] 廠商徵才需求'
+        verbose_name = '[研替] 廠商徵才資訊'
 
 class RecruitCompanyRequirement(CompanyRequirementShow):
 
@@ -646,4 +646,4 @@ class RecruitCompanyRequirement(CompanyRequirementShow):
         return requirement_view(request, 'recruit', self)
 
     class Meta:
-        verbose_name = '[校徵] 廠商徵才需求'
+        verbose_name = '[校徵] 廠商徵才資訊'
