@@ -10,6 +10,7 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.hashers import make_password, check_password
+from django.conf import settings
 
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
@@ -23,15 +24,16 @@ from wagtail.wagtailcore.utils import camelcase_to_underscore
 from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailcore.url_routing import RouteResult
 
-from oh.settings import LOGIN_REDIRECT_URL as IndexURL
-
 from hrdb.views import create as hrdb_create
 from hrdb.forms import HrdbForm
 
 from company.models import Company
 from company.forms import CompanySelfCreationForm
+from company.views_outer import requirement_view
 
 from datetime import date, datetime
+
+IndexURL = settings.LOGIN_REDIRECT_URL
 
 # Index Page
 
