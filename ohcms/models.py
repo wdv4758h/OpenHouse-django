@@ -67,7 +67,7 @@ class RdssIndex(Page):
 
     search_name = '研發替代役'
 
-    subpage_types = ('TeachIndex', 'VisitIndex', 'JobFair', 'ForumIndex', 'CompanyRegist', 'CompanyRetrieve')
+    subpage_types = ('TeachIndex', 'VisitIndex', 'JobFair', 'ForumIndex', 'CompanyRegist', 'CompanyRetrieve', 'RdssCompanyRequirement')
 
     def __init__(self, *args, **kwargs):
         self._meta.get_field('title').default           = '研發替代役'
@@ -92,7 +92,7 @@ class RecruitIndex(Page):
 
     search_name = '校園徵才'
 
-    subpage_types = ('TeachIndex', 'VisitIndex', 'JobFair', 'ForumIndex', 'CompanyRegist', 'CompanyRetrieve')
+    subpage_types = ('TeachIndex', 'VisitIndex', 'JobFair', 'ForumIndex', 'CompanyRegist', 'CompanyRetrieve', 'RecruitCompanyRequirement')
 
     def __init__(self, *args, **kwargs):
         self._meta.get_field('slug').default            = 'recruit'
@@ -606,3 +606,44 @@ class CompanyRetrieve(Page):
         context = self.get_context(request, *args, **kwargs)
 
         return TemplateResponse(request, self.template_retrieve, context)
+
+class CompanyRequirementShow(Page):
+    body = RichTextField('內文', blank=True)
+    sub_title = models.CharField('副標', max_length=255, blank=True, help_text='副標')
+
+    subpage_types = tuple()
+
+    content_panels = [
+        FieldPanel('title', classname='full'),
+        FieldPanel('sub_title', classname='full'),
+        FieldPanel('body', classname='full'),
+    ]
+
+    is_abstract = True
+
+    class Meta:
+        # tell Django do not create table
+        abstract = True
+
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('title').default           = '廠商徵才需求'
+        self._meta.get_field('sub_title').default       = ''
+        self._meta.get_field('slug').default            = 'requirement'
+        self._meta.get_field('show_in_menus').default   = False
+        super(CompanyRequirementShow, self).__init__(*args, **kwargs)
+
+class RdssCompanyRequirement(CompanyRequirementShow):
+
+    def serve(self, request, *args, **kwargs):
+        return requirement_view(request, 'rdss', self)
+
+    class Meta:
+        verbose_name = '[研替] 廠商徵才需求'
+
+class RecruitCompanyRequirement(CompanyRequirementShow):
+
+    def serve(self, request, *args, **kwargs):
+        return requirement_view(request, 'recruit', self)
+
+    class Meta:
+        verbose_name = '[校徵] 廠商徵才需求'
