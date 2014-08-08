@@ -3,13 +3,19 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, UserManager
-from django.core.validators import MinLengthValidator
+from django.core.validators import MinLengthValidator, RegexValidator
 from django.core.exceptions import ValidationError
 from company.storage import OverwriteStorage
 
 def validate_all_num(string):
     if not string.isdigit():
         raise ValidationError(u'必須都是數字')
+
+def validate_phone(string):
+    RegexValidator(r'^(\d+-)?\d+(#\d+)?$', message=u'格式: 區碼-號碼#分機')(string)
+
+def validate_mobile(string):
+    RegexValidator(r'^\d{4}-\d{6}$', message=u'格式: 0912-345678')(string)
 
 def get_logo_path(instance, filename):
     return '{}company_logo/{}-{}.{}'.format(
@@ -39,12 +45,15 @@ class Company(AbstractBaseUser):
         (u'機構', u'機構')
     )
 
-    cid          = models.CharField(u'統編', unique=True, max_length=8, validators=[MinLengthValidator(8), validate_all_num])
+    cid          = models.CharField(u'統編', unique=True, max_length=8,
+                    validators=[MinLengthValidator(8), validate_all_num])
     name         = models.CharField(u'公司名稱', max_length=64)
     shortname    = models.CharField(u'公司簡稱', max_length=16)
     category     = models.CharField(u'類別', max_length=10, choices=CATEGORYS)
-    phone        = models.CharField(u'公司電話', max_length=32, help_text='格式: 區碼-號碼#分機')
-    postal_code  = models.CharField(u'郵遞區號', max_length=5)
+    phone        = models.CharField(u'公司電話', max_length=32,
+                    help_text='格式: 區碼-號碼#分機',
+                    validators=[validate_phone])
+    postal_code  = models.CharField(u'郵遞區號', max_length=5, validators=[validate_all_num])
     address      = models.CharField(u'公司地址', max_length=128)
     website      = models.URLField(u'公司網站', max_length=64, help_text='請輸入網址')
     logo         = models.ImageField(u'LOGO', upload_to=get_logo_path,
@@ -54,9 +63,15 @@ class Company(AbstractBaseUser):
     brief        = models.TextField(u'公司簡介', max_length=110, help_text='字數限制為110字')
     introduction = models.TextField(u'公司介紹', max_length=260, help_text='字數限制為260字')
     hr_name      = models.CharField(u'人資姓名', max_length=32)
-    hr_phone     = models.CharField(u'人資電話', max_length=32, help_text='格式: 區碼-號碼#分機')
-    hr_fax       = models.CharField(u'人資傳真', max_length=32, help_text='格式: 區碼-號碼#分機')
-    hr_mobile    = models.CharField(u'人資手機', max_length=32, help_text='格式: 0912-345678')
+    hr_phone     = models.CharField(u'人資電話', max_length=32,
+                    help_text='格式: 區碼-號碼#分機',
+                    validators=[validate_phone])
+    hr_fax       = models.CharField(u'人資傳真', max_length=32,
+                    help_text='格式: 區碼-號碼#分機',
+                    validators=[validate_phone])
+    hr_mobile    = models.CharField(u'人資手機', max_length=32,
+                    help_text='格式: 0912-345678',
+                    validators=[validate_mobile])
     hr_email     = models.EmailField(u'人資信箱', max_length=64)
 
     is_active    = models.BooleanField(u'是否啟用', default=False)
