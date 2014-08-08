@@ -116,3 +116,22 @@ class Company(AbstractBaseUser):
 
     def has_perm(self, perm, obj=None):
         return False
+
+class Requirement(models.Model):
+    requirement = models.TextField(u'徵才需求', max_length=260, help_text=u'字數限制為260字')
+    resume_to   = models.TextField(u'投履歷至', max_length=100, help_text=u'字數限制為100字')
+
+    class Meta:
+        abstract = True
+
+class RdssCompanyRequirement(Requirement):
+    company = models.OneToOneField(Company, primary_key=True, related_name='rdss_requirement')
+
+    class Meta:
+        db_table = 'company_rdss_requirement'
+
+class RecruitCompanyRequirement(Requirement):
+    company = models.OneToOneField(Company, primary_key=True, related_name='recruit_requirement')
+
+    class Meta:
+        db_table = 'company_recruit_requirement'
