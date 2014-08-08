@@ -4,7 +4,12 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, UserManager
 from django.core.validators import MinLengthValidator
+from django.core.exceptions import ValidationError
 from company.storage import OverwriteStorage
+
+def validate_all_num(string):
+    if not string.isdigit():
+        raise ValidationError(u'必須都是數字')
 
 def get_logo_path(instance, filename):
     return '{}company_logo/{}-{}.{}'.format(
@@ -34,7 +39,7 @@ class Company(AbstractBaseUser):
         (u'機構', u'機構')
     )
 
-    cid          = models.CharField(u'統編', unique=True, max_length=8, validators=[MinLengthValidator(8)])
+    cid          = models.CharField(u'統編', unique=True, max_length=8, validators=[MinLengthValidator(8), validate_all_num])
     name         = models.CharField(u'公司名稱', max_length=64)
     shortname    = models.CharField(u'公司簡稱', max_length=16)
     category     = models.CharField(u'類別', max_length=10, choices=CATEGORYS)
