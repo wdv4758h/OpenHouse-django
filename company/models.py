@@ -4,6 +4,7 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, UserManager
 from django.core.validators import MinLengthValidator
+from company.storage import OverwriteStorage
 
 def get_logo_path(instance, filename):
     return '{}company_logo/{}-{}.{}'.format(
@@ -42,6 +43,7 @@ class Company(AbstractBaseUser):
     address      = models.CharField(u'公司地址', max_length=128)
     website      = models.URLField(u'公司網站', max_length=64, help_text='請輸入網址')
     logo         = models.ImageField(u'LOGO', upload_to=get_logo_path,
+                    storage=OverwriteStorage(),
                     help_text='''網站展示、筆記本內頁公司介紹使用，僅接受 jpg, png, gif 格式。
                     建議解析度為 300 dpi 以上，以達到最佳效果。''')
     brief        = models.TextField(u'公司簡介', max_length=110, help_text='字數限制為110字')
