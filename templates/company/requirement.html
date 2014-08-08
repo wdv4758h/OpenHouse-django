@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags rich_text %}
+
+{% block extra_css_js %}
+{# search #}
+<script>
+    window.headerSearch = {
+        url: ".",
+        termInput: "#id_q",
+        targetOutput: "#results"
+    }
+</script>
+<script src="{{ STATIC_URL }}js/head-search.js"></script>
+{% endblock %}
+
+{% block CONTENT %}
+    <div class="content-head">
+        <h1 class="page-header">
+            <span class="big-head">{{ self.title }}</span>
+            <small>{{ self.sub_title }}</small>
+        </h1>
+    </div>
+    {{ self.body | richtext }}
+    <form class="col search-form" action="." method="get">
+            {% for field in search_form %}
+                {% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small iconfield" input_classes="icon-search" %}
+            {% endfor %}
+    </form>
+    <div id="results">
+        {% include "company/requirement_results.html" %}
+    </div>
+{% endblock %}

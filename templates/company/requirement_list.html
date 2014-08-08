@@ -1,0 +1,98 @@
+{% load i18n %}
+{% for i in company %}
+    {% if event == 'rdss' and i.rdss_requirement.requirement %}
+        <table class="table table-bordered vertical-table">
+            <tbody>
+                <tr>
+                    <td class="logo">
+                        {% trans "公司Logo" %}
+                    </td>
+                    <td><a href="http://{{ i.website }}"><img style='max-height: 100px;' src="{{ MEDIA_URL }}{{ i.get_logo_url }}"></img></a></td>
+                </tr>
+                <tr>
+                    <td class="name">
+                        {% trans "公司名稱" %}
+                    </td>
+                    <td>{{ i.name }} ({{ i.shortname }})</td>
+                </tr>
+                <tr>
+                    <td>
+                        {% trans "公司網址" %}
+                    </td>
+                    <td><a href="http://{{ i.website }}">{{ i.website }}</a></td>
+                </tr>
+                <tr>
+                    <td>
+                        {% trans "人資信箱" %}
+                    </td>
+                    <td>{{ i.hr_email }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        {% trans "公司介紹" %}
+                    </td>
+                    <td>{{ i.introduction }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        {% trans "徵才需求" %}
+                    </td>
+                    <td class="important">{{ i.rdss_requirement.requirement }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        {% trans "投履歷至" %}
+                    </td>
+                    <td class="important">{{ i.rdss_requirement.resume_to }}</td>
+                </tr>
+            </tbody>
+        </table>
+    {% elif event == 'recruit' and i.rdss_requirement.requirement %}
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td class="logo">
+                        {% trans "公司Logo" %}
+                    </td>
+                    <td><a href="http://{{ i.website }}"><img style='max-height: 100px;' src="{{ MEDIA_URL }}{{ i.get_logo_url }}"></img></a></td>
+                </tr>
+                <tr>
+                    <td class="name">
+                        {% trans "公司名稱" %}
+                    </td>
+                    <td>{{ i.name }} ({{ i.shortname }})</td>
+                </tr>
+                <tr>
+                    <td>
+                        {% trans "公司網址" %}
+                    </td>
+                    <td><a href="http://{{ i.website }}">{{ i.website }}</a></td>
+                </tr>
+                <tr>
+                    <td>
+                        {% trans "人資信箱" %}
+                    </td>
+                    <td>{{ i.hr_email }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        {% trans "公司介紹" %}
+                    </td>
+                    <td>{{ i.introduction }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        {% trans "徵才需求" %}
+                    </td>
+                    <td>{{ i.recruit_requirement.requirement }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        {% trans "投履歷至" %}
+                    </td>
+                    <td>{{ i.recruit_requirement.resume_to }}</td>
+                </tr>
+            </tbody>
+        </table>
+    {% endif %}
+{% endfor %}
