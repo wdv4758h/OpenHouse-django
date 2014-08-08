@@ -108,7 +108,7 @@ def create(request):
 def edit(request, user_id):
     user = get_object_or_404(User, id=user_id)
     if request.POST:
-        form = UserEditForm(request.POST, instance=user)
+        form = UserEditForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             user = form.save()
             messages.success(request, _("User '{0}' updated.").format(user))

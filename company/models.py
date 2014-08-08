@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractBaseUser, UserManager
 from django.core.validators import MinLengthValidator
 
 def get_logo_path(instance, filename):
-    return '{}/company_logo/{}-{}.{}'.format(
+    return '{}company_logo/{}-{}.{}'.format(
                 settings.MEDIA_ROOT,
                 instance.cid,
                 instance.shortname,

@@ -13,7 +13,7 @@
         <li><a href="#roles">{% trans "角色" %}</a></li>
     </ul>
 
-    <form action="{% url 'company_edit' user.id %}" method="POST">
+    <form action="{% url 'company_edit' user.id %}" method="POST" {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>
         <div class="tab-content">
             {% csrf_token %}
 
