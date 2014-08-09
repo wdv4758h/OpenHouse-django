@@ -367,7 +367,7 @@ li.dropdown ul                 { width: auto; visibility: hidden;
                                  padding-left: 0%; min-width: 100%; white-space: nowrap; }
 li.dropdown ul li              { font-weight: normal; background: #f6f6f6; color: #000;
                                  float: none;
-                                 padding: 2% 15% 2% 15%; /* up right down left */}
+                                 padding: 8px 10px 3px 15px; /* up right down left */}
 
     /* history menu - links in list */
 li.dropdown ul a               { font-size: 150%; font-weight: bold; width: 100%; }
