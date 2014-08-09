@@ -1,5 +1,13 @@
 #!/bin/sh
 
+export PYTHON_EGG_CACHE='./.python-eggs/'
+
+install(){
+    virtualenv2 env
+    source env/bin/activate
+    pip install -r requirements.txt
+}
+
 update(){
     source env/bin/activate
     pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs pip install -U
@@ -33,4 +41,7 @@ then
 elif [ $1 == 'run' ]
 then
     run
+elif [ $1 == 'install' ]
+then
+    install
 fi
