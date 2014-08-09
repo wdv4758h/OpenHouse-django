@@ -17,24 +17,28 @@ def has_menu_children(page):
         return False
 
 @register.inclusion_tag('generic/navbar.html', takes_context=True)
-def top_menu(context, parent, top, calling_page=None):
-    if top.isalnum():
-        menuitems = parent.get_children().get(slug=top).get_children().filter(
-            live=True,
-            show_in_menus=True
-        )
+def top_menu(context, parent, top=None, calling_page=None):
+    # if top.isdigit():
+        # this line has year url
+        # menuitems = parent.get_children().get(slug=top).get_children().filter(
 
-        for menuitem in menuitems:
-            menuitem.show_dropdown = has_menu_children(menuitem)
-            if menuitem.show_dropdown:
-                menuitem.sub_menuitems = menuitem.get_children().filter(live=True, show_in_menus=True)
+    menuitems = parent.get_children().filter(
+        live=True,
+        show_in_menus=True
+    )
 
-        return {
-            'year': top,
-            'calling_page': calling_page,
-            'menuitems': menuitems,
-            # required by the pageurl tag that we want to use within this template
-            'request': context['request'],
-        }
-    else:
-        return None
+    for menuitem in menuitems:
+        menuitem.show_dropdown = has_menu_children(menuitem)
+        if menuitem.show_dropdown:
+            menuitem.sub_menuitems = menuitem.get_children().filter(live=True, show_in_menus=True)
+
+    return {
+        'year': top,
+        'calling_page': calling_page,
+        'menuitems': menuitems,
+        # required by the pageurl tag that we want to use within this template
+        'request': context['request'],
+    }
+
+    # else:
+    #     return None

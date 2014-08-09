@@ -13,11 +13,11 @@
       <ul class="nav navbar-nav">
       {% for i in menuitems %}
       <li {% if i.show_dropdown %}class="dropdown"{% endif %}>
-        <a href="{{ i.url }}">{{ i.title }}</a>
+          <a href="/{{ year }}{{ i.url }}">{{ i.title }}</a>
         {% if i.show_dropdown %}
             <ul>
             {% for j in i.sub_menuitems %}
-                <li><a href="{{ j.url }}">{{ j.title }}</a></li>
+                <li><a href="/{{ year }}{{ j.url }}">{{ j.title }}</a></li>
             {% endfor %}
             </ul>
         {% endif %}
