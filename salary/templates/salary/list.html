@@ -19,12 +19,12 @@
                     <a href="{% url 'salary_index' %}?ordering=name" class="icon icon-arrow-down-after"></a>
                 {% endif %}
             </th>
-            <th class="groups">
+            <th class="role">
                 {% trans "職稱" %}
-                {% if ordering == "groups" %}
+                {% if ordering == "role" %}
                     <a href="{% url 'salary_index' %}" class="icon icon-arrow-down-after teal"></a>
                 {% else %}
-                    <a href="{% url 'salary_index' %}?ordering=groups" class="icon icon-arrow-down-after"></a>
+                    <a href="{% url 'salary_index' %}?ordering=role" class="icon icon-arrow-down-after"></a>
                 {% endif %}
             </th>
             <th class="start">
@@ -55,23 +55,35 @@
         </tr>
     </thead>
     <tbody>
-        {% for i in salary %}
-            <tr>
-                <td class="title"><h2>{{ i.staff.studentid }}</h2></td>
-                <td class="name">{{ i.staff.name }}</td>
-                <td class="groups">{{ i.staff.groups.all | join:', ' }}</td>
-                <td class="start">{{ i.start | date:"Y-m-d H:i" }}</td>
-                <td class="end">{{ i.end | date:"Y-m-d H:i" }}</td>
-                <td class="desc">{{ i.desc }}</td>
-                {% include "salary/status.html" with status=i.status %}
-                {% if i.status in "未審核" %}
-                <td class="pass"><a href="{% url 'salary_pass' i.id %}" class="pass">通過</a></td>
-                <td class="deny"><a href="{% url 'salary_deny' i.id %}" class="deny">退回</a></td>
-                {% else %}
-                <td class="pass"></td>
-                <td class="deny"></td>
-                {% endif %}
-            </tr>
-        {% endfor %}
+        {% with group=request.user.role|slice:':3' op=request.user.role|slice:'-2:' %}
+            {% for i in salary %}
+                <tr>
+                    <td class="title"><h2>{{ i.staff.studentid }}</h2></td>
+                    <td class="name">{{ i.staff.name }}</td>
+                    <td class="role">{{ i.staff.role }}</td>
+                    <td class="start">{{ i.start | date:"Y-m-d H:i" }}</td>
+                    <td class="end">{{ i.end | date:"Y-m-d H:i" }}</td>
+                    <td class="desc">{{ i.desc }}</td>
+                    {% include "salary/status.html" with status=i.status %}
+
+                    {% if group == '行政組' or request.user.role == '就輔組' %}
+                        <td class="pass"><a href="{% url 'salary_pass' i.id %}" class="pass">通過</a></td>
+                        <td class="deny"><a href="{% url 'salary_deny' i.id %}" class="deny">退回</a></td>
+                    {% elif i.status == "未審核" %}
+                        {# more condition #}
+                        {% if op == '組長' and group == i.staff.role|slice:':3' %}
+                            <td class="pass"><a href="{% url 'salary_pass' i.id %}" class="pass">通過</a></td>
+                            <td class="deny"><a href="{% url 'salary_deny' i.id %}" class="deny">退回</a></td>
+                        {% else %}
+                            <td class="pass"></td>
+                            <td class="deny"></td>
+                        {% endif %}
+                    {% else %}
+                        <td class="pass"></td>
+                        <td class="deny"></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        {% endwith %}
     </tbody>
 </table>

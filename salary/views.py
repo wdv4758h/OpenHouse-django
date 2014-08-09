@@ -30,6 +30,7 @@ def index(request):
                 Q(staff__studentid__icontains=q) |
                 Q(staff__name__icontains=q) |
                 Q(staff__email__icontains=q) |
+                Q(staff__role__icontains=q) |
                 Q(start__icontains=q) |
                 Q(end__icontains=q) |
                 Q(desc__icontains=q) |
@@ -96,16 +97,16 @@ def create(request):
 def verify(request, salary_id):
     salary = get_object_or_404(Model, id=salary_id)
 
-    # new status
-    # if is_team_leader():
-    #     # team leader
-    #    status = "組長審核通過"
-    #else if is_es():
-    #     # executive secretary
-    #    status = "執秘書審核通過"
-    #else:
-    #    status = None
-    status = u"組長審核通過"
+    role = request.user.role
+
+    if role[-2:] == u'組長':
+        status = u'組長審核通過'
+    elif role[:3] == u'行政組':
+        status = u'執祕審核通過'
+    elif role == u'就輔組':
+        status = u'就輔組審核通過'
+    else:
+        status = ''
 
     if request.POST:
 
