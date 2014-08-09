@@ -13,11 +13,11 @@
       <ul class="nav navbar-nav">
       {% for i in menuitems %}
       <li {% if i.show_dropdown %}class="dropdown"{% endif %}>
-        <a href="{{ i.url }}">{{ i.title }}</a>
+          <a href="/{{ year }}{{ i.url }}">{{ i.title }}</a>
         {% if i.show_dropdown %}
             <ul>
             {% for j in i.sub_menuitems %}
-                <li><a href="{{ j.url }}">{{ j.title }}</a></li>
+                <li><a href="/{{ year }}{{ j.url }}">{{ j.title }}</a></li>
             {% endfor %}
             </ul>
         {% endif %}
@@ -33,67 +33,18 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
       {% if request.user.is_authenticated %}
-        <li class="dropdown">
-          <a>工作人員選單<b class="caret"></b></a>
-          <ul>
-              <li><a href="">廠商資料</a></li>
-              <li><a href="/{{ year }}/company/">廠商列表</a></li>
-              <li><a href="/{{ year }}/company_register/">幫廠商註冊帳號</a></li>
-              <li><a href="/{{ year }}/company_chpass/">修改廠商去年密碼</a></li>
-
-              <li><li class="divider"></li></li>
-
-              <li><a href="#">研發替代役</a></li>
-              <li><a href="/rdss/dashboard/">廠商報名狀況</a></li>
-              <li><a href="/rdss/activity/">活動列表</a></li>
-              <li><a href="/rdss/sponsor/">贊助列表</a></li>
-              <li><a href="#">說明會</a></li>
-              <li><a href="/rdss/forum/info/create">新增廠商資訊</a></li>
-              <li><a href="/rdss/forum/info">資訊檢視/修改</a></li>
-              <li><a href="/rdss/forum/slot">場次表</a></li>
-              <li><a href="/rdss/forum/slot/list">QA連結檢視/修改</a></li>
-              <li><a href="#">就博會</a></li>
-              <li><a href="/rdss/show/requirement/create">新增廠商資訊</a></li>
-              <li><a href="/rdss/show/requirement">資訊檢視/修改</a></li>
-              <li><a href="/rdss/show/slot">攤位圖</a></li>
-              <li><a href="/rdss/stuvote">優質廠商票選狀況</a></li>
-              <li><a href="/rdss/teach">企業職場導師報名狀況</a></li>
-              <li><a href="/rdss/visit">企業參訪報名狀況</a></li>
-              <li><a href="/rdss/activity/signup">新增廠商活動</a></li>
-              <li><a href="/rdss/sponsor/create">新增廠商贊助</a></li>
-              <li><a href="/rdss/teach/create">新增廠商企業職場導師</a></li>
-              <li><a href="/rdss/visit/create">新增廠商企業參訪</a></li>
-
-              <li><li class="divider"></li>
-
-              <li><a href="#">校園徵才</a></li>
-              <li><a href="/recruit/dashboard">廠商報名狀況</a></li>
-              <li><a href="/recruit/activity">活動列表</a></li>
-              <li><a href="/recruit/sponsor">贊助列表</a></li>
-              <li><a href="#">說明會</a></li>
-              <li><a href="/recruit/forum/info/create">新增廠商資訊</a></li>
-              <li><a href="/recruit/forum/info">資訊檢視/修改</a></li>
-              <li><a href="/recruit/forum/slot/select">場次表</a></li>
-              <li><a href="#">展示會</a></li>
-              <li><a href="/recruit/show/requirement">資訊檢視/修改</a></li>
-              <li><a href="/recruit/show/parttime">工讀生履歷</a></li>
-              <li><a href="/recruit/stuvote">優質廠商票選狀況</a></li>
-              <li><a href="/recruit/teach">企業職場導師報名狀況</a></li>
-              <li><a href="/recruit/visit">企業參訪報名狀況</a></li>
-              <li><a href="/recruit/activity/signup">新增廠商活動</a></li>
-              <li><a href="/recruit/sponsor/create">新增廠商贊助</a></li>
-              <li><a href="/recruit/teach/create">新增廠商企業職場導師</a></li>
-              <li><a href="/recruit/visit/create">新增廠商企業參訪</a></li>
-
-              <li><li class="divider"></li>
-
-              <li><a href="#">工作人員相關</a></li>
-              <li><a href="/staff">工作人員列表</a></li>
-              <li><a href="/salary_list">工作人員報帳管理</a></li>
-              <li><a href="/docs">資訊組筆記</a></li>
-
-          </ul>
-        </li>
+        {% if request.user.is_staff %}
+            <li class="dropdown">
+              <a href="/{{ year }}/admin">工作人員後台</a>
+            </li>
+        {% else %}
+            <li class="dropdown">
+              <a>廠商選單</a>
+              <ul>
+                  <li><a href="/{{ year }}/company/hrdb/">人才庫</a></li>
+              </ul>
+            </li>
+        {% endif %}
 
         <li><a href="/{{ year }}/logout/">登出 ({{ request.user.username }})</a></li>
       {% else %}

@@ -2,3 +2,4 @@ django>=1.6.5
 djangorestframework>=2.3.14
 django-widget-tweaks>=1.3
 MySQL-python>=1.2.5
+wagtail>=0.5

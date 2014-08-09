@@ -35,13 +35,38 @@ class Staff(AbstractBaseUser):
     https://github.com/django/django/blob/master/django/contrib/auth/models.py
     """
 
-    GENDER = (('M', '男生'), ('F', '女生'))
+    ROLE = (
+        (u'就輔組',         u'就輔組'       ),
+        (u'行政組 - 總召',  u'行政組 - 總召'),
+        (u'行政組 - 副召',  u'行政組 - 副召'),
+        (u'行政組 - 執秘',  u'行政組 - 執秘'),
+
+        (u'廠聯組 - 組長',  u'廠聯組 - 組長'),
+        (u'廠聯組 - 組員',  u'廠聯組 - 組員'),
+
+        (u'設計組 - 組長',  u'設計組 - 組長'),
+        (u'設計組 - 組員',  u'設計組 - 組員'),
+
+        (u'座談組 - 組長',  u'座談組 - 組長'),
+        (u'座談組 - 組員',  u'座談組 - 組員'),
+
+        (u'資訊組 - 組長',  u'資訊組 - 組長'),
+        (u'資訊組 - 組員',  u'資訊組 - 組員'),
+
+        (u'專刊組 - 組長',  u'專刊組 - 組長'),
+        (u'專刊組 - 組員',  u'專刊組 - 組員'),
+
+        (u'展示組 - 組長',  u'展示組 - 組長'),
+        (u'展示組 - 組員',  u'展示組 - 組員'),
+    )
+
+    GENDER = (('M', u'男生'), ('F', u'女生'))
+
     studentid = models.CharField(u'學號', max_length=30, unique=True)
     name      = models.CharField(u'姓名', max_length=30)
     gender    = models.CharField(u'性別', choices=GENDER, max_length=1)
     birthday  = models.DateField(u'出生年月日', default=datetime.today())
-    groups      = models.ManyToManyField(Group, verbose_name=u'職位', blank=True,
-        related_name='staff_set', related_query_name='staff')
+    role      = models.CharField(u'職位', choices=ROLE, blank=True, max_length=10)
     mobile    = models.CharField(u'手機號碼', max_length=16)
     email     = models.EmailField(u'E-mail')
     fb_url    = models.URLField(u'FB個人首頁連結', default='https://www.facebook.com/')
@@ -49,6 +74,8 @@ class Staff(AbstractBaseUser):
     ohbbsid   = models.CharField(u'OH BBS帳號', max_length=12)
     postacct  = models.CharField(u'郵局帳號', max_length=15)
 
+    groups      = models.ManyToManyField(Group, blank=True,
+        related_name='staff_groups', related_query_name='staff_groups')
     is_active = models.BooleanField(u'是否啟用', default=False)
     update    = models.DateTimeField(u'最後更新時間', auto_now=True)
     date_join = models.DateTimeField(u'date joined', auto_now_add=True)

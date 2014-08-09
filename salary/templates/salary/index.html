@@ -4,7 +4,7 @@
 {% block titletag %}{% trans "報帳" %}{% endblock %}
 {% block bodyclass %}menu-users{% endblock %}
 {% block extra_js %}
-    <script src="/static/wagtailadmin/js/modal-workflow.js"></script>
+    <script src="{{ STATIC_URL }}wagtailadmin/js/modal-workflow.js"></script>
     <script>
         window.headerSearch = {
             url: "{% if unverify %}{% url 'salary_unverify' %}{% else %}{% url 'salary_index' %}{% endif %}",

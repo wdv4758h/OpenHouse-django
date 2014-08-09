@@ -19,6 +19,14 @@
                     <a href="{% url 'staff_index' %}?ordering=name" class="icon icon-arrow-down-after"></a>
                 {% endif %}
             </th>
+            <th class="role">
+                {% trans "職稱" %}
+                {% if ordering == "role" %}
+                    <a href="{% url 'staff_index' %}" class="icon icon-arrow-down-after teal"></a>
+                {% else %}
+                    <a href="{% url 'staff_index' %}?ordering=role" class="icon icon-arrow-down-after"></a>
+                {% endif %}
+            </th>
             <th class="mobile">
                 {% trans "手機" %}
                 {% if ordering == "mobile" %}
@@ -56,6 +64,7 @@
                     </h2>
                 </td>
                 <td class="name">{{ user.name }}</td>
+                <td class="role">{{ user.role }}</td>
                 <td class="mobile">{{ user.mobile }}</td>
                 <td class="email">{{ user.email }}</td>
                 <td class="ohbbsid">{{ user.ohbbsid }}</td>
