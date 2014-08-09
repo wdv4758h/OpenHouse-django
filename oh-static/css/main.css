@@ -364,10 +364,12 @@ li.dropdown a:active           { color: #ffa500; }
 li.dropdown ul                 { width: auto; visibility: hidden;
                                  position: absolute; top: 100%; left: 0;
                                  background: #ccc; list-style-type: none;
-                                 padding-left: 0%; min-width: 100%; white-space: nowrap; }
+                                 padding-left: 0%; min-width: 100%; white-space: nowrap;
+                                 border-left: 4px solid rgba(80, 62, 62, 1);
+                                 box-shadow: 4px 4px 3px rgba(20%, 20%, 40%, 0.5); }
 li.dropdown ul li              { font-weight: normal; background: #f6f6f6; color: #000;
                                  float: none;
-                                 padding: 8px 10px 3px 15px; /* up right down left */}
+                                 padding: 8px 13px 5px 15px; /* up right down left */ }
 
     /* history menu - links in list */
 li.dropdown ul a               { font-size: 150%; font-weight: bold; width: 100%; }
