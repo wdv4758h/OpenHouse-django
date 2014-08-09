@@ -60,7 +60,7 @@ class StaffEditForm(forms.ModelForm):
     class Meta:
         model = Staff
         fields = '__all__'
-        exclude = ('last_login', 'password')
+        exclude = ('role', 'last_login', 'password')
         widgets = {
             'groups': forms.CheckboxSelectMultiple
         }
