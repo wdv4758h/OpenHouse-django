@@ -1,13 +1,16 @@
 {% load wagtailadmin_tags %}
 {% load media_tags %}
+{% load menu %}
+{% get_year as year %}
+
 <li class="{% if field.field.required %}required{% endif %} {{ field.css_classes }} {{ field|fieldtype }} {{ li_classes }} {% if field.errors %}error{% endif %}">
     <div class="field">
         {{ field.label_tag }}
         <div class="field-content">
             <div class="input {{ input_classes }} ">
                 {% block form_field %}
-                    <a href="{{ field.value.url | media }}">
-                        <img src="{{ field.value.url | media }}"></img>
+                    <a href="/{{ year }}{{ field.value.url | media }}">
+                        <img src="/{{ year }}{{ field.value.url | media }}"></img>
                     </a>
                     <br>
                     變更:

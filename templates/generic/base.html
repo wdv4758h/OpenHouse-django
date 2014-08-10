@@ -1,4 +1,6 @@
-{% if request.method != 'X-PJAX' %}
+{% if not request.is_ajax %}
+    {# request.is_ajax can detect ajax #}
+    {# request.method can detect GET/POST ... #}
 
     {% load wagtailuserbar %}
     {% load menu %}
@@ -33,7 +35,7 @@
           {% block CONTENT %}
           {% endblock %}
 
-{% if request.method != 'X-PJAX' %}
+{% if not request.is_ajax %}
         </div>
 
         {% include 'generic/post_css_js.html' %}

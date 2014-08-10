@@ -5,6 +5,9 @@
 
 {% block CONTENT %}
 
+{% load menu %}
+{% get_year as year %}
+
 <!-- for facebook like box -->
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
@@ -37,7 +40,7 @@
       <a href="http://www.nca.gov.tw/"><img src="{{ STATIC_URL }}images/rdss_logo.jpg" alt="研發替代役" style="display: block; margin: 0 auto; max-height: 128px;"></a>
       <h2 style="text-align: center;">研發替代役</h2>
       <p>透過一系列的研發替代役座談會，讓徵才廠商對同學進行公司簡介；同學亦可以在座談會中詢問公司相關問題。並舉辦集體面談會，讓同學與公司能直接在校內進行面試。</p>
-      <a class="btn btn-link btn-large" href="/{{ year }}/rdss/"><i class="icon-chevron-right"></i>研發替代役</a>
+      <a class="ajax btn btn-link btn-large" href="/{{ year }}/rdss/"><i class="icon-chevron-right"></i>研發替代役</a>
       <br>
       <a class="btn btn-link btn-large" href="/{{ year }}/rdss/requirement/"><i class="icon-chevron-right"></i>研發替代役廠商徵才資訊</a>
     </div>
@@ -51,7 +54,7 @@
       <img src="{{ STATIC_URL }}images/oh2014/namecard-staff.jpg" alt="工作人員" style="display: block; margin: 0 auto; max-height: 128px;">
       <h2 style="text-align: center;">工作人員</h2>
       <p>認識 Open House 2015 各活動的籌辦工作人員與組織架構！</p>
-      <a class="btn btn-link" href="/{{ year }}/login/"><i class="icon-chevron-right"></i>工作人員登入</a>
+      <a class="ajax btn btn-link" href="/{{ year }}/login/"><i class="icon-chevron-right"></i>工作人員登入</a>
     </div>
   </div>
 </div>

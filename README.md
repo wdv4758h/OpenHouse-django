@@ -1,3 +1,11 @@
+# DB 升級
+
+DB 升級的時候，table format 有可能會改變，這時候需要下 `msyql_upgrade` 來轉換，
+如果在不需要轉換的時候下了這個指令，那它什麼都不會做，
+可能的情況例如 : MySQL 5.0 to MariaDB 5.1 或 MariaDB 5.5 to MariaDB 10.0
+
+- https://mariadb.com/kb/en/mariadb/documentation/sql-commands/table-commands/mysql_upgrade/
+
 # Apache
 
 pacman -S mod_wsgi2
@@ -6,7 +14,7 @@ pacman -S mod_wsgi2
 
     LoadModule wsgi_module modules/mod_wsgi.so
 
-    # Django Settings
+## Django Settings
 
 # Wsgi
 

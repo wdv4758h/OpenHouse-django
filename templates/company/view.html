@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block CONTENT %}
+    {% with i=request.user %}
+        <div class="content-head">
+            <h1 class="page-header">
+                <span class="big-head">廠商資料 - {{ i.shortname }}</span>
+            </h1>
+        </div>
+
+        <table class="table table-bordered vertical-table">
+            <tbody>
+                <tr>
+                    <td>{% trans "統編" %}</td>
+                    <td>{{ i.cid }}</td>
+                </tr>
+                <tr>
+                    <td class="logo">{% trans "公司Logo" %}</td>
+                    {% if i.get_logo_url %}
+                    <td><a href="{{ MEDIA_URL }}{{ i.get_logo_url }}"><img style='max-height: 100px;' src="{{ MEDIA_URL }}{{ i.get_logo_url }}"></img></a></td>
+                    {% else %}
+                    <td>請上傳 Logo !</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td class="name">{% trans "公司名稱" %}</td>
+                    <td>{{ i.name }}</td>
+                </tr>
+                <tr>
+                    <td class="shortname">{% trans "公司簡稱" %}</td>
+                    <td>{{ i.shortname }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans "類別" %}</td>
+                    <td>{{ i.category }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans "公司電話" %}</td>
+                    <td>{{ i.phone }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans "公司地址" %}</td>
+                    <td>{{ i.address }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans "公司網址" %}</td>
+                    <td><a href="{{ i.website }}">{{ i.website }}</a></td>
+                </tr>
+                <tr>
+                    <td>{% trans "公司簡介" %}</td>
+                    <td>{{ i.brief }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans "公司介紹" %}</td>
+                    <td>{{ i.introduction }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans "人資姓名" %}</td>
+                    <td>{{ i.hr_name }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans "人資電話" %}</td>
+                    <td>{{ i.hr_phone }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans "人資傳真" %}</td>
+                    <td>{{ i.hr_fax }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans "人資手機" %}</td>
+                    <td>{{ i.hr_mobile }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans "人資信箱" %}</td>
+                    <td>{{ i.hr_email }}</td>
+                </tr>
+                {% comment %}
+                {# temporary comment out #}
+                <tr>
+                    <td>{% trans "更新時間" %}</td>
+                    <td>{{ i.last_update }}</td>
+                </tr>
+                {% endcomment %}
+            </tbody>
+        </table>
+    {% endwith %}
+{% endblock %}

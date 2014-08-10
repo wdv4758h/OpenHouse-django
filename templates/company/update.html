@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% load wagtailcore_tags rich_text %}
+
+{% block CONTENT %}
+    <div class="news-head">
+        <h1 class="page-header">
+            <span class="big-head">修改基本資料</span>
+        </h1>
+    </div>
+    <br />
+    <form action="." method="POST" {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>
+        {% csrf_token %}
+
+        <div class="form-group">
+            <div class="form-field">
+                <label class="form-label">統編</label>
+                <span>&nbsp;</span>
+                <span class="plain-field">{{ user.cid }}</span>
+            </div>
+            {% for field in form %}
+                {% include 'shared/field.html' with field=field %}
+            {% endfor %}
+            <div class="form-field">
+                <label class="form-label"></label>
+                <button class="btn btn-primary" type="submit">送出</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
