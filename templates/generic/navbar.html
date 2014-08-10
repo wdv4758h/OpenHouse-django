@@ -41,7 +41,8 @@
             <li class="dropdown">
               <a>廠商選單</a>
               <ul>
-                  <li><a href="/{{ year }}/company/hrdb/">人才庫</a></li>
+                  <li><a href="{% url 'company_view' %}">基本資料</a></li>
+                  <li><a href="{% url 'company_hrdb' %}">人才庫</a></li>
               </ul>
             </li>
         {% endif %}
