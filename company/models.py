@@ -18,7 +18,7 @@ def validate_mobile(string):
     RegexValidator(r'^\d{4}-\d{6}$', message=u'格式: 0912-345678')(string)
 
 def get_logo_path(instance, filename):
-    return '{}company_logo/{}-{}.{}'.format(
+    return u'{}company_logo/{}-{}.{}'.format(
                 settings.MEDIA_ROOT,
                 instance.cid,
                 instance.shortname,
