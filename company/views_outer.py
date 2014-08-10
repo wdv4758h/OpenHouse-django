@@ -93,6 +93,13 @@ def requirement_view(request, event, page_data):
     p = request.GET.get("p", 1)
     is_searching = False
 
+    if event == 'rdss':
+        data = Company.objects.filter(is_active=True).exclude(rdss_requirement__isnull=True)
+    elif event == 'recruit':
+        data = Company.objects.filter(is_active=True).exclude(recruit_requirement__isnull=True)
+    else:
+        data = Company.objects.filter(is_active=True).all()
+
     if 'q' in request.GET:
         form = SearchForm(request.GET, placeholder="搜尋廠商")
         if form.is_valid():
@@ -102,7 +109,7 @@ def requirement_view(request, event, page_data):
 
             if event == 'rdss':
 
-                data = Model.objects.filter(
+                data = data.filter(
                     Q(name__icontains=q) |
                     Q(shortname__icontains=q) |
                     Q(introduction__icontains=q) |
@@ -112,7 +119,7 @@ def requirement_view(request, event, page_data):
 
             elif event == 'recruit':
 
-                data = Model.objects.filter(
+                data = data.filter(
                     Q(name__icontains=q) |
                     Q(shortname__icontains=q) |
                     Q(introduction__icontains=q) |
@@ -122,9 +129,6 @@ def requirement_view(request, event, page_data):
 
     else:
         form = SearchForm(placeholder="搜尋廠商")
-
-    if not is_searching:
-        data = Model.objects.all()
 
     if 'ordering' in request.GET:
         ordering = request.GET['ordering']
