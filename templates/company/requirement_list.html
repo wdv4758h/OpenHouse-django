@@ -7,7 +7,7 @@
                     <td class="logo">
                         {% trans "公司Logo" %}
                     </td>
-                    <td><a href="http://{{ i.website }}"><img style='max-height: 100px;' src="{{ MEDIA_URL }}{{ i.get_logo_url }}"></img></a></td>
+                    <td><a href="{{ i.website }}"><img style='max-height: 100px;' src="{{ MEDIA_URL }}{{ i.get_logo_url }}"></img></a></td>
                 </tr>
                 <tr>
                     <td class="name">
@@ -19,7 +19,7 @@
                     <td>
                         {% trans "公司網址" %}
                     </td>
-                    <td><a href="http://{{ i.website }}">{{ i.website }}</a></td>
+                    <td><a href="{{ i.website }}">{{ i.website }}</a></td>
                 </tr>
                 <tr>
                     <td>
