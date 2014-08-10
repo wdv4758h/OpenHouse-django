@@ -7,13 +7,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/{{ year }}/">OpenHouse</a>
+      <a class="ajax navbar-brand" href="/{{ year }}/">OpenHouse</a>
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
       {% for i in menuitems %}
       <li {% if i.show_dropdown %}class="dropdown"{% endif %}>
-          <a href="/{{ year }}{{ i.url }}">{{ i.title }}</a>
+          <a class='ajax' href="/{{ year }}{{ i.url }}">{{ i.title }}</a>
         {% if i.show_dropdown %}
             <ul>
             {% for j in i.sub_menuitems %}
@@ -41,16 +41,16 @@
             <li class="dropdown">
               <a>廠商選單</a>
               <ul>
-                  <li><a href="{% url 'company_view' %}">檢視基本資料</a></li>
-                  <li><a href="{% url 'company_edit' %}">編輯基本資料</a></li>
+                  <li><a class='ajax' href="{% url 'company_view' %}">檢視基本資料</a></li>
+                  <li><a class='ajax' href="{% url 'company_edit' %}">編輯基本資料</a></li>
                   <li><a href="{% url 'company_hrdb' %}">人才庫</a></li>
               </ul>
             </li>
         {% endif %}
 
-        <li><a href="/{{ year }}/logout/">登出 ({{ request.user.username }})</a></li>
+        <li><a href="{% url 'logout' %}">登出 ({{ request.user.username }})</a></li>
       {% else %}
-        <li><a href="/{{ year }}/login/">登入</a></li>
+        <li><a class='ajax' href="{% url 'login' %}">登入</a></li>
       {% endif %}
       </ul>
     </div><!-- /.nav-collapse -->
