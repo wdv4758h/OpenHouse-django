@@ -1,0 +1,37 @@
+{% load media_tags %}
+{% load widget_tweaks %}
+
+<div class="form-field">
+    <label class="form-label required">{{ field.label }}</label>
+    {% if field.field.required %}
+        <span class="required"></span>
+    {% else %}
+        {# for neat #}
+        <span>&nbsp;</span>
+    {% endif %}
+
+    <div class="input-block">
+
+        {% if field.value.url %}
+            <a href="/{{ year }}{{ field.value.url | media }}">
+                <img src="/{{ year }}{{ field.value.url | media }}"></img>
+            </a>
+            <br>
+            <label class="form-label">變更:</label>
+            <span>&nbsp;</span>
+            <input class='form-control' id="id_{{ field.name }}" name="{{ field.name }}" type="file">
+        {% else %}
+            {{ field | add_class:'form-control' }}
+        {% endif %}
+
+        <span class="help-block">{{ field.help_text }}</span>
+        {% if field.errors %}
+            <p class="error-message">
+                {% for error in field.errors %}
+                    <span class="error">{{ error|escape }}</span>
+                {% endfor %}
+            </p>
+        {% endif %}
+
+    </div>
+</div>
