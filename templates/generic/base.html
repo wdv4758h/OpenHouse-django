@@ -18,7 +18,9 @@
       <body>
         {% wagtailuserbar %}
 
-        {% top_menu parent=site_root calling_page=self top=year %}
+        <div id='navbar'>
+            {% top_menu parent=site_root calling_page=self top=year %}
+        </div>
 
         <div id="content" class="container content">
             {% if messages %}

@@ -8,7 +8,7 @@
 </script>
 <script>
     // Dropdown
-    $(function(){
+    dropdown_bind = function(){
 
         $("li.dropdown").hover(function(){
 
@@ -24,6 +24,8 @@
 
         $("li.dropdown ul li:has(ul)").find("a:first").append(" &raquo; ");
 
-    });
+    };
+
+    dropdown_bind();
 </script>
 {% endcompress %}
