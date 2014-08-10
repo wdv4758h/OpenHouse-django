@@ -5,17 +5,20 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.db.models import Q
 from django.views.decorators.vary import vary_on_headers
+from django.contrib.auth.decorators import login_required
 
 from wagtail.wagtailadmin.forms import SearchForm
 from hrdb.forms import HrdbForm
 from hrdb.models import Hrdb
 
 from company.models import Company, RdssCompanyRequirement, RecruitCompanyRequirement
+from company.forms import CompanySelfEditForm
 
 hrdb_fields = ('department', 'grade', 'studentid', 'project', 'thesis', 'teacher', 'intern', 'nsc_project', 'language_ability', 'email', 'ip', 'create_time', 'update_time')
 
 company_fields = ('name', 'shortname', 'introduction')
 
+@login_required
 @vary_on_headers('X-Requested-With')
 def hrdb_view(request):
     Model = Hrdb
@@ -170,3 +173,27 @@ def requirement_view(request, event, page_data):
             'event': event,
             'self': page_data,
         })
+
+@login_required
+@vary_on_headers('X-Requested-With')
+def company_edit(request):
+    user = get_object_or_404(Company, cid=request.user.cid)
+    form = CompanySelfEditForm
+
+    if request.POST:
+        form = form(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            user = form.save()
+            messages.success(request, u'基本資料已更新'.format(user))
+            return redirect('company_view')
+        else:
+            messages.error(request, '資料有錯誤')
+
+    else:
+        form = form(instance=user)
+
+    return render(request, 'company/update.html', {
+        'user': user,
+        'form': form,
+    })
+

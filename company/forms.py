@@ -84,3 +84,10 @@ class CompanySelfCreationForm(CompanyCreationForm):
         model = Company
         fields = '__all__'
         exclude = ('last_login', 'password', 'is_active')
+
+class CompanySelfEditForm(CompanyEditForm):
+
+    class Meta:
+        model = Company
+        fields = '__all__'
+        exclude = ('cid', 'last_login', 'password', 'is_active')
