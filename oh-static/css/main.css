@@ -440,6 +440,18 @@ li.dropdown ul a               { display: block; /* make hole block clickable */
     display: inline;
 }
 
+.form-field img {
+    margin-left: 30px;
+    margin-bottom: 20px;
+    max-width: 30%;
+    max-height: 30%;
+    display: inline;
+}
+
+.form-field .plain-field {
+    margin-left: 30px;
+}
+
 .form-field .input-block {
     display: inline;
 }
