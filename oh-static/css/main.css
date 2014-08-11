@@ -437,6 +437,8 @@ li.dropdown ul a               { display: block; /* make hole block clickable */
 .form-field textarea, .form-field input,
 .form-field img, .form-field .plain-field,
 .form-field select,
+.form-field p,
+.form-field button,
 .form-field input[type='checkbox'] {
     margin-left: 30px;
     display: inline;
