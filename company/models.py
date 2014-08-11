@@ -128,13 +128,15 @@ class Requirement(models.Model):
         abstract = True
 
 class RdssCompanyRequirement(Requirement):
-    company = models.OneToOneField(Company, primary_key=True, related_name='rdss_requirement')
+    company   = models.OneToOneField(Company, primary_key=True, related_name='rdss_requirement')
+    is_active = models.BooleanField(u'是否已報名', default=False)
 
     class Meta:
         db_table = 'company_rdss_requirement'
 
 class RecruitCompanyRequirement(Requirement):
-    company = models.OneToOneField(Company, primary_key=True, related_name='recruit_requirement')
+    company   = models.OneToOneField(Company, primary_key=True, related_name='recruit_requirement')
+    is_active = models.BooleanField(u'是否已報名', default=False)
 
     class Meta:
         db_table = 'company_recruit_requirement'
