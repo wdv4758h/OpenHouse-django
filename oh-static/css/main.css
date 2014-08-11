@@ -422,59 +422,58 @@ li.dropdown ul a               { display: block; /* make hole block clickable */
 }
 
 .form-field label {
-    min-width: 70px;
+    /* width of the form label */
+    min-width: 160px;
+
+    /* adjust content if it is too long, so the width of label will be neat */
+    width: -moz-min-content;
+    width: -webkit-min-content;
+    width: min-content;
+
     text-align: right;
     display: inline-block;
 }
 
+.form-field textarea, .form-field input,
+.form-field img, .form-field .plain-field,
+.form-field select,
+.form-field input[type='checkbox'] {
+    margin-left: 30px;
+    display: inline;
+}
+
+.form-field .help-block,
+.form-field .error-message {
+    margin-left: 210px;
+}
+
+
 .form-field textarea {
     vertical-align: top;
-    margin-left: 30px;
     width: 50%;
-    display: inline;
 }
 
 .form-field input {
-    margin-left: 30px;
     width: 40%;
-    display: inline;
 }
 
 .form-field img {
-    margin-left: 30px;
     margin-bottom: 20px;
     max-width: 30%;
     max-height: 30%;
-    display: inline;
-}
-
-.form-field .plain-field {
-    margin-left: 30px;
 }
 
 .form-field .input-block {
     display: inline;
 }
 
-.form-field .help-block {
-    margin-left: 120px;
-}
-
-.form-field .error-message {
-    margin-left: 120px;
-}
-
 .form-field select {
-    margin-left: 30px;
     width: auto;
-    display: inline;
 }
 
 .form-field input[type='checkbox'] {
     width: 1.5%;
-    display: inline;
     vertical-align: middle;
-    margin-left: 40px;
 }
 
 .form-field input[type='file'] {
