@@ -267,6 +267,7 @@ img.left {
 .border {
     border-style: solid;
     padding: 0px 25px 25px 25px; /* up right down left */
+    margin-bottom: 20px;
 }
 
 /* icon */
