@@ -239,5 +239,13 @@ def company_requirement_edit(request, event):
             form = form()
 
     return render(request, 'company/requirement/edit.html', {
+        'event': event,
         'form': form,
+    })
+
+@login_required
+@vary_on_headers('X-Requested-With')
+def company_event_status(request, event):
+    return render(request, 'company/event_status.html', {
+        'event': event,
     })

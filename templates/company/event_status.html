@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block CONTENT %}
+    {% with user=request.user %}
+        {% if event == 'rdss' %}
+            {% include 'shared/title.html' with title='研發替代役 - 活動參與狀況總覽' %}
+        {% elif event == 'recruit' %}
+            {% include 'shared/title.html' with title='校園徵才 - 活動參與狀況總覽' %}
+        {% endif %}
+
+        <div class='border'>
+            <h2>報名狀況</h2>
+            <i class='fa
+                {% if user.rdss_requirement.is_active %}
+                    fa-check-square-o
+                {% else %}
+                    fa-square-o
+                {% endif %}'></i><span>活動報名</span>
+            <br>
+            <i class='fa
+                {% if user.rdss_sponsor.is_active %}
+                    fa-check-square-o
+                {% else %}
+                    fa-square-o
+                {% endif %}'></i><span>活動贊助</span>
+            <br>
+            <i class='fa
+                {% if request.user.rdss_survey.is_active %}
+                    fa-check-square-o
+                {% else %}
+                    fa-square-o
+                {% endif %}'></i><span>企業滿意度問卷</span>
+        </div>
+        <div class='border'>
+            <div class='inline-b'>
+                <h2>活動報名</h2>
+                <h4>
+                    <a class='ajax' href='
+                        {% if event == 'rdss' %}
+                            {% url 'company_rdss_edit' 'rdss' %}
+                        {% elif event == 'recruit' %}
+                            {% url 'comapny_recruit_edit' 'recruit' %}
+                        {% endif %}'>填寫/修改</a>
+                </h4>
+            </div>
+            {% if event == 'rdss' and user.rdss_requirement.is_active %}
+                <table class='table table-bordered'>
+                    <tr>
+                        <td>徵才需求</td>
+                        <td class='important'>{{ user.rdss_requirement.requirement }}</td>
+                    </tr>
+                    <tr>
+                        <td>投履歷至</td>
+                        <td class='important'>{{ user.rdss_requirement.resume_to }}</td>
+                    </tr>
+                </table>
+            {% elif event == 'recruit' and user.recruit_requirement.is_active %}
+                <table class='table table-bordered'>
+                    <tr>
+                        <td>徵才需求</td>
+                        <td class='important'>{{ user.recruit_requirement.requirement }}</td>
+                    </tr>
+                    <tr>
+                        <td>投履歷至</td>
+                        <td class='important'>{{ user.recruit_requirement.resume_to }}</td>
+                    </tr>
+                </table>
+            {% else %}
+                尚未填寫活動報名
+            {% endif %}
+        </div>
+        <div class='border'>
+            <h2>活動贊助</h2>
+            {% if event == 'rdss' and user.rdss_sponsor.is_active %}
+            {% elif event == 'recruit' and user.recruit_sponsor.is_active %}
+            {% else %}
+            尚未填寫活動贊助
+            {% endif %}
+        </div>
+        <div class='border'>
+            <h2>金額總計</h2>
+            {% if event == 'rdss' %}
+            {% elif event == 'recruit' %}
+            {% else %}
+            {% endif %}
+        </div>
+        <br />
+    {% endwith %}
+{% endblock %}
