@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from company.models import Company
+from company.models import Company, RdssCompanyRequirement, RecruitCompanyRequirement
 
 User = Company
 
@@ -91,3 +91,17 @@ class CompanySelfEditForm(CompanyEditForm):
         model = Company
         fields = '__all__'
         exclude = ('cid', 'last_login', 'password', 'is_active')
+
+class CompanyRdssRequirementForm(forms.ModelForm):
+
+    class Meta:
+        model = RdssCompanyRequirement
+        fields = '__all__'
+        exclude = ('company', 'is_active')
+
+class CompanyRecruitRequirementForm(forms.ModelForm):
+
+    class Meta:
+        model = RecruitCompanyRequirement
+        fields = '__all__'
+        exclude = ('company', 'is_active')

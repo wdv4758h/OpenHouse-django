@@ -12,7 +12,7 @@ from hrdb.forms import HrdbForm
 from hrdb.models import Hrdb
 
 from company.models import Company, RdssCompanyRequirement, RecruitCompanyRequirement
-from company.forms import CompanySelfEditForm
+from company.forms import CompanySelfEditForm, CompanyRdssRequirementForm, CompanyRecruitRequirementForm
 
 hrdb_fields = ('department', 'grade', 'studentid', 'project', 'thesis', 'teacher', 'intern', 'nsc_project', 'language_ability', 'email', 'ip', 'create_time', 'update_time')
 
@@ -184,7 +184,7 @@ def company_edit(request):
         form = form(request.POST, request.FILES, instance=user)
         if form.is_valid():
             user = form.save()
-            messages.success(request, u'基本資料已更新'.format(user))
+            messages.success(request, u'基本資料已更新')
             return redirect('company_view')
         else:
             messages.error(request, '資料有錯誤')
@@ -197,3 +197,47 @@ def company_edit(request):
         'form': form,
     })
 
+@login_required
+@vary_on_headers('X-Requested-With')
+def company_requirement_edit(request, event):
+    if event == 'rdss':
+        form = CompanyRdssRequirementForm
+        model = RdssCompanyRequirement
+    elif event == 'recruit':
+        form = CompanyRecruitRequirementForm
+        model = RecruitCompanyRequirement
+    else:
+        form = CompanyRdssRequirementForm
+        model = RdssCompanyRequirement
+
+    try:
+        model = model.objects.get(company_id=request.user.id)
+        has_instance = True
+    except:
+        has_instance = False
+
+    if request.POST:
+        if has_instance:
+            form = form(request.POST, instance=model)
+        else:
+            form = form(request.POST)
+
+        if form.is_valid():
+            data = form.save(commit=False)  # commit False for modify
+            data.company_id = request.user.id
+            data.is_active = True
+            data.save()
+            messages.success(request, u'需求已更新')
+            return redirect('company_{}'.format(event))
+        else:
+            messages.error(request, '資料有錯誤')
+
+    else:
+        if has_instance:
+            form = form(instance=model)
+        else:
+            form = form()
+
+    return render(request, 'company/requirement/edit.html', {
+        'form': form,
+    })
