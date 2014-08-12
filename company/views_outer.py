@@ -228,7 +228,7 @@ def company_requirement_edit(request, event):
             data.is_active = True
             data.save()
             messages.success(request, u'需求已更新')
-            return redirect('company_{}'.format(event))
+            return redirect('company_{}'.format(event), event)
         else:
             messages.error(request, '資料有錯誤')
 
