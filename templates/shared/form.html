@@ -1,0 +1,19 @@
+<form action="." method="POST" {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>
+    <p>* 表示必要的欄位</p>
+    {% csrf_token %}
+    <div class="form-group">
+        {% for field in form %}
+            {% include 'shared/field.html' with field=field %}
+        {% endfor %}
+    </div>
+    {% if extra_html %}
+    <div class="form-field">
+        <label class="form-label"></label>
+        {{ extra_html | safe }}
+    </div>
+    {% endif %}
+    <div class="form-field">
+        <label class="form-label"></label>
+        <button class="btn btn-primary" type="submit">送出</button>
+    </div>
+</form>

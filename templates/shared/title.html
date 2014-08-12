@@ -1,0 +1,18 @@
+<div class="news-head">
+    <h1 class="page-header">
+        <span class="big-head">
+            {% if self %}
+                {{ self.title }}
+            {% else %}
+                {{ title }}
+            {% endif %}
+        </span>
+    </h1>
+    {% if self.create_time %}
+    <p>
+        發佈時間: <span class="time">{{ self.create_time | date:"Y-m-d H:i D" }}</span>
+        &nbsp;&nbsp;&nbsp;
+        更新時間: <span class="time">{{ self.update_time | date:"Y-m-d H:i D" }}</span>
+    </p>
+    {% endif %}
+</div>
