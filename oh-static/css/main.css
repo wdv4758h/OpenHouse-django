@@ -262,6 +262,17 @@ img.left {
     float: left;
 }
 
+/* border */
+
+.border {
+    border-style: solid;
+    padding: 0px 25px 25px 25px; /* up right down left */
+}
+
+/* icon */
+
+.fa { margin-right: 4px; }
+
 /* message */
 
 .messages ul li {
