@@ -10,4 +10,9 @@ if (window.history && window.history.replaceState) {
     };
 
     aj('a.ajax', '#content');
+
+    update_navbar = function (root, new_url) {
+        $('#navbar').load(root + '/navbar/');
+        window.history.replaceState(null, null, new_url);
+    };
 }

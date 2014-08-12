@@ -2,6 +2,15 @@
 
 {% block CONTENT %}
 
+{% if request.is_ajax %}
+    {% load menu %}
+    {% get_year as year %}
+    <script>
+        update_navbar('/{{ year }}', '{% url 'login' %}');
+    </script>
+{% endif %}
+
+
 <div class="page-header">
   <div id="content">
       <h1>廠商／工作人員登入</h1>

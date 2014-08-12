@@ -66,7 +66,7 @@
                     <td class="desc">{{ i.desc }}</td>
                     {% include "salary/status.html" with status=i.status %}
 
-                    {% if group == '行政組' or request.user.role == '就輔組' %}
+                    {% if group == '行政組' or group == '座談組' or request.user.role == '就輔組' %}
                         <td class="pass"><a href="{% url 'salary_pass' i.id %}" class="pass">通過</a></td>
                         <td class="deny"><a href="{% url 'salary_deny' i.id %}" class="deny">退回</a></td>
                     {% elif i.status == "未審核" %}
