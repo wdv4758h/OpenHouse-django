@@ -532,6 +532,7 @@ class CompanyRegist(Page):
         self._meta.get_field('title').default           = '廠商註冊'
         self._meta.get_field('slug').default            = 'regist'
         self._meta.get_field('show_in_menus').default   = False
+        self._meta.get_field('body').default            = '<h3>請在註冊完後登入做後續活動報名</h3>'
         super(CompanyRegist, self).__init__(*args, **kwargs)
         self.template_regist = '{}/company_regist.html'.format(self._meta.app_label)
 
@@ -577,6 +578,7 @@ class CompanyRetrieve(Page):
         self._meta.get_field('sub_title').default       = '請填入以前的帳號密碼'
         self._meta.get_field('slug').default            = 'retrieve'
         self._meta.get_field('show_in_menus').default   = False
+        self._meta.get_field('body').default            = '<h3>請在取回帳號完後登入做後續活動報名</h3>'
         super(CompanyRetrieve, self).__init__(*args, **kwargs)
         self.template_retrieve = '{}/company_retrieve.html'.format(self._meta.app_label)
 
